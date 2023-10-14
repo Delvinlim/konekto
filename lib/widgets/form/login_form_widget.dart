@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
+import 'package:konekto/utils/konekto_border.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -30,18 +31,23 @@ class _LoginFormState extends State<LoginForm> {
                     color: Colors.black,
                     fontWeight: FontWeight.bold)),
           ),
-          CupertinoTextFormFieldRow(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+          SizedBox(
+            height: 60,
+            child: CupertinoTextFormFieldRow(
+              placeholder: 'Enter your username or email',
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                  // border: Border.all(color: Colors.grey.shade400),
+                  border: KonektoBorder.all(color: Colors.grey.shade400),
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
           ),
           const SizedBox(height: 10.0),
           const Padding(
@@ -52,18 +58,22 @@ class _LoginFormState extends State<LoginForm> {
                     color: Colors.black,
                     fontWeight: FontWeight.bold)),
           ),
-          CupertinoTextFormFieldRow(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+          SizedBox(
+            height: 60,
+            child: CupertinoTextFormFieldRow(
+              placeholder: 'Enter your password',
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                  border: KonektoBorder.all(color: Colors.grey.shade400),
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
           ),
           Row(
             textDirection: TextDirection.rtl,

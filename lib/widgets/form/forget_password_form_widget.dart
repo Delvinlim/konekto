@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/utils/konekto_border.dart';
 
 class ForgetPasswordForm extends StatefulWidget {
   const ForgetPasswordForm({super.key});
@@ -38,19 +39,22 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
               style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ),
-          CupertinoTextFormFieldRow(
-            placeholder: 'Email address or username',
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+          SizedBox(
+            height: 60,
+            child: CupertinoTextFormFieldRow(
+              placeholder: 'Enter email address or username',
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                  border: KonektoBorder.all(color: Colors.grey.shade400),
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
           ),
           Center(
               child: Padding(

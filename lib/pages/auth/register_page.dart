@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/login_page.dart';
-import 'package:konekto/pages/home/onboarding_page.dart';
 import 'package:konekto/widgets/form/register_form_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
