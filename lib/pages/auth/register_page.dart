@@ -57,12 +57,12 @@ class _RegisterState extends State<Register> {
                 RichText(
                     text: TextSpan(children: [
                   const TextSpan(
-                    text: 'New to Konekto? ',
+                    text: 'Already have an account? ',
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.w500),
                   ),
                   TextSpan(
-                      text: 'Sign up',
+                      text: 'Sign in',
                       style: TextStyle(
                           color: Colors.blue.shade600,
                           fontWeight: FontWeight.w500),
