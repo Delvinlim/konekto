@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:konekto/pages/home/onboarding_page.dart';
-import 'package:konekto/widgets/appbar/app_bar_widget.dart';
+import 'package:konekto/pages/auth/register_page.dart';
 import 'package:konekto/widgets/form/login_form_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
@@ -72,8 +71,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) =>
-                                      const OnboardingPage()));
+                                  builder: (context) => const RegisterPage()));
                         }),
                 ]))
               ],
