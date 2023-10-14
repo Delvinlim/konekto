@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
-import 'package:konekto/pages/home/home_page.dart';
+import 'package:konekto/pages/auth/login_page.dart';
 import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
@@ -34,8 +34,8 @@ class _OnBoardingState extends State<OnBoarding> {
     return CupertinoOnboarding(
       // color: Colors.white,
       bottomButtonColor: Colors.lightBlue,
-      onPressedOnLastPage: () => Navigator.pushReplacement(context,
-          CupertinoPageRoute(builder: (context) => const KonektoTabBar())),
+      onPressedOnLastPage: () => Navigator.pushReplacement(
+          context, CupertinoPageRoute(builder: (context) => const Login())),
       // onPressedOnLastPage: () => Navigator.of(context).pushNamedAndRemoveUntil(CupertinoPageRoute(builder: (context) => const KonektoTabBar()), (route) => false),
 
       bottomButtonChild: const Text(
@@ -51,7 +51,7 @@ class _OnBoardingState extends State<OnBoarding> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset('images/onboarding_1.png'),
+                  Image.asset('assets/images/onboarding_1.png'),
                 ],
               ),
 
@@ -105,7 +105,7 @@ class _OnBoardingState extends State<OnBoarding> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset('images/onboarding_2.png'),
+                  Image.asset('assets/images/onboarding_2.png'),
                 ],
               ),
 
@@ -159,7 +159,7 @@ class _OnBoardingState extends State<OnBoarding> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset('images/onboarding_3.png'),
+                  Image.asset('assets/images/onboarding_3.png'),
                 ],
               ),
 
