@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/auth/forget_password_page.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -68,13 +69,21 @@ class _LoginFormState extends State<LoginForm> {
             textDirection: TextDirection.rtl,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                child: Text(
-                  'Reset Password',
-                  style: TextStyle(color: Colors.blue.shade600),
-                ),
-              )
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 5.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) =>
+                                  const ForgetPasswordPage()));
+                    },
+                    child: Text(
+                      'Reset Password',
+                      style: TextStyle(color: Colors.blue.shade600),
+                    ),
+                  ))
             ],
           ),
           Center(
