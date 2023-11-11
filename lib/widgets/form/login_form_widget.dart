@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
+import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -36,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your username or email',
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               decoration: BoxDecoration(
                   // border: Border.all(color: Colors.grey.shade400),
                   border: KonektoBorder.all(color: Colors.grey.shade400),
@@ -49,9 +50,9 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
           ),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 14.0),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
             child: Text('Password',
                 style: TextStyle(
                     fontSize: 14,
@@ -63,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
@@ -106,7 +107,12 @@ class _LoginFormState extends State<LoginForm> {
                   color: Colors.blue.shade600,
                   child: const Text('Submit'),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const KonektoTabBar()));
+                    }
                   }),
             ),
           ))
