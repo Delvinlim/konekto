@@ -47,8 +47,8 @@ class _ProfileState extends State<Profile> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 40.0, horizontal: 10.0),
+                        padding: const EdgeInsets.only(
+                            top: 30, left: 10, right: 10, bottom: 10),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.0),
                           child: Image.asset(
@@ -87,9 +87,10 @@ class _ProfileState extends State<Profile> {
                       // )
                       Column(
                         children: [
-                          SizedBox(
+                          Container(
                             width: 84,
                             height: 42,
+                            margin: const EdgeInsets.only(top: 30, bottom: 10),
                             child: Stack(
                               children: [
                                 Positioned(
@@ -162,8 +163,8 @@ class _ProfileState extends State<Profile> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 40.0, horizontal: 10.0),
+                        padding: const EdgeInsets.only(
+                            top: 30, left: 10, right: 10, bottom: 10),
                         child: CupertinoButton(
                           onPressed: () {
                             showCupertinoModalBottomSheet(

@@ -184,9 +184,9 @@ class _HomeState extends State<Home> {
                 children: [
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 40.0, horizontal: 10.0),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            top: 30, left: 10, right: 10, bottom: 10),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.0),
                           child: Image.asset(
@@ -196,20 +196,23 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Good Morning,',
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            'Delvin Lim',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          )
-                        ],
+                      Container(
+                        padding: const EdgeInsets.only(top: 30, bottom: 10),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Good Morning,',
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              'Delvin Lim',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -220,8 +223,8 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 40.0, horizontal: 10.0),
+                        padding: const EdgeInsets.only(
+                            top: 30, left: 10, right: 10, bottom: 10),
                         child: CupertinoButton(
                           onPressed: () {
                             Navigator.push(
