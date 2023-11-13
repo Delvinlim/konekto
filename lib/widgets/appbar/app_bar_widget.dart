@@ -27,17 +27,20 @@ class KonektoTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.house),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.search),
           ),
           BottomNavigationBarItem(
+            icon: Image.asset('assets/images/hall.png'),
+          ),
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.mail),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.profile_circled),
           ),
         ],
@@ -51,6 +54,8 @@ class KonektoTabBar extends StatelessWidget {
           case 2:
             return const Messages();
           case 3:
+            return const Profile();
+          case 4:
             return const Profile();
           default:
             return const Home();
