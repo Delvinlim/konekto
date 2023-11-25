@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:konekto/pages/communities/community_page.dart';
 import 'package:konekto/pages/explore/explore_page.dart';
 import 'package:konekto/pages/home/home_page.dart';
 import 'package:konekto/pages/messages/messages_page.dart';
@@ -52,9 +53,9 @@ class KonektoTabBar extends StatelessWidget {
           case 1:
             return const Explore();
           case 2:
-            return const Messages();
+            return const Communities();
           case 3:
-            return const Profile();
+            return const Messages();
           case 4:
             return const Profile();
           default:
