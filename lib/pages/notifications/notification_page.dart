@@ -6,7 +6,7 @@ import 'package:konekto/widgets/card/notification_card_widget.dart';
 
 // void main() => runApp(const NotificationsPage());
 
-enum NotificationType { all, system, community, midnight, viridian, cerulean }
+enum NotificationType { all, system, community }
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
@@ -41,7 +41,8 @@ class _NotificationsState extends State<Notifications> {
         navigationBar: CupertinoNavigationBar(
           middle: const Text('Notification'),
           leading: CupertinoNavigationBarBackButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () =>
+                Navigator.of(context, rootNavigator: true).pop(context),
           ),
         ),
         child: Column(
@@ -93,46 +94,59 @@ class _NotificationsState extends State<Notifications> {
                 child: SizedBox(
               child: ListView(
                 padding: const EdgeInsets.all(8),
-                children: <Widget>[
-                  NotificationCard(
-                    selectedSegment: _selectedSegment.name,
-                  ),
-                  NotificationCard(
-                    selectedSegment: _selectedSegment.name,
-                  ),
-                  NotificationCard(
-                    selectedSegment: _selectedSegment.name,
-                  ),
-                  SystemNotificationCard(
-                      selectedSegment: _selectedSegment.name),
-                  SystemNotificationCard(
-                      selectedSegment: _selectedSegment.name),
-                  SystemNotificationCard(
-                      selectedSegment: _selectedSegment.name),
-                  NotificationCard(
-                    selectedSegment: _selectedSegment.name,
-                  ),
-                  SystemNotificationCard(
-                      selectedSegment: _selectedSegment.name),
-                  NotificationCard(
-                    selectedSegment: _selectedSegment.name,
-                  ),
-                  SystemNotificationCard(
-                      selectedSegment: _selectedSegment.name),
-                  NotificationCard(
-                    selectedSegment: _selectedSegment.name,
-                  ),
-                  SystemNotificationCard(
-                      selectedSegment: _selectedSegment.name),
-                  Container(
-                    height: 50,
-                    color: Colors.amber[100],
-                    child: Center(
-                        child: Text(
-                      'Selected Segment: ${_selectedSegment.name}',
-                    )),
-                  ),
+                children: [
+                  if (_selectedSegment.name == 'system') ...[
+                    SystemNotificationCard(
+                        selectedSegment: _selectedSegment.name),
+                  ] else if (_selectedSegment.name == 'community') ...[
+                    NotificationCard(
+                      selectedSegment: _selectedSegment.name,
+                    )
+                  ] else ...[
+                    NotificationCard(
+                      selectedSegment: _selectedSegment.name,
+                    ),
+                    SystemNotificationCard(
+                        selectedSegment: _selectedSegment.name),
+                  ],
                 ],
+                // <Widget>[
+                //   NotificationCard(
+                //     selectedSegment: _selectedSegment.name,
+                //   ),
+                //   NotificationCard(
+                //     selectedSegment: _selectedSegment.name,
+                //   ),
+                //   SystemNotificationCard(
+                //       selectedSegment: _selectedSegment.name),
+                //   SystemNotificationCard(
+                //       selectedSegment: _selectedSegment.name),
+                //   SystemNotificationCard(
+                //       selectedSegment: _selectedSegment.name),
+                //   NotificationCard(
+                //     selectedSegment: _selectedSegment.name,
+                //   ),
+                //   SystemNotificationCard(
+                //       selectedSegment: _selectedSegment.name),
+                //   NotificationCard(
+                //     selectedSegment: _selectedSegment.name,
+                //   ),
+                //   SystemNotificationCard(
+                //       selectedSegment: _selectedSegment.name),
+                //   NotificationCard(
+                //     selectedSegment: _selectedSegment.name,
+                //   ),
+                //   SystemNotificationCard(
+                //       selectedSegment: _selectedSegment.name),
+                //   Container(
+                //     height: 50,
+                //     color: Colors.amber[100],
+                //     child: Center(
+                //         child: Text(
+                //       'Selected Segment: ${_selectedSegment.name}',
+                //     )),
+                //   ),
+                // ],
               ),
             ))
           ],

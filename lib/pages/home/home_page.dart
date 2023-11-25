@@ -227,11 +227,9 @@ class _HomeState extends State<Home> {
                             top: 30, left: 10, right: 10, bottom: 10),
                         child: CupertinoButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) =>
-                                        const NotificationsPage()));
+                            Navigator.of(context).push(CupertinoPageRoute(
+                                builder: (context) =>
+                                    const NotificationsPage()));
                           },
                           child: const Icon(
                             CupertinoIcons.bell,
