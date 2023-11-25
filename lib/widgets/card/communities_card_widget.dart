@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
-class CommunitiesCard extends StatefulWidget {
+class CommunitiesCard extends StatelessWidget {
   const CommunitiesCard({super.key});
 
-  @override
-  State<CommunitiesCard> createState() => _CommunitiesCardState();
-}
-
-class _CommunitiesCardState extends State<CommunitiesCard> {
+  // @override
+  // State<CommunitiesCard> createState() => _CommunitiesCardState();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -108,6 +105,107 @@ class _CommunitiesCardState extends State<CommunitiesCard> {
     );
   }
 }
+
+// class _CommunitiesCardState extends State<CommunitiesCard> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         SizedBox(
+//           width: 130,
+//           height: 60,
+//           child: Row(
+//             mainAxisSize: MainAxisSize.min,
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             children: [
+//               SizedBox(
+//                 width: 52,
+//                 height: 52,
+//                 child: Stack(
+//                   children: [
+//                     Positioned(
+//                       left: 0,
+//                       top: 0,
+//                       child: Container(
+//                         width: 52,
+//                         height: 52,
+//                         decoration: const ShapeDecoration(
+//                           color: Color(0xFFECEFF1),
+//                           shape: OvalBorder(),
+//                         ),
+//                       ),
+//                     ),
+//                     Positioned(
+//                       child: SizedBox(
+//                         width: 46,
+//                         height: 46,
+//                         child: Stack(
+//                           children: [
+//                             Positioned(
+//                               child: Container(
+//                                 width: 46,
+//                                 height: 46,
+//                                 decoration: ShapeDecoration(
+//                                   image: const DecorationImage(
+//                                     image: NetworkImage(
+//                                         "https://via.placeholder.com/46x46"),
+//                                     fit: BoxFit.fill,
+//                                   ),
+//                                   shape: RoundedRectangleBorder(
+//                                     borderRadius: BorderRadius.circular(232),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               const SizedBox(
+//                 width: 5,
+//               ),
+//               Container(
+//                 clipBehavior: Clip.antiAlias,
+//                 decoration: const BoxDecoration(),
+//                 child: const Column(
+//                   mainAxisSize: MainAxisSize.min,
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'ODBA',
+//                       textAlign: TextAlign.center,
+//                       style: TextStyle(
+//                         color: Colors.black,
+//                         fontSize: 16,
+//                         fontFamily: 'Inter',
+//                         fontWeight: FontWeight.w700,
+//                       ),
+//                     ),
+//                     Text(
+//                       'Since 2019',
+//                       textAlign: TextAlign.center,
+//                       style: TextStyle(
+//                         color: Colors.black,
+//                         fontSize: 12,
+//                         fontFamily: 'Inter',
+//                         fontWeight: FontWeight.w400,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class ForYouCommunitiesCard extends StatefulWidget {
   const ForYouCommunitiesCard({super.key});
