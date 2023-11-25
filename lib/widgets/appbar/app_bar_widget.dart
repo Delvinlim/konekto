@@ -28,22 +28,24 @@ class KonektoTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
+        height: 60,
+        backgroundColor: CupertinoColors.white,
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.house),
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.search),
-          ),
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/hall.png'),
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.mail),
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.profile_circled),
-          ),
+              icon: Image.asset('assets/icons/home.png'),
+              activeIcon: Image.asset('assets/icons/home-active.png')),
+          BottomNavigationBarItem(
+              icon: Image.asset('assets/icons/search.png'),
+              activeIcon: Image.asset('assets/icons/search-active.png')),
+          BottomNavigationBarItem(
+              icon: Image.asset('assets/icons/hall.png'),
+              activeIcon: Image.asset('assets/icons/hall-active.png')),
+          BottomNavigationBarItem(
+              icon: Image.asset('assets/icons/chat.png'),
+              activeIcon: Image.asset('assets/icons/chat-active.png')),
+          BottomNavigationBarItem(
+              icon: Image.asset('assets/icons/user.png'),
+              activeIcon: Image.asset('assets/icons/user-active.png')),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
