@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/auth/forget_password_page.dart';
+import 'package:konekto/pages/notifications/notification_page.dart';
+import 'package:konekto/widgets/card/communities_card_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
@@ -47,10 +50,11 @@ class _CommunitiesState extends State<Communities> {
             Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(
-                          top: 40, left: 10, right: 10, bottom: 10),
+                      padding:
+                          const EdgeInsets.only(top: 30, left: 10, right: 10),
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -61,7 +65,42 @@ class _CommunitiesState extends State<Communities> {
                           )
                         ],
                       ),
-                    )
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: CupertinoButton(
+                        onPressed: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                              builder: (context) => const NotificationsPage()));
+                        },
+                        child: const Icon(
+                          CupertinoIcons.plus,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: CupertinoButton(
+                        onPressed: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                              builder: (context) => const NotificationsPage()));
+                        },
+                        child: const Icon(
+                          CupertinoIcons.search,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -71,10 +110,11 @@ class _CommunitiesState extends State<Communities> {
         Container(
             margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
             width: double.infinity,
-            child: SizedBox(
+            child: Container(
               // height: MediaQuery.of(context).size.height * 0.10,
+              padding: const EdgeInsets.only(bottom: 10),
               child: CupertinoSlidingSegmentedControl<CommunitiesType>(
-                backgroundColor: CupertinoColors.systemGrey2,
+                backgroundColor: CupertinoColors.systemGrey3,
                 thumbColor: Colors.blue.shade600,
                 // This represents the currently selected segmented control.
                 groupValue: _selectedSegment,
@@ -90,27 +130,507 @@ class _CommunitiesState extends State<Communities> {
                   CommunitiesType.forYou: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'All',
+                      'For You',
                       style: TextStyle(color: CupertinoColors.white),
                     ),
                   ),
                   CommunitiesType.yourCommunities: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'System',
+                      'Your Coms',
                       style: TextStyle(color: CupertinoColors.white),
                     ),
                   ),
                   CommunitiesType.discover: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Community',
+                      'Discover',
                       style: TextStyle(color: CupertinoColors.white),
                     ),
                   ),
                 },
               ),
             )),
+        if (_selectedSegment.name == 'forYou') ...[
+          Expanded(
+              child: Container(
+            color: CupertinoColors.systemGrey6,
+            // color: const Color(0xFF00FF00),
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              children: const [
+                ForYouCommunitiesCard(),
+                ForYouCommunitiesCard(),
+                ForYouCommunitiesCard(),
+                ForYouCommunitiesCard(),
+              ],
+            ),
+          )),
+        ] else if (_selectedSegment.name == 'yourCommunities') ...[
+          Expanded(
+              child: SizedBox(
+            // color: const Color(0xFF00FF00),
+            child: ListView(
+              padding: const EdgeInsets.all(8),
+              children: const [
+                Padding(
+                  padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Text(
+                    'Your Communities',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                Padding(
+                  padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Text(
+                    'Joined',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+                CommunitiesCard(),
+              ],
+            ),
+          )),
+        ] else ...[
+          Expanded(
+              child: SizedBox(
+            // color: const Color(0xFF00FF00),
+            child: ListView(
+              padding: const EdgeInsets.all(8),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('General',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPasswordPage()));
+                                },
+                                child: const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                      ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Motorcycle',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPasswordPage()));
+                                },
+                                child: const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                      ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Basketball',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPasswordPage()));
+                                },
+                                child: const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                      ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Badminton',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPasswordPage()));
+                                },
+                                child: const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                      ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Volleyball',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPasswordPage()));
+                                },
+                                child: const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                      ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Anime',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPasswordPage()));
+                                },
+                                child: const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                        DiscoverCommunitiesCard(),
+                      ]),
+                ),
+              ],
+            ),
+          )),
+        ],
       ],
     ));
   }
