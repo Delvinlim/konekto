@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/pages/notifications/notification_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/widgets/card/event_card_widget.dart';
+import 'package:konekto/widgets/modals/category_modal.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
@@ -274,11 +275,19 @@ class _HomeState extends State<Home> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) =>
-                                        const ForgetPasswordPage()));
+                            showCupertinoModalBottomSheet(
+                                expand: true,
+                                context: context,
+                                builder: (context) => SingleChildScrollView(
+                                      controller:
+                                          ModalScrollController.of(context),
+                                      child: const CategoryModal(),
+                                    ));
+                            // Navigator.push(
+                            //     context,
+                            //     CupertinoPageRoute(
+                            //         builder: (context) =>
+                            //             const ForgetPasswordPage()));
                           },
                           child: const Text(
                             'See All',
