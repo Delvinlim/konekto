@@ -14,7 +14,7 @@ class CategoryModal extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Column(
               children: [
                 Row(
@@ -44,31 +44,89 @@ class CategoryModal extends StatelessWidget {
                   height: 30,
                 ),
 
-                const Wrap(
-                  // alignment: WrapAlignment.start,
-                  // crossAxisAlignment: WrapCrossAlignment.start,
-                  children: [
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                    CategoryModalItem(),
-                  ],
-                )
+                const SizedBox(
+                  width: double.maxFinite,
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+
+                    // alignment: WrapAlignment.start,
+                    // crossAxisAlignment: WrapCrossAlignment.start,
+                    children: [
+                      CategoryModalItem(
+                        categoryName: 'Football',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Volleyball',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Basketball',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Billiard',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Badminton',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Swimming',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Table Tennis',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Tennis',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Basketball',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Music',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Cooking',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Photography',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Gaming',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Painting',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Reading',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Travelling',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Programming',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Robotics',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Fishing',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Dance',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Writing',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Fitness',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Running',
+                      ),
+                      CategoryModalItem(
+                        categoryName: 'Camping',
+                      ),
+                    ],
+                  ),
+                ),
                 // const Flexible(
                 //   child: Wrap(
                 //     crossAxisAlignment: WrapCrossAlignment.center,
