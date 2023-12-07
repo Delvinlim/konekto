@@ -349,7 +349,23 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          const EventCard(),
+          const SizedBox(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  EventCard(),
+                  EventCard(),
+                  EventCard(),
+                  EventCard(),
+                  EventCard(),
+                  EventCard(),
+                  EventCard(),
+                  EventCard(),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

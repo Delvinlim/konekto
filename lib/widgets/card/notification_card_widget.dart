@@ -11,7 +11,6 @@ class NotificationCard extends StatefulWidget {
 class _NotificationCardState extends State<NotificationCard> {
   @override
   Widget build(BuildContext context) {
-    const String selectedSegment = 'All';
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       width: 344,
@@ -136,7 +135,6 @@ class SystemNotificationCard extends StatefulWidget {
 class _SystemNotificationCardState extends State<SystemNotificationCard> {
   @override
   Widget build(BuildContext context) {
-    const String selectedSegment = 'All';
     return Column(
       children: [
         Container(

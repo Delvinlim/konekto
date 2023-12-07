@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/widgets/item/settings_item_widget.dart';
 

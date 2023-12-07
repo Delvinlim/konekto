@@ -1,14 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
-import 'package:konekto/pages/auth/forget_password_page.dart';
-import 'package:konekto/pages/notifications/notification_page.dart';
-import 'package:konekto/utils/konekto_border.dart';
-import 'package:konekto/widgets/card/event_card_widget.dart';
-
-/// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const ExploreResultPage());
 
 class ExploreResultPage extends StatelessWidget {
   const ExploreResultPage({super.key});

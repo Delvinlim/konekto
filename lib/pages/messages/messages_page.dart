@@ -1,12 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:konekto/pages/messages/messages_detail_page.dart';
 import 'package:konekto/widgets/message/message_widget.dart';
-
-/// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const MessagesPage());
 
 class MessagesPage extends StatelessWidget {
   const MessagesPage({super.key});

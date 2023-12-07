@@ -86,11 +86,6 @@ class _CommunitiesState extends State<Communities> {
                                 context: context,
                                 builder: (context) =>
                                     const CommunityManagementModal());
-                            // Navigator.push(
-                            //     context,
-                            //     CupertinoPageRoute(
-                            //         builder: (context) =>
-                            //             const ForgetPasswordPage()));
                           },
                           child: const Icon(
                             CupertinoIcons.plus,
@@ -116,6 +111,7 @@ class _CommunitiesState extends State<Communities> {
             ),
           ],
         ),
+        // Segment Button
         Container(
             margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
             width: double.infinity,
@@ -161,20 +157,20 @@ class _CommunitiesState extends State<Communities> {
               ),
             )),
         if (_selectedSegment.name == 'forYou') ...[
-          Expanded(
-              child: Container(
-            color: CupertinoColors.systemGrey6,
-            // color: const Color(0xFF00FF00),
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              children: const [
-                ForYouCommunitiesCard(),
-                ForYouCommunitiesCard(),
-                ForYouCommunitiesCard(),
-                ForYouCommunitiesCard(),
-              ],
-            ),
-          )),
+          Container(
+              color: CupertinoColors.systemGrey6,
+              // color: const Color(0xFF00FF00),
+              child: Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  children: const [
+                    ForYouCommunitiesCard(),
+                    ForYouCommunitiesCard(),
+                    ForYouCommunitiesCard(),
+                    ForYouCommunitiesCard(),
+                  ],
+                ),
+              )),
         ] else if (_selectedSegment.name == 'yourCommunities') ...[
           Expanded(
               child: SizedBox(
