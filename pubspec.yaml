@@ -39,6 +39,7 @@ dependencies:
   cupertino_onboarding: ^1.2.0
   card_swiper: ^3.0.1
   modal_bottom_sheet: ^3.0.0-pre
+  camera: ^0.10.5+5
 
 dev_dependencies:
   flutter_test:
