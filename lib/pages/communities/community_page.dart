@@ -157,20 +157,20 @@ class _CommunitiesState extends State<Communities> {
               ),
             )),
         if (_selectedSegment.name == 'forYou') ...[
-          Container(
-              color: CupertinoColors.systemGrey6,
-              // color: const Color(0xFF00FF00),
-              child: Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  children: const [
-                    ForYouCommunitiesCard(),
-                    ForYouCommunitiesCard(),
-                    ForYouCommunitiesCard(),
-                    ForYouCommunitiesCard(),
-                  ],
-                ),
-              )),
+          Expanded(
+              child: Container(
+            color: CupertinoColors.systemGrey6,
+            // color: const Color(0xFF00FF00),
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              children: const [
+                ForYouCommunitiesCard(),
+                ForYouCommunitiesCard(),
+                ForYouCommunitiesCard(),
+                ForYouCommunitiesCard(),
+              ],
+            ),
+          )),
         ] else if (_selectedSegment.name == 'yourCommunities') ...[
           Expanded(
               child: SizedBox(
