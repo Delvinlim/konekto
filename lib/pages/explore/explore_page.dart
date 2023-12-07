@@ -1,15 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
-import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/pages/explore/explore_result_page.dart';
-import 'package:konekto/pages/notifications/notification_page.dart';
-import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/widgets/card/event_card_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const ExplorePage());
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -51,11 +45,6 @@ class _ExploreState extends State<Explore> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      // Uncomment to change the background color
-      // backgroundColor: CupertinoColors.systemPink,
-      // navigationBar: const CupertinoNavigationBar(
-      //   middle: Text('Explore'),
-      // ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -102,19 +91,6 @@ class _ExploreState extends State<Explore> {
               ],
             ),
           ),
-          // ListView(
-          //   padding:
-          //       const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-          //   children: const [
-          //     Card(
-          //       child: ListTile(
-          //         leading: FlutterLogo(),
-          //         title: Text('One-line with both widgets'),
-          //         trailing: Icon(Icons.more_vert),
-          //       ),
-          //     )
-          //   ],
-          // )
           Column(children: [
             Column(
               children: [
@@ -127,14 +103,13 @@ class _ExploreState extends State<Explore> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 35,
-                        height: 35,
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://via.placeholder.com/35x35"),
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            height: 35.0,
+                            width: 35.0,
                           ),
                         ),
                       ),
@@ -225,14 +200,13 @@ class _ExploreState extends State<Explore> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 35,
-                        height: 35,
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://via.placeholder.com/35x35"),
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            height: 35.0,
+                            width: 35.0,
                           ),
                         ),
                       ),
@@ -323,14 +297,13 @@ class _ExploreState extends State<Explore> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 35,
-                        height: 35,
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://via.placeholder.com/35x35"),
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            height: 35.0,
+                            width: 35.0,
                           ),
                         ),
                       ),
@@ -421,14 +394,13 @@ class _ExploreState extends State<Explore> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 35,
-                        height: 35,
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://via.placeholder.com/35x35"),
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            height: 35.0,
+                            width: 35.0,
                           ),
                         ),
                       ),
@@ -519,14 +491,13 @@ class _ExploreState extends State<Explore> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 35,
-                        height: 35,
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://via.placeholder.com/35x35"),
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            height: 35.0,
+                            width: 35.0,
                           ),
                         ),
                       ),
@@ -617,14 +588,13 @@ class _ExploreState extends State<Explore> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 35,
-                        height: 35,
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://via.placeholder.com/35x35"),
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            height: 35.0,
+                            width: 35.0,
                           ),
                         ),
                       ),
@@ -731,7 +701,21 @@ class _ExploreState extends State<Explore> {
               ],
             ),
           ),
-          const EventCard()
+          const SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                EventCard(),
+                EventCard(),
+                EventCard(),
+                EventCard(),
+                EventCard(),
+                EventCard(),
+                EventCard(),
+                EventCard(),
+              ],
+            ),
+          ),
         ],
       ),
     );
