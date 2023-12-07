@@ -22,20 +22,18 @@ class _EventCardState extends State<EventCard> {
         ),
         child: Column(
           children: [
-            // Positioned(
-            //   child: Container(
-            //     width: 200,
-            //     height: 85,
-            //     decoration: ShapeDecoration(
-            //       image: const DecorationImage(
-            //         image: AssetImage("assets/images/event_1.png"),
-            //         fit: BoxFit.fill,
-            //       ),
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(6)),
-            //     ),
-            //   ),
-            // ),
+            Container(
+              width: 200,
+              height: 85,
+              decoration: ShapeDecoration(
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/event_1.png"),
+                  fit: BoxFit.fill,
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6)),
+              ),
+            ),
             Container(
               margin: const EdgeInsets.only(top: 12, bottom: 8),
               child: const Text(

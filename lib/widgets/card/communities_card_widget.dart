@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
@@ -18,54 +19,37 @@ class CommunitiesCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              Container(
+                margin: const EdgeInsets.only(right: 6),
                 width: 52,
                 height: 52,
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 52,
-                        height: 52,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFFECEFF1),
-                          shape: OvalBorder(),
-                        ),
+                    Container(
+                      width: 52,
+                      height: 52,
+                      decoration: const ShapeDecoration(
+                        color: Color(0xFFECEFF1),
+                        shape: OvalBorder(),
                       ),
                     ),
-                    Positioned(
-                      child: SizedBox(
-                        width: 46,
-                        height: 46,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              child: Container(
-                                width: 46,
-                                height: 46,
-                                decoration: ShapeDecoration(
-                                  image: const DecorationImage(
-                                    image: NetworkImage(
-                                        "https://via.placeholder.com/46x46"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(232),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                    Container(
+                      width: 46,
+                      height: 46,
+                      decoration: ShapeDecoration(
+                        image: const DecorationImage(
+                          image:
+                              NetworkImage("https://via.placeholder.com/46x46"),
+                          fit: BoxFit.fill,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(232),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                width: 5,
               ),
               Container(
                 clipBehavior: Clip.antiAlias,
@@ -79,9 +63,9 @@ class CommunitiesCard extends StatelessWidget {
                       'ODBA',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: CupertinoColors.black,
                         fontSize: 16,
-                        fontFamily: 'Inter',
+                        fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -89,9 +73,9 @@ class CommunitiesCard extends StatelessWidget {
                       'Since 2019',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: CupertinoColors.black,
                         fontSize: 12,
-                        fontFamily: 'Inter',
+                        fontFamily: 'Roboto',
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -217,137 +201,89 @@ class ForYouCommunitiesCard extends StatefulWidget {
 class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 375,
-          height: 352,
-          child: Stack(
+    return Container(
+      decoration: const BoxDecoration(color: Colors.white),
+      padding: const EdgeInsets.only(top: 12, bottom: 24, left: 12, right: 12),
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  width: 375,
-                  height: 343,
-                  decoration: const BoxDecoration(color: Colors.white),
-                ),
-              ),
-              Positioned(
-                left: 13.45,
-                top: 9.11,
-                child: Container(
-                  width: 41.78,
-                  height: 40,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFFD9D9D9),
-                    shape: OvalBorder(),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    margin: const EdgeInsets.only(right: 6),
+                    decoration: const ShapeDecoration(
+                      color: Color(0xFFD9D9D9),
+                      shape: OvalBorder(),
+                    ),
                   ),
-                ),
-              ),
-              const Positioned(
-                left: 63.72,
-                top: 17,
-                child: SizedBox(
-                  width: 65.37,
-                  height: 28.30,
-                  child: Stack(
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        child: SizedBox(
-                          width: 65.37,
-                          height: 15.98,
-                          child: Text(
-                            'Football',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.33,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                      Text(
+                        'Football',
+                        style: TextStyle(
+                          color: CupertinoColors.black,
+                          fontSize: 14,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Positioned(
-                        left: -0,
-                        top: 14.32,
-                        child: SizedBox(
-                          width: 53.90,
-                          height: 13.99,
-                          child: Text(
-                            'John Doe',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10.42,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                      Text(
+                        'John Doe',
+                        style: TextStyle(
+                          color: CupertinoColors.black,
+                          fontSize: 10,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
-                  ),
-                ),
+                  )
+                ],
               ),
-              const Positioned(
-                left: 303.97,
-                top: 26.03,
-                child: SizedBox(
-                  width: 57.34,
-                  height: 9.99,
-                  child: Text(
-                    'October, 3 2023',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 6.51,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 13.58,
-                top: 59.87,
-                child: SizedBox(
-                  width: 348.11,
-                  height: 88.50,
-                  child: Text(
-                    'Unleash your inner champion and join us for the ultimate battle of wits, skill, and determination! 🏆🔥 #CompetitionCraze #RiseToTheChallenge',
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 11.73,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 13,
-                top: 118,
-                child: Container(
-                  width: 352,
-                  height: 204,
-                  decoration: ShapeDecoration(
-                    image: const DecorationImage(
-                      image:
-                          NetworkImage("https://via.placeholder.com/352x204"),
-                      fit: BoxFit.fill,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.84),
-                    ),
-                  ),
+              const Text(
+                'October, 3 2023',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 8,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
           ),
-        ),
-      ],
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: const Text(
+              'Unleash your inner champion and join us for the ultimate battle of wits, skill, and determination! 🏆🔥 #CompetitionCraze #RiseToTheChallenge',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            height: 200,
+            decoration: ShapeDecoration(
+              image: const DecorationImage(
+                image: NetworkImage("https://via.placeholder.com/365x200"),
+                fit: BoxFit.fill,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.84),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
