@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingsItem extends StatefulWidget {
-  const SettingsItem({super.key});
+  const SettingsItem({super.key, required this.name, required this.icon});
+  final String name;
+  final Icon icon;
 
   @override
   State<SettingsItem> createState() => _SettingsItemState();
@@ -11,97 +13,34 @@ class SettingsItem extends StatefulWidget {
 class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 306,
-          height: 32,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: SizedBox(
-                  height: 24,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 4,
-                              top: 3,
-                              child: Container(
-                                width: 16,
-                                height: 18,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://via.placeholder.com/16x18"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      const Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                'Account Information',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Stack(children: [
-                          Icon(
-                            CupertinoIcons.chevron_forward,
-                            color: CupertinoColors.black,
-                          )
-                        ]),
-                      ),
-                    ],
-                  ),
+              Container(
+                  margin: const EdgeInsets.only(right: 8), child: widget.icon),
+              Text(
+                widget.name,
+                style: const TextStyle(
+                  color: CupertinoColors.black,
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              // const SizedBox(
-              //   width: 24,
-              //   height: 24,
-              //   child: Stack(children: [
-              //     Icon(
-              //       CupertinoIcons.chevron_forward,
-              //       color: CupertinoColors.black,
-              //     )
-              //   ]),
-              // ),
             ],
           ),
-        ),
-      ],
+          const Icon(
+            CupertinoIcons.chevron_right,
+            color: Colors.black,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -33,7 +33,7 @@ class _SettingsState extends State<Settings> {
         // backgroundColor: CupertinoColors.systemPink,
         navigationBar: CupertinoNavigationBar(
           backgroundColor: CupertinoColors.white,
-          // middle: const Text('Settings & Support'),
+          middle: const Text('Settings & Support'),
           leading: CupertinoNavigationBarBackButton(
             color: CupertinoColors.black,
             onPressed: () =>
@@ -44,155 +44,202 @@ class _SettingsState extends State<Settings> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     Column(
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Container(
+            //               padding: const EdgeInsets.only(
+            //                   top: 10, left: 10, right: 10, bottom: 10),
+            //               child: const Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                   Text(
+            //                     'Settings & Support',
+            //                     style: TextStyle(
+            //                         fontSize: 24, fontWeight: FontWeight.bold),
+            //                   )
+            //                 ],
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 10, right: 10, bottom: 10),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Settings & Support',
-                                style: TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 10, right: 10, bottom: 10),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Account',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Color(0xffF6F6F6)),
+                      // padding: const EdgeInsets.only(
+                      //     top: 10, left: 10, right: 10, bottom: 10),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SettingsItem(
+                            name: 'Account Information',
+                            icon: Icon(
+                              CupertinoIcons.person,
+                              color: CupertinoColors.black,
+                            ),
+                          ),
+                          SettingsItem(
+                            name: 'Change Password',
+                            icon: Icon(
+                              CupertinoIcons.lock,
+                              color: CupertinoColors.black,
+                            ),
+                          ),
+                          SettingsItem(
+                            name: 'Delete Account',
+                            icon: Icon(
+                              CupertinoIcons.trash,
+                              color: CupertinoColors.black,
+                            ),
+                          ),
+                          SettingsItem(
+                            name: 'Notification',
+                            icon: Icon(
+                              CupertinoIcons.bell,
+                              color: CupertinoColors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     Column(
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Container(
+            //               decoration: BoxDecoration(
+            //                   border: KonektoBorder.all(
+            //                       color: CupertinoColors.lightBackgroundGray),
+            //                   borderRadius:
+            //                       const BorderRadius.all(Radius.circular(8)),
+            //                   color: const Color(0xffD9D9D9)),
+            //               padding: const EdgeInsets.only(
+            //                   top: 10, left: 10, right: 10, bottom: 10),
+            //               child: const Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                   SettingsItem(),
+            //                   SettingsItem(),
+            //                   SettingsItem(),
+            //                   SettingsItem(),
+            //                 ],
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 10, right: 10, bottom: 10),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Account',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 10, right: 10, bottom: 10),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Support & About',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: KonektoBorder.all(
-                                  color: CupertinoColors.lightBackgroundGray),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8)),
-                              color: const Color(0xffD9D9D9)),
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 10, right: 10, bottom: 10),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SettingsItem(),
-                              SettingsItem(),
-                              SettingsItem(),
-                              SettingsItem(),
-                            ],
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 6, bottom: 6),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Color(0xffF6F6F6)),
+                      // padding: const EdgeInsets.only(
+                      //     top: 10, left: 10, right: 10, bottom: 10),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SettingsItem(
+                            name: 'Report',
+                            icon: Icon(
+                              CupertinoIcons.flag,
+                              color: CupertinoColors.black,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 10, right: 10, bottom: 10),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Support & About',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              )
-                            ],
+                          SettingsItem(
+                            name: 'Live Support',
+                            icon: Icon(
+                              CupertinoIcons.headphones,
+                              color: CupertinoColors.black,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: KonektoBorder.all(
-                                  color: CupertinoColors.lightBackgroundGray),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8)),
-                              color: const Color(0xffD9D9D9)),
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 10, right: 10, bottom: 10),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SettingsItem(),
-                              SettingsItem(),
-                              SettingsItem(),
-                              SettingsItem(),
-                            ],
+                          SettingsItem(
+                            name: 'Term & Policies',
+                            icon: Icon(
+                              CupertinoIcons.doc,
+                              color: CupertinoColors.black,
+                            ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
           ],
         )));
