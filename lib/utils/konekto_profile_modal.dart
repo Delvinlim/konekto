@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/settings/settings_page.dart';
 
 class ProfileModal extends StatelessWidget {
   const ProfileModal({super.key});
@@ -17,7 +19,8 @@ class ProfileModal extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             leading: const Icon(Icons.settings),
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () => Navigator.of(context, rootNavigator: true).push(
+                CupertinoPageRoute(builder: (context) => const SettingsPage())),
           ),
           ListTile(
             title: const Text(
