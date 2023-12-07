@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/pages/notifications/notification_page.dart';
 import 'package:konekto/widgets/card/communities_card_widget.dart';
+import 'package:konekto/widgets/modals/community_management_modal.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
@@ -76,18 +78,25 @@ class _CommunitiesState extends State<Communities> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: CupertinoButton(
-                        onPressed: () {
-                          Navigator.of(context).push(CupertinoPageRoute(
-                              builder: (context) => const NotificationsPage()));
-                        },
-                        child: const Icon(
-                          CupertinoIcons.plus,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                        padding: const EdgeInsets.only(top: 30),
+                        child: GestureDetector(
+                          onTap: () {
+                            showCupertinoModalBottomSheet(
+                                expand: false,
+                                context: context,
+                                builder: (context) =>
+                                    const CommunityManagementModal());
+                            // Navigator.push(
+                            //     context,
+                            //     CupertinoPageRoute(
+                            //         builder: (context) =>
+                            //             const ForgetPasswordPage()));
+                          },
+                          child: const Icon(
+                            CupertinoIcons.plus,
+                            color: Colors.black,
+                          ),
+                        )),
                     Padding(
                       padding: const EdgeInsets.only(top: 30),
                       child: CupertinoButton(
