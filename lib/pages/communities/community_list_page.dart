@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../widgets/card/communities_card_widget.dart';
+
 class CommunitiesListPage extends StatelessWidget {
   const CommunitiesListPage({super.key, required this.categoryName});
   final String categoryName;
@@ -27,17 +29,92 @@ class _CommunitiesListState extends State<CommunitiesList> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        // Uncomment to change the background color
-        // backgroundColor: CupertinoColors.systemPink,
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(widget.categoryName),
-          leading: CupertinoNavigationBarBackButton(
-            color: CupertinoColors.black,
-            onPressed: () =>
-                Navigator.of(context, rootNavigator: true).pop(context),
-          ),
+      // Uncomment to change the background color
+      // backgroundColor: CupertinoColors.systemPink,
+      navigationBar: CupertinoNavigationBar(
+        middle: Text(widget.categoryName),
+        leading: CupertinoNavigationBarBackButton(
+          color: CupertinoColors.black,
+          onPressed: () =>
+              Navigator.of(context, rootNavigator: true).pop(context),
         ),
-        child: const Column(
-            mainAxisAlignment: MainAxisAlignment.start, children: []));
+      ),
+      child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: ListView(children: const [
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+            CommunitiesCard(
+              communityName: 'ODBA',
+            ),
+          ])),
+    );
   }
 }
