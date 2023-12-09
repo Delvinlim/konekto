@@ -169,11 +169,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      // Uncomment to change the background color
-      // backgroundColor: CupertinoColors.systemPink,
-      // navigationBar: const CupertinoNavigationBar(
-      //   middle: Text('Home'),
-      // ),
+        // Uncomment to change the background color
+        // backgroundColor: CupertinoColors.systemPink,
+        // navigationBar: const CupertinoNavigationBar(
+        //   middle: Text('Home'),
+        // ),
+        child: SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -325,27 +327,6 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                // Column(
-                //   children: [
-                //     Row(
-                //       children: [
-                //         GestureDetector(
-                //           onTap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 CupertinoPageRoute(
-                //                     builder: (context) =>
-                //                         const ForgetPasswordPage()));
-                //           },
-                //           child: const Text(
-                //             'See All',
-                //             style: TextStyle(color: Colors.black87),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -365,9 +346,36 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-          )
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Favorites',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          homeCommunityCategories,
         ],
       ),
-    );
+    ));
   }
 }
