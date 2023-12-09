@@ -1,92 +1,103 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/communities/community_detail_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
 class CommunitiesCard extends StatelessWidget {
-  const CommunitiesCard({super.key});
+  const CommunitiesCard({super.key, required this.communityName});
+  final String communityName;
 
   // @override
   // State<CommunitiesCard> createState() => _CommunitiesCardState();
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 130,
-          height: 60,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 6),
-                width: 52,
-                height: 52,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFFECEFF1),
-                        shape: OvalBorder(),
-                      ),
-                    ),
-                    Container(
-                      width: 46,
-                      height: 46,
-                      decoration: ShapeDecoration(
-                        image: const DecorationImage(
-                          image:
-                              NetworkImage("https://via.placeholder.com/46x46"),
-                          fit: BoxFit.fill,
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => CommunitiesDetailPage(
+                        communityName: communityName,
+                      )));
+        },
+        child: Row(
+          children: [
+            SizedBox(
+              height: 60,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 6),
+                    width: 52,
+                    height: 52,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 52,
+                          height: 52,
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFFECEFF1),
+                            shape: OvalBorder(),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(232),
+                        Container(
+                          width: 46,
+                          height: 46,
+                          decoration: ShapeDecoration(
+                            image: const DecorationImage(
+                              image: NetworkImage(
+                                  "https://via.placeholder.com/46x46"),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(232),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          communityName,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: CupertinoColors.black,
+                            fontSize: 16,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const Text(
+                          'Since 2019',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: CupertinoColors.black,
+                            fontSize: 12,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(),
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'ODBA',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      'Since 2019',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontSize: 12,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+            ),
+          ],
+        ));
   }
 }
 
