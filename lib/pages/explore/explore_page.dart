@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:konekto/pages/explore/explore_result_page.dart';
 import 'package:konekto/widgets/card/event_card_widget.dart';
 
+import '../../widgets/card/location_card_widget.dart';
+
 /// Flutter code sample for [CupertinoPageScaffold].
 
 class ExplorePage extends StatelessWidget {
@@ -705,14 +707,8 @@ class _ExploreState extends State<Explore> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                EventCard(),
-                EventCard(),
-                EventCard(),
-                EventCard(),
-                EventCard(),
-                EventCard(),
-                EventCard(),
-                EventCard(),
+                LocationCard(),
+                LocationCard(),
               ],
             ),
           ),
