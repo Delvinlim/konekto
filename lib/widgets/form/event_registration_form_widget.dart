@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:konekto/pages/auth/forget_password_page.dart';
-import 'package:konekto/pages/home/home_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
-import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 
 class EventRegistrationForm extends StatefulWidget {
   const EventRegistrationForm({super.key});

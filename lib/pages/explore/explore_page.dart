@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/explore/explore_result_page.dart';
-import 'package:konekto/widgets/card/event_card_widget.dart';
 
 import '../../widgets/card/location_card_widget.dart';
 

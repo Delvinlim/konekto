@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
 import 'package:konekto/pages/communities/community_post_creation_page.dart';
-import 'package:konekto/pages/settings/settings_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

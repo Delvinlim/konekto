@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:konekto/pages/communities/community_page.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import '../../widgets/card/communities_card_widget.dart';
