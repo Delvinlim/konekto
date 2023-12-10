@@ -49,7 +49,7 @@ class ChatMessage extends StatelessWidget {
                               ? CupertinoColors.white
                               : CupertinoColors.black,
                           fontSize: 16,
-                          fontFamily: 'Inter',
+                          fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -76,26 +76,3 @@ class ChatMessage extends StatelessWidget {
     );
   }
 }
-
-
-                                      // Text(
-                                      //   'Nanti malam jam 7 jangan lupa, ada tanding persahabatan dengan Barbar FC',
-                                      //   style: TextStyle(
-                                      //     color: Colors.black,
-                                      //     fontSize: 16,
-                                      //     fontFamily: 'Inter',
-                                      //     fontWeight: FontWeight.w400,
-                                      //   ),
-                                      // ),
-                                      // SizedBox(
-                                      //   height: 4,
-                                      // ),
-                                      // Text(
-                                      //   '3:00 PM',
-                                      //   style: TextStyle(
-                                      //     color: Color(0xFF757575),
-                                      //     fontSize: 12,
-                                      //     fontFamily: 'Inter',
-                                      //     fontWeight: FontWeight.w400,
-                                      //   ),
-                                      // ),

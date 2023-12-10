@@ -189,66 +189,6 @@ class _ProfileState extends State<Profile> {
               ),
             ],
           ),
-          // Container(
-          //     padding: const EdgeInsets.symmetric(vertical: 12.0),
-          //     margin: const EdgeInsets.only(top: 4, left: 10, right: 10),
-          //     // padding: const EdgeInsets.symmetric(
-          //     //     vertical: 40.0, horizontal: 10.0),
-          //     decoration: BoxDecoration(
-          //       color: const Color(0xfff6f6f6),
-          //       borderRadius: BorderRadius.circular(24.0),
-          //       border: Border.all(
-          //         color: CupertinoColors.inactiveGray,
-          //       ),
-          //     ),
-          //     child: const Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Column(
-          //           children: [
-          //             Text(
-          //               '3',
-          //               style: TextStyle(
-          //                   fontSize: 18, fontWeight: FontWeight.w700),
-          //             ),
-          //             Text(
-          //               'Communities',
-          //               style: TextStyle(
-          //                   fontSize: 12, fontWeight: FontWeight.w400),
-          //             ),
-          //           ],
-          //         ),
-          //         Column(
-          //           children: [
-          //             Text(
-          //               '0',
-          //               style: TextStyle(
-          //                   fontSize: 18, fontWeight: FontWeight.w700),
-          //             ),
-          //             Text(
-          //               'Communities',
-          //               style: TextStyle(
-          //                   fontSize: 12, fontWeight: FontWeight.w400),
-          //             ),
-          //           ],
-          //         ),
-          //         Column(
-          //           children: [
-          //             Text(
-          //               '69',
-          //               style: TextStyle(
-          //                   fontSize: 18, fontWeight: FontWeight.w700),
-          //             ),
-          //             Text(
-          //               'Communities',
-          //               style: TextStyle(
-          //                   fontSize: 12, fontWeight: FontWeight.w400),
-          //             ),
-          //           ],
-          //         ),
-          //       ],
-          //     )),
           SizedBox(
             width: 296,
             height: 62,
