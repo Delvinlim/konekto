@@ -108,10 +108,20 @@ class _LoginFormState extends State<LoginForm> {
                   child: const Text('Submit'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => const KonektoTabBar()));
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const KonektoTabBar()),
+                        (Route<dynamic> route) => false,
+                      );
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     CupertinoPageRoute(
+                      //         builder: (context) => const KonektoTabBar()));
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     CupertinoPageRoute(
+                      //         builder: (context) => const KonektoTabBar()));
                     }
                   }),
             ),
