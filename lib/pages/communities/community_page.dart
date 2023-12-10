@@ -162,12 +162,24 @@ class _CommunitiesState extends State<Communities> {
                 color: CupertinoColors.systemGrey6,
                 // color: const Color(0xFF00FF00),
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 0),
                   children: const [
-                    ForYouCommunitiesCard(),
-                    ForYouCommunitiesCard(),
-                    ForYouCommunitiesCard(),
-                    ForYouCommunitiesCard(),
+                    ForYouCommunitiesCard(
+                      communityName: 'ODBA',
+                      isRedirect: true,
+                    ),
+                    ForYouCommunitiesCard(
+                      communityName: 'Buaran',
+                      isRedirect: true,
+                    ),
+                    ForYouCommunitiesCard(
+                      communityName: 'PSEG Fossil',
+                      isRedirect: true,
+                    ),
+                    ForYouCommunitiesCard(
+                      communityName: 'NorthArm',
+                      isRedirect: true,
+                    ),
                   ],
                 ),
               )),
@@ -616,7 +628,7 @@ class _CommunitiesState extends State<Communities> {
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
-                                            fontFamily: 'Inter',
+                                            fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w700,
                                           ))
                                     ],
@@ -630,6 +642,7 @@ class _CommunitiesState extends State<Communities> {
                               Row(
                                 children: [
                                   GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
                                     onTap: () {
                                       Navigator.push(
                                           context,

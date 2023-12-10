@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
+import 'package:konekto/pages/communities/community_post_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
 class CommunitiesCard extends StatelessWidget {
@@ -203,7 +206,10 @@ class CommunitiesCard extends StatelessWidget {
 // }
 
 class ForYouCommunitiesCard extends StatefulWidget {
-  const ForYouCommunitiesCard({super.key});
+  const ForYouCommunitiesCard(
+      {super.key, required this.communityName, this.isRedirect});
+  final String communityName;
+  final bool? isRedirect;
 
   @override
   State<ForYouCommunitiesCard> createState() => _ForYouCommunitiesCardState();
@@ -212,88 +218,139 @@ class ForYouCommunitiesCard extends StatefulWidget {
 class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.only(top: 12, bottom: 24, left: 12, right: 12),
-      margin: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    margin: const EdgeInsets.only(right: 6),
-                    decoration: const ShapeDecoration(
-                      color: Color(0xFFD9D9D9),
-                      shape: OvalBorder(),
+    return GestureDetector(
+      onTap: () {
+        if (widget.isRedirect == true) {
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => CommunitiesPostPage(
+                        communityName: widget.communityName,
+                      )));
+        }
+      },
+      child: Container(
+        decoration: const BoxDecoration(color: Colors.white),
+        padding:
+            const EdgeInsets.only(top: 12, bottom: 12, left: 12, right: 12),
+        margin: const EdgeInsets.only(bottom: 12),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      margin: const EdgeInsets.only(right: 6),
+                      decoration: const ShapeDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: OvalBorder(),
+                      ),
                     ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.communityName,
+                          style: const TextStyle(
+                            color: CupertinoColors.black,
+                            fontSize: 14,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const Text(
+                          'John Doe',
+                          style: TextStyle(
+                            color: CupertinoColors.black,
+                            fontSize: 10,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const Text(
+                  'October, 3 2023',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 8,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w400,
                   ),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Football',
-                        style: TextStyle(
-                          color: CupertinoColors.black,
-                          fontSize: 14,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        'John Doe',
-                        style: TextStyle(
-                          color: CupertinoColors.black,
-                          fontSize: 10,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const Text(
-                'October, 3 2023',
+                ),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: const Text(
+                'Unleash your inner champion and join us for the ultimate battle of wits, skill, and determination! 🏆🔥 #CompetitionCraze #RiseToTheChallenge',
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 8,
+                  fontSize: 12,
                   fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: const Text(
-              'Unleash your inner champion and join us for the ultimate battle of wits, skill, and determination! 🏆🔥 #CompetitionCraze #RiseToTheChallenge',
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w500,
+            ),
+            Container(
+              // margin: const EdgeInsets.only(bottom: 12),
+              height: 200,
+              decoration: ShapeDecoration(
+                image: const DecorationImage(
+                  image: NetworkImage("https://via.placeholder.com/365x200"),
+                  fit: BoxFit.fill,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.84),
+                ),
               ),
             ),
-          ),
-          Container(
-            height: 200,
-            decoration: ShapeDecoration(
-              image: const DecorationImage(
-                image: NetworkImage("https://via.placeholder.com/365x200"),
-                fit: BoxFit.fill,
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            CupertinoIcons.heart,
+                            color: Colors.black,
+                          ),
+                          Text('2.1k')
+                        ]),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            CupertinoIcons.chat_bubble_text,
+                            color: Colors.black,
+                          ),
+                          Text('2.1k')
+                        ]),
+                  ),
+                  Container(
+                    child: const Icon(
+                      CupertinoIcons.share,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.84),
-              ),
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

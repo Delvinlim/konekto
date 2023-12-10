@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/communities/community_detail_page.dart';
+import 'package:konekto/pages/communities/community_post_creation_page.dart';
 import 'package:konekto/pages/settings/settings_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -52,9 +54,36 @@ class CommunityManagementModal extends StatelessWidget {
   }
 }
 
+void _showCommunityCreatedDialog(BuildContext context, String communityName) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('Success'),
+      content: const Text('Your community successfully created'),
+      actions: <CupertinoDialogAction>[
+        CupertinoDialogAction(
+          /// This parameter indicates this action is the default,
+          /// and turns the action's text to bold text.
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
+                builder: (context) => CommunitiesDetailPage(
+                      communityName: communityName,
+                    )));
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+}
+
 class CommunityCreationModal extends StatelessWidget {
   const CommunityCreationModal({super.key, this.reverse = false});
   final bool reverse;
+  static final GlobalKey<FormState> _formCommunityCreationKey =
+      GlobalKey<FormState>();
+  static String communityName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -74,65 +103,75 @@ class CommunityCreationModal extends StatelessWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 24),
-                child: Column(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  margin: const EdgeInsets.symmetric(vertical: 24),
+                  child: Form(
+                    key: _formCommunityCreationKey,
+                    child: Column(
                       children: [
-                        const Text('Community Name'),
-                        SizedBox(
-                          height: 60,
-                          child: CupertinoTextFormFieldRow(
-                            placeholder: 'Community Name',
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            decoration: BoxDecoration(
-                                // border: Border.all(color: Colors.grey.shade400),
-                                border: KonektoBorder.all(
-                                    color: Colors.grey.shade400),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8))),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter community name';
-                              }
-                              return null;
-                            },
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Community Name'),
+                            SizedBox(
+                              child: CupertinoTextFormFieldRow(
+                                placeholder: 'Community Name',
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                decoration: BoxDecoration(
+                                    // border: Border.all(color: Colors.grey.shade400),
+                                    border: KonektoBorder.all(
+                                        color: Colors.grey.shade400),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8))),
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter community name';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Community Description'),
+                            SizedBox(
+                              child: CupertinoTextFormFieldRow(
+                                placeholder: 'Community Description',
+                                onChanged: (String? value) {
+                                  if (value != null) {
+                                    communityName = value;
+                                    // setState(() {
+                                    //   _selectedSegment = value;
+                                    // });
+                                  }
+                                },
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                decoration: BoxDecoration(
+                                    // border: Border.all(color: Colors.grey.shade400),
+                                    border: KonektoBorder.all(
+                                        color: Colors.grey.shade400),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8))),
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter community description';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Community Description'),
-                        SizedBox(
-                          height: 60,
-                          child: CupertinoTextFormFieldRow(
-                            placeholder: 'Community Description',
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            decoration: BoxDecoration(
-                                // border: Border.all(color: Colors.grey.shade400),
-                                border: KonektoBorder.all(
-                                    color: Colors.grey.shade400),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8))),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter community description';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                  )),
 
               Row(
                 children: [
@@ -160,7 +199,12 @@ class CommunityCreationModal extends StatelessWidget {
                                 fontSize: 14,
                                 // color: Colors.black,
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () {}),
+                        onPressed: () {
+                          if (_formCommunityCreationKey.currentState!
+                              .validate()) {
+                            _showCommunityCreatedDialog(context, communityName);
+                          }
+                        }),
                   )
                 ],
               )
@@ -205,9 +249,11 @@ class CommunityListModal extends StatelessWidget {
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
                 leading: const Icon(Icons.people),
-                onTap: () => Navigator.of(context, rootNavigator: true).push(
-                    CupertinoPageRoute(
-                        builder: (context) => const SettingsPage())),
+                onTap: () => Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(
+                        builder: (context) => const CommunitiesPostCreationPage(
+                              communityName: 'ODBA',
+                            ))),
               ),
               ListTile(
                 title: const Text(
@@ -216,7 +262,11 @@ class CommunityListModal extends StatelessWidget {
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
                 leading: const Icon(Icons.post_add),
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(
+                        builder: (context) => const CommunitiesPostCreationPage(
+                              communityName: 'Buaran',
+                            ))),
               ),
               ListTile(
                 title: const Text(
@@ -225,9 +275,11 @@ class CommunityListModal extends StatelessWidget {
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
                 leading: const Icon(Icons.people),
-                onTap: () => Navigator.of(context, rootNavigator: true).push(
-                    CupertinoPageRoute(
-                        builder: (context) => const SettingsPage())),
+                onTap: () => Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(
+                        builder: (context) => const CommunitiesPostCreationPage(
+                              communityName: 'ODBA',
+                            ))),
               ),
               ListTile(
                 title: const Text(
@@ -236,7 +288,11 @@ class CommunityListModal extends StatelessWidget {
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
                 leading: const Icon(Icons.post_add),
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(
+                        builder: (context) => const CommunitiesPostCreationPage(
+                              communityName: 'Buaran',
+                            ))),
               ),
               ListTile(
                 title: const Text(
@@ -245,9 +301,11 @@ class CommunityListModal extends StatelessWidget {
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
                 leading: const Icon(Icons.people),
-                onTap: () => Navigator.of(context, rootNavigator: true).push(
-                    CupertinoPageRoute(
-                        builder: (context) => const SettingsPage())),
+                onTap: () => Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(
+                        builder: (context) => const CommunitiesPostCreationPage(
+                              communityName: 'ODBA',
+                            ))),
               ),
               ListTile(
                 title: const Text(
@@ -256,7 +314,11 @@ class CommunityListModal extends StatelessWidget {
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
                 leading: const Icon(Icons.post_add),
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(
+                        builder: (context) => const CommunitiesPostCreationPage(
+                              communityName: 'Buaran',
+                            ))),
               ),
             ],
           )),

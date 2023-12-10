@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/communities/community_page.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import '../../widgets/card/communities_card_widget.dart';
@@ -34,8 +35,15 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
         backgroundColor: CupertinoColors.white,
         leading: CupertinoNavigationBarBackButton(
           color: CupertinoColors.black,
-          onPressed: () =>
-              Navigator.of(context, rootNavigator: true).pop(context),
+          onPressed: () => {
+            Navigator.of(context, rootNavigator: true).pop(context),
+            // Navigator.pushAndRemoveUntil(context,
+            //     CupertinoPageRoute(builder: (BuildContext context) {
+            //   return const CommunitiesPage();
+            // }), (r) {
+            //   return false;
+            // })
+          },
         ),
         trailing: GestureDetector(
           child: const Icon(
@@ -254,10 +262,18 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
                   ),
                   content: const Column(
                     children: [
-                      ForYouCommunitiesCard(),
-                      ForYouCommunitiesCard(),
-                      ForYouCommunitiesCard(),
-                      ForYouCommunitiesCard(),
+                      ForYouCommunitiesCard(
+                        communityName: 'ODBA',
+                      ),
+                      ForYouCommunitiesCard(
+                        communityName: 'ODBA',
+                      ),
+                      ForYouCommunitiesCard(
+                        communityName: 'ODBA',
+                      ),
+                      ForYouCommunitiesCard(
+                        communityName: 'ODBA',
+                      ),
                     ],
                   )),
               // Container(
