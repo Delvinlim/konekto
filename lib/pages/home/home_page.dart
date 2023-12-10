@@ -335,14 +335,30 @@ class _HomeState extends State<Home> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
+                  EventCard(
+                    eventName: '2023 Kepri Cup',
+                  ),
                 ],
               ),
             ),

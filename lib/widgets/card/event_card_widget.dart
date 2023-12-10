@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/events/event_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
 class EventCard extends StatefulWidget {
-  const EventCard({super.key});
+  const EventCard({super.key, required this.eventName});
+  final String eventName;
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -36,9 +38,10 @@ class _EventCardState extends State<EventCard> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 12, bottom: 8),
-              child: const Text(
-                '2023 Kepri Cup',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                widget.eventName,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             CupertinoButton(
@@ -49,7 +52,12 @@ class _EventCardState extends State<EventCard> {
                         fontSize: 14,
                         // color: Colors.black,
                         fontWeight: FontWeight.bold)),
-                onPressed: () {})
+                onPressed: () {
+                  Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => EventPage(
+                            eventName: widget.eventName,
+                          )));
+                })
           ],
         ));
   }
