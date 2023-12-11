@@ -1,4 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:konekto/pages/explore/explore_page.dart';
+import 'package:konekto/pages/home/home_page.dart';
+import 'package:konekto/pages/settings/account_settings_page.dart';
+import 'package:konekto/pages/settings/auth_settings_page.dart';
+import 'package:konekto/pages/settings/notification_settings_page.dart';
+import 'package:konekto/pages/settings/report_settings_page.dart';
+import 'package:konekto/pages/settings/terms_settings_page.dart';
 import 'package:konekto/widgets/item/settings_item_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
@@ -113,6 +120,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.person,
                               color: CupertinoColors.black,
                             ),
+                            page: AccountSettingPage(),
                           ),
                           SettingsItem(
                             name: 'Change Password',
@@ -120,6 +128,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.lock,
                               color: CupertinoColors.black,
                             ),
+                            page: AuthSettingPage(),
                           ),
                           SettingsItem(
                             name: 'Delete Account',
@@ -127,6 +136,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.trash,
                               color: CupertinoColors.black,
                             ),
+                            page: ExplorePage(),
                           ),
                           SettingsItem(
                             name: 'Notification',
@@ -134,6 +144,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.bell,
                               color: CupertinoColors.black,
                             ),
+                            page: NotificationSettingPage(),
                           ),
                         ],
                       ),
@@ -218,6 +229,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.flag,
                               color: CupertinoColors.black,
                             ),
+                            page: ReportSettingPage(),
                           ),
                           SettingsItem(
                             name: 'Live Support',
@@ -225,6 +237,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.headphones,
                               color: CupertinoColors.black,
                             ),
+                            page: ExplorePage(),
                           ),
                           SettingsItem(
                             name: 'Term & Policies',
@@ -232,6 +245,7 @@ class _SettingsState extends State<Settings> {
                               CupertinoIcons.doc,
                               color: CupertinoColors.black,
                             ),
+                            page: TermsSettingPage(),
                           ),
                         ],
                       ),
