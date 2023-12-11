@@ -60,8 +60,12 @@ class ProfileModal extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             leading: const Icon(Icons.settings),
-            onTap: () => Navigator.of(context, rootNavigator: true).push(
-                CupertinoPageRoute(builder: (context) => const SettingsPage())),
+            onTap: () => {
+              Navigator.of(context, rootNavigator: true).pop(context),
+              Navigator.of(context, rootNavigator: true).push(
+                  CupertinoPageRoute(
+                      builder: (context) => const SettingsPage()))
+            },
           ),
           ListTile(
             title: const Text(
