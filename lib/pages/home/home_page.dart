@@ -60,7 +60,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -74,7 +74,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -88,7 +88,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -102,7 +102,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -116,7 +116,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -130,7 +130,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -144,7 +144,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -158,7 +158,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/football.png',
+              'assets/images/categories/football.png',
               height: 50.0,
               width: 50.0,
             ),

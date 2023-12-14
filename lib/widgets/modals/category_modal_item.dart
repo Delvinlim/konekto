@@ -33,7 +33,7 @@ class CategoryModalItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/football.png',
+                  'assets/images/categories/football.png',
                   height: 50.0,
                   width: 50.0,
                 ),

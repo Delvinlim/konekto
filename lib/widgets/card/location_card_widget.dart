@@ -60,7 +60,7 @@ class _LocationCardState extends State<LocationCard> {
                         // color: Colors.black,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
-                  launchMap('Puriloka 2 Batam');
+                  launchMap('Universitas Internasional Batam');
                 })
           ],
         ));
