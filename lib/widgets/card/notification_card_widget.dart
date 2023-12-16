@@ -2,8 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatefulWidget {
-  const NotificationCard({super.key, required this.selectedSegment});
-  final String selectedSegment;
+  const NotificationCard(
+      {super.key,
+      required this.communityName,
+      required this.communityImage,
+      required this.notificationMessage});
+  final String communityName;
+  final String communityImage;
+  final String notificationMessage;
 
   @override
   State<NotificationCard> createState() => _NotificationCardState();
@@ -41,8 +47,8 @@ class _NotificationCardState extends State<NotificationCard> {
                 height: 35,
                 margin: const EdgeInsets.only(right: 6),
                 decoration: ShapeDecoration(
-                  image: const DecorationImage(
-                    image: NetworkImage("https://via.placeholder.com/35x35"),
+                  image: DecorationImage(
+                    image: AssetImage(widget.communityImage),
                     fit: BoxFit.fill,
                   ),
                   shape: RoundedRectangleBorder(
@@ -50,18 +56,17 @@ class _NotificationCardState extends State<NotificationCard> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 198,
+              SizedBox(
+                width: 200,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 40,
                       child: Text(
-                        'ODBA',
-                        style: TextStyle(
+                        widget.communityName,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                           fontFamily: 'Roboto',
@@ -71,13 +76,12 @@ class _NotificationCardState extends State<NotificationCard> {
                     ),
                     SizedBox(
                       child: Text(
-                        'Rohim is currently posted something in ODBA ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
+                        widget.notificationMessage,
+                        style: const TextStyle(
+                          color: CupertinoColors.black,
+                          fontSize: 11,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w300,
-                          // height: 2,
                         ),
                       ),
                     ),
@@ -105,8 +109,8 @@ class _NotificationCardState extends State<NotificationCard> {
 }
 
 class SystemNotificationCard extends StatefulWidget {
-  const SystemNotificationCard({super.key, required this.selectedSegment});
-  final String selectedSegment;
+  const SystemNotificationCard({super.key, required this.notificationMessage});
+  final String notificationMessage;
 
   @override
   State<SystemNotificationCard> createState() => _SystemNotificationCardState();
@@ -156,8 +160,8 @@ class _SystemNotificationCardState extends State<SystemNotificationCard> {
                       padding: const EdgeInsets.only(right: 6),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Image.network(
-                          "https://via.placeholder.com/30x30",
+                        child: Image.asset(
+                          "assets/images/logo.png",
                         ),
                       ),
                     ),
@@ -178,10 +182,10 @@ class _SystemNotificationCardState extends State<SystemNotificationCard> {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 width: 390,
-                child: const Text(
-                  'Looking for affordable and reliable community costumes? Tania Store has the answer, as we can customize anything from clothing to discounted merchandise up to 60%!',
+                child: Text(
+                  widget.notificationMessage,
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 10,
                     fontFamily: 'Roboto',
