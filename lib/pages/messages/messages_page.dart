@@ -95,66 +95,70 @@ class _MessagesState extends State<Messages> {
                   Message(
                     cameras: _cameras,
                     communityName: 'Devils Reject Nation',
+                    communityImage: 'assets/images/communities/dnr.png',
                   ),
                   Message(
                     cameras: _cameras,
                     communityName: 'ODBA',
+                    communityImage: 'assets/images/communities/odba.png',
                   ),
                   Message(
                     cameras: _cameras,
                     communityName: 'Spartans',
+                    communityImage: 'assets/images/communities/spartans.png',
                   ),
                   Message(
                     cameras: _cameras,
                     communityName: 'PSEG Fossil',
+                    communityImage: 'assets/images/communities/pseg_fossil.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'Devils Reject Nation',
+                    communityName: 'Buaran',
+                    communityImage: 'assets/images/communities/buaran.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'ODBA',
+                    communityName: 'Rasson',
+                    communityImage: 'assets/images/communities/rasson.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'Spartans',
+                    communityName: 'Sydney Real',
+                    communityImage: 'assets/images/communities/sydney_real.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'PSEG Fossil',
+                    communityName: 'NorthArm',
+                    communityImage: 'assets/images/communities/northarm.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'Devils Reject Nation',
+                    communityName: 'Super Slasher Aquatics',
+                    communityImage:
+                        'assets/images/communities/super_slasher_aquatics.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'ODBA',
+                    communityName: 'Stryker Gaming',
+                    communityImage:
+                        'assets/images/communities/stryker_gaming.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'Spartans',
+                    communityName: 'Elite Basketball Club',
+                    communityImage: 'assets/images/communities/elite.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'PSEG Fossil',
+                    communityName: 'Friends United',
+                    communityImage:
+                        'assets/images/communities/friends_united.png',
                   ),
                   Message(
                     cameras: _cameras,
-                    communityName: 'Devils Reject Nation',
-                  ),
-                  Message(
-                    cameras: _cameras,
-                    communityName: 'ODBA',
-                  ),
-                  Message(
-                    cameras: _cameras,
-                    communityName: 'Spartans',
-                  ),
-                  Message(
-                    cameras: _cameras,
-                    communityName: 'PSEG Fossil',
+                    communityName: 'Hard Hitters',
+                    communityImage: 'assets/images/communities/hardhitters.png',
                   ),
                 ],
               ),

@@ -4,8 +4,12 @@ import 'package:konekto/pages/messages/messages_detail_page.dart';
 
 class Message extends StatefulWidget {
   const Message(
-      {super.key, required this.communityName, required this.cameras});
+      {super.key,
+      required this.communityName,
+      required this.communityImage,
+      required this.cameras});
   final String communityName;
+  final String communityImage;
   final List<CameraDescription> cameras;
 
   @override
@@ -27,7 +31,7 @@ class _MessageState extends State<Message> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
               child: Image.asset(
-                'assets/images/profile.png',
+                widget.communityImage,
                 height: 35.0,
                 width: 35.0,
               ),
