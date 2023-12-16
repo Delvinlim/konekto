@@ -4,7 +4,10 @@ import 'package:konekto/utils/konekto_border.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LocationCard extends StatefulWidget {
-  const LocationCard({super.key});
+  const LocationCard(
+      {super.key, required this.eventName, required this.eventImage});
+  final String eventName;
+  final String eventImage;
 
   @override
   State<LocationCard> createState() => _LocationCardState();
@@ -34,10 +37,10 @@ class _LocationCardState extends State<LocationCard> {
           children: [
             Container(
               width: 200,
-              height: 85,
+              height: 100,
               decoration: ShapeDecoration(
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/event_1.png"),
+                image: DecorationImage(
+                  image: AssetImage(widget.eventImage),
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -46,9 +49,10 @@ class _LocationCardState extends State<LocationCard> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 12, bottom: 8),
-              child: const Text(
-                'Planet Futsal',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                widget.eventName,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             CupertinoButton(
