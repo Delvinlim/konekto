@@ -263,15 +263,23 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
                     children: [
                       ForYouCommunitiesCard(
                         communityName: 'ODBA',
+                        communityImage: 'assets/images/communities/odba.png',
+                        creatorName: 'Delvin Lim',
                       ),
                       ForYouCommunitiesCard(
                         communityName: 'ODBA',
+                        communityImage: 'assets/images/communities/odba.png',
+                        creatorName: 'Delvin Lim',
                       ),
                       ForYouCommunitiesCard(
                         communityName: 'ODBA',
+                        communityImage: 'assets/images/communities/odba.png',
+                        creatorName: 'Delvin Lim',
                       ),
                       ForYouCommunitiesCard(
                         communityName: 'ODBA',
+                        communityImage: 'assets/images/communities/odba.png',
+                        creatorName: 'Delvin Lim',
                       ),
                     ],
                   )),

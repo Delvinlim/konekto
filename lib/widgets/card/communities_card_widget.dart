@@ -5,8 +5,10 @@ import 'package:konekto/pages/communities/community_post_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
 class CommunitiesCard extends StatelessWidget {
-  const CommunitiesCard({super.key, required this.communityName});
+  const CommunitiesCard(
+      {super.key, required this.communityName, required this.communityImage});
   final String communityName;
+  final String communityImage;
 
   // @override
   // State<CommunitiesCard> createState() => _CommunitiesCardState();
@@ -50,9 +52,8 @@ class CommunitiesCard extends StatelessWidget {
                           width: 46,
                           height: 46,
                           decoration: ShapeDecoration(
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://via.placeholder.com/46x46"),
+                            image: DecorationImage(
+                              image: AssetImage(communityImage),
                               fit: BoxFit.fill,
                             ),
                             shape: RoundedRectangleBorder(
@@ -205,8 +206,14 @@ class CommunitiesCard extends StatelessWidget {
 
 class ForYouCommunitiesCard extends StatefulWidget {
   const ForYouCommunitiesCard(
-      {super.key, required this.communityName, this.isRedirect});
+      {super.key,
+      required this.communityName,
+      required this.communityImage,
+      required this.creatorName,
+      this.isRedirect});
   final String communityName;
+  final String communityImage;
+  final String creatorName;
   final bool? isRedirect;
 
   @override
@@ -240,12 +247,14 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                 Row(
                   children: [
                     Container(
-                      width: 40,
-                      height: 40,
-                      margin: const EdgeInsets.only(right: 6),
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFFD9D9D9),
-                        shape: OvalBorder(),
+                      margin: const EdgeInsets.only(right: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50.0),
+                        child: Image.asset(
+                          widget.communityImage,
+                          height: 50.0,
+                          width: 50.0,
+                        ),
                       ),
                     ),
                     Column(
@@ -260,9 +269,9 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const Text(
-                          'John Doe',
-                          style: TextStyle(
+                        Text(
+                          widget.creatorName,
+                          style: const TextStyle(
                             color: CupertinoColors.black,
                             fontSize: 10,
                             fontFamily: 'Roboto',
@@ -302,7 +311,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               height: 200,
               decoration: ShapeDecoration(
                 image: const DecorationImage(
-                  image: NetworkImage("https://via.placeholder.com/365x200"),
+                  image: AssetImage("assets/images/post_image.png"),
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -355,7 +364,8 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
 }
 
 class DiscoverCommunitiesCard extends StatefulWidget {
-  const DiscoverCommunitiesCard({super.key});
+  const DiscoverCommunitiesCard({super.key, required this.communitiesImage});
+  final String communitiesImage;
 
   @override
   State<DiscoverCommunitiesCard> createState() =>
@@ -366,17 +376,17 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 64,
-      height: 64,
+      width: 65,
+      height: 65,
       margin: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
           border: KonektoBorder.all(color: Colors.grey.shade400),
           borderRadius: const BorderRadius.all(Radius.circular(50)),
-          color: const Color(0xffD9D9D9)),
+          color: const Color(0xffECEFF1)),
       child: Image.asset(
-        'assets/images/categories/football.png',
-        height: 50.0,
-        width: 50.0,
+        widget.communitiesImage,
+        height: 55.0,
+        width: 55.0,
       ),
     );
   }

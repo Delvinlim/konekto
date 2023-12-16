@@ -42,6 +42,8 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
         children: [
           ForYouCommunitiesCard(
             communityName: widget.communityName,
+            communityImage: 'assets/images/communities/odba.png',
+            creatorName: 'Delvin Lim',
           ),
           const Divider(
             height: 4,

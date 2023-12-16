@@ -38,9 +38,6 @@ class _CommunitiesState extends State<Communities> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: CupertinoColors.white,
-        // navigationBar: const CupertinoNavigationBar(
-        //   middle: Text('Communities'),
-        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -89,22 +86,23 @@ class _CommunitiesState extends State<Communities> {
                               child: const Icon(
                                 CupertinoIcons.plus,
                                 color: Colors.black,
+                                size: 32,
                               ),
                             )),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: CupertinoButton(
-                            onPressed: () {
-                              Navigator.of(context).push(CupertinoPageRoute(
-                                  builder: (context) =>
-                                      const NotificationsPage()));
-                            },
-                            child: const Icon(
-                              CupertinoIcons.search,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 30),
+                        //   child: CupertinoButton(
+                        //     onPressed: () {
+                        //       Navigator.of(context).push(CupertinoPageRoute(
+                        //           builder: (context) =>
+                        //               const NotificationsPage()));
+                        //     },
+                        //     child: const Icon(
+                        //       CupertinoIcons.search,
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
@@ -166,18 +164,27 @@ class _CommunitiesState extends State<Communities> {
                   children: const [
                     ForYouCommunitiesCard(
                       communityName: 'ODBA',
+                      communityImage: 'assets/images/communities/odba.png',
+                      creatorName: 'Delvin Lim',
                       isRedirect: true,
                     ),
                     ForYouCommunitiesCard(
                       communityName: 'Buaran',
+                      communityImage: 'assets/images/communities/buaran.png',
+                      creatorName: 'Delvin Lim',
                       isRedirect: true,
                     ),
                     ForYouCommunitiesCard(
                       communityName: 'PSEG Fossil',
+                      communityImage:
+                          'assets/images/communities/pseg_fossil.png',
+                      creatorName: 'Delvin Lim',
                       isRedirect: true,
                     ),
                     ForYouCommunitiesCard(
                       communityName: 'NorthArm',
+                      communityImage: 'assets/images/communities/northarm.png',
+                      creatorName: 'Delvin Lim',
                       isRedirect: true,
                     ),
                   ],
@@ -204,9 +211,11 @@ class _CommunitiesState extends State<Communities> {
                     ),
                     CommunitiesCard(
                       communityName: 'ODBA',
+                      communityImage: 'assets/images/communities/odba.png',
                     ),
                     CommunitiesCard(
                       communityName: 'Buaran',
+                      communityImage: 'assets/images/communities/buaran.png',
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
@@ -222,33 +231,34 @@ class _CommunitiesState extends State<Communities> {
                     ),
                     CommunitiesCard(
                       communityName: 'PSEG Fossil',
+                      communityImage:
+                          'assets/images/communities/pseg_fossil.png',
                     ),
                     CommunitiesCard(
                       communityName: "Devil's Rejected Nation",
+                      communityImage: 'assets/images/communities/dnr.png',
                     ),
                     CommunitiesCard(
                       communityName: 'NorthArm',
+                      communityImage: 'assets/images/communities/northarm.png',
                     ),
                     CommunitiesCard(
                       communityName: 'Spartans',
+                      communityImage: 'assets/images/communities/spartans.png',
                     ),
                     CommunitiesCard(
                       communityName: 'Rasson',
+                      communityImage: 'assets/images/communities/rasson.png',
                     ),
                     CommunitiesCard(
                       communityName: 'Sydney Real',
+                      communityImage:
+                          'assets/images/communities/sydney_real.png',
                     ),
                     CommunitiesCard(
-                      communityName: 'Super',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'ODBA',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'ODBA',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'ODBA',
+                      communityName: 'Super Slasher Aquatics',
+                      communityImage:
+                          'assets/images/communities/super_slasher_aquatics.png',
                     ),
                   ],
                 ),
@@ -319,15 +329,26 @@ class _CommunitiesState extends State<Communities> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/deagleders.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/inter.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/rasson.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/northarm.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/aldenaire.png',
+                            ),
                           ]),
                     ),
                     Padding(
@@ -389,15 +410,26 @@ class _CommunitiesState extends State<Communities> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/dnr.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/punishers.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/merciless.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/berserkers.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/ratled.png',
+                            ),
                           ]),
                     ),
                     Padding(
@@ -459,15 +491,26 @@ class _CommunitiesState extends State<Communities> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/elite.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/surry_hills.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/borcelle.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/bellerive.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/hanover.png',
+                            ),
                           ]),
                     ),
                     Padding(
@@ -529,15 +572,26 @@ class _CommunitiesState extends State<Communities> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/friends_united.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/giants_of_manchester.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/shuttle_whackers.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/badminton_warriors.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/team_troubles.png',
+                            ),
                           ]),
                     ),
                     Padding(
@@ -599,15 +653,26 @@ class _CommunitiesState extends State<Communities> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/hardhitters.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/phoenix_volleyball.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/volley_kings.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/spikes_volleyball.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/spread_eagles.png',
+                            ),
                           ]),
                     ),
                     Padding(
@@ -624,7 +689,7 @@ class _CommunitiesState extends State<Communities> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Anime',
+                                      Text('Games',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
@@ -670,15 +735,26 @@ class _CommunitiesState extends State<Communities> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
-                            DiscoverCommunitiesCard(),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/stryker_gaming.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/titans.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/martians.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/the_last_frontier.png',
+                            ),
+                            DiscoverCommunitiesCard(
+                              communitiesImage:
+                                  'assets/images/communities/kraken.png',
+                            ),
                           ]),
                     ),
                   ],

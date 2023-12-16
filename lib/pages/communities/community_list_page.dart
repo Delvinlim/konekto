@@ -44,75 +44,51 @@ class _CommunitiesListState extends State<CommunitiesList> {
           child: ListView(children: const [
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
             CommunitiesCard(
               communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
-            ),
-            CommunitiesCard(
-              communityName: 'ODBA',
+              communityImage: 'assets/images/communities/odba.png',
             ),
           ])),
     );
