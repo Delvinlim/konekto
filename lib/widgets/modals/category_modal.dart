@@ -53,77 +53,96 @@ class CategoryModal extends StatelessWidget {
                     // crossAxisAlignment: WrapCrossAlignment.start,
                     children: [
                       CategoryModalItem(
-                        categoryName: 'Football',
-                      ),
+                          categoryName: 'Football',
+                          categoryImage:
+                              'assets/images/categories/football.png'),
                       CategoryModalItem(
-                        categoryName: 'Volleyball',
-                      ),
+                          categoryName: 'Volleyball',
+                          categoryImage:
+                              'assets/images/categories/volleyball.png'),
                       CategoryModalItem(
-                        categoryName: 'Basketball',
-                      ),
+                          categoryName: 'Basketball',
+                          categoryImage:
+                              'assets/images/categories/basketball.png'),
                       CategoryModalItem(
-                        categoryName: 'Billiard',
-                      ),
+                          categoryName: 'Billiard',
+                          categoryImage:
+                              'assets/images/categories/billiard.png'),
                       CategoryModalItem(
-                        categoryName: 'Badminton',
-                      ),
+                          categoryName: 'Badminton',
+                          categoryImage:
+                              'assets/images/categories/badminton.png'),
                       CategoryModalItem(
-                        categoryName: 'Swimming',
-                      ),
+                          categoryName: 'Swimming',
+                          categoryImage:
+                              'assets/images/categories/swimming.png'),
                       CategoryModalItem(
-                        categoryName: 'Table Tennis',
-                      ),
+                          categoryName: 'Table Tennis',
+                          categoryImage:
+                              'assets/images/categories/table-tennis.png'),
                       CategoryModalItem(
-                        categoryName: 'Tennis',
-                      ),
+                          categoryName: 'Tennis',
+                          categoryImage: 'assets/images/categories/tennis.png'),
                       CategoryModalItem(
-                        categoryName: 'Basketball',
-                      ),
+                          categoryName: 'Basketball',
+                          categoryImage:
+                              'assets/images/categories/basketball.png'),
                       CategoryModalItem(
-                        categoryName: 'Music',
-                      ),
+                          categoryName: 'Music',
+                          categoryImage: 'assets/images/categories/music.png'),
                       CategoryModalItem(
-                        categoryName: 'Cooking',
-                      ),
+                          categoryName: 'Cooking',
+                          categoryImage:
+                              'assets/images/categories/cooking.png'),
                       CategoryModalItem(
-                        categoryName: 'Photography',
-                      ),
+                          categoryName: 'Photography',
+                          categoryImage: 'assets/images/categories/tennis.png'),
                       CategoryModalItem(
-                        categoryName: 'Gaming',
-                      ),
+                          categoryName: 'Gaming',
+                          categoryImage: 'assets/images/categories/gaming.png'),
                       CategoryModalItem(
-                        categoryName: 'Painting',
-                      ),
+                          categoryName: 'Painting',
+                          categoryImage:
+                              'assets/images/categories/painting.png'),
                       CategoryModalItem(
-                        categoryName: 'Reading',
-                      ),
+                          categoryName: 'Reading',
+                          categoryImage:
+                              'assets/images/categories/reading.png'),
                       CategoryModalItem(
-                        categoryName: 'Travelling',
-                      ),
+                          categoryName: 'Travelling',
+                          categoryImage:
+                              'assets/images/categories/travelling.png'),
                       CategoryModalItem(
-                        categoryName: 'Programming',
-                      ),
+                          categoryName: 'Programming',
+                          categoryImage:
+                              'assets/images/categories/programming.png'),
                       CategoryModalItem(
-                        categoryName: 'Robotics',
-                      ),
+                          categoryName: 'Robotics',
+                          categoryImage:
+                              'assets/images/categories/robotics.png'),
                       CategoryModalItem(
-                        categoryName: 'Fishing',
-                      ),
+                          categoryName: 'Fishing',
+                          categoryImage:
+                              'assets/images/categories/fishing.png'),
                       CategoryModalItem(
-                        categoryName: 'Dance',
-                      ),
+                          categoryName: 'Dance',
+                          categoryImage: 'assets/images/categories/dance.png'),
                       CategoryModalItem(
-                        categoryName: 'Writing',
-                      ),
+                          categoryName: 'Writing',
+                          categoryImage:
+                              'assets/images/categories/writing.png'),
                       CategoryModalItem(
-                        categoryName: 'Fitness',
-                      ),
+                          categoryName: 'Fitness',
+                          categoryImage:
+                              'assets/images/categories/fitness.png'),
                       CategoryModalItem(
-                        categoryName: 'Running',
-                      ),
+                          categoryName: 'Running',
+                          categoryImage:
+                              'assets/images/categories/running.png'),
                       CategoryModalItem(
-                        categoryName: 'Camping',
-                      ),
+                          categoryName: 'Camping',
+                          categoryImage:
+                              'assets/images/categories/camping.png'),
                     ],
                   ),
                 ),

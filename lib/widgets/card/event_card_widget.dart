@@ -4,8 +4,10 @@ import 'package:konekto/pages/events/event_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 
 class EventCard extends StatefulWidget {
-  const EventCard({super.key, required this.eventName});
+  const EventCard(
+      {super.key, required this.eventName, required this.eventImage});
   final String eventName;
+  final String eventImage;
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -28,8 +30,8 @@ class _EventCardState extends State<EventCard> {
               width: 200,
               height: 85,
               decoration: ShapeDecoration(
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/event_1.png"),
+                image: DecorationImage(
+                  image: AssetImage(widget.eventImage),
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(

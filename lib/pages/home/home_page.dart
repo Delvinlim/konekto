@@ -7,10 +7,6 @@ import 'package:konekto/widgets/card/event_card_widget.dart';
 import 'package:konekto/widgets/modals/category_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-/// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const HomePage());
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -34,10 +30,14 @@ Widget homeSlider = SizedBox(
   height: 200,
   child: Swiper(
     itemBuilder: (BuildContext context, int index) {
-      return Image.network(
-        "https://via.placeholder.com/320x200",
+      return Image.asset(
+        'assets/images/banner_1.png',
         fit: BoxFit.fill,
       );
+      // return Image.network(
+      //   "https://via.placeholder.com/320x200",
+      //   fit: BoxFit.fill,
+      // );
     },
     itemCount: 5,
     pagination: const SwiperPagination(),
@@ -74,7 +74,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/volleyball.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -88,7 +88,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/basketball.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -102,7 +102,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/billiard.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -116,7 +116,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/badminton.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -130,7 +130,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/swimming.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -144,7 +144,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/tennis.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -158,7 +158,7 @@ Widget homeCommunityCategories = SingleChildScrollView(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 color: const Color(0xffD9D9D9)),
             child: Image.asset(
-              'assets/images/categories/football.png',
+              'assets/images/categories/gaming.png',
               height: 50.0,
               width: 50.0,
             ),
@@ -285,11 +285,6 @@ class _HomeState extends State<Home> {
                                           ModalScrollController.of(context),
                                       child: const CategoryModal(),
                                     ));
-                            // Navigator.push(
-                            //     context,
-                            //     CupertinoPageRoute(
-                            //         builder: (context) =>
-                            //             const ForgetPasswordPage()));
                           },
                           child: const Text(
                             'See All',
@@ -337,27 +332,27 @@ class _HomeState extends State<Home> {
                 children: [
                   EventCard(
                     eventName: '2023 Kepri Cup',
+                    eventImage: 'assets/images/events/kepri_cup.png',
+                  ),
+                  EventCard(
+                    eventName: 'Batam Drawing',
+                    eventImage: 'assets/images/events/batam_drawing.png',
+                  ),
+                  EventCard(
+                    eventName: 'UIB Run',
+                    eventImage: 'assets/images/events/ika_uib.png',
                   ),
                   EventCard(
                     eventName: '2023 Kepri Cup',
+                    eventImage: 'assets/images/events/kepri_cup.png',
                   ),
                   EventCard(
-                    eventName: '2023 Kepri Cup',
+                    eventName: 'Batam Drawing',
+                    eventImage: 'assets/images/events/batam_drawing.png',
                   ),
                   EventCard(
-                    eventName: '2023 Kepri Cup',
-                  ),
-                  EventCard(
-                    eventName: '2023 Kepri Cup',
-                  ),
-                  EventCard(
-                    eventName: '2023 Kepri Cup',
-                  ),
-                  EventCard(
-                    eventName: '2023 Kepri Cup',
-                  ),
-                  EventCard(
-                    eventName: '2023 Kepri Cup',
+                    eventName: 'UIB Run',
+                    eventImage: 'assets/images/events/ika_uib.png',
                   ),
                 ],
               ),

@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:konekto/pages/communities/community_list_page.dart';
 
 class CategoryModalItem extends StatelessWidget {
-  const CategoryModalItem({super.key, required this.categoryName});
+  const CategoryModalItem(
+      {super.key, required this.categoryName, required this.categoryImage});
   final String categoryName;
+  final String categoryImage;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class CategoryModalItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/categories/football.png',
+                  categoryImage,
                   height: 50.0,
                   width: 50.0,
                 ),
