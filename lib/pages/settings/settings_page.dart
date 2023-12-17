@@ -24,6 +24,36 @@ import 'package:konekto/widgets/item/settings_item_widget.dart';
 //   }
 // }
 
+void _showDeletePasswordDialog(BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('Delete Account?'),
+      content: const Text(
+          'Are you sure want to delete your account? Once you confirm, your data from this account is permanently deleted'),
+      actions: <CupertinoDialogAction>[
+        CupertinoDialogAction(
+          /// This parameter indicates this action is the default,
+          /// and turns the action's text to bold text.
+          isDestructiveAction: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('No'),
+        ),
+        CupertinoDialogAction(
+          /// This parameter indicates this action is the default,
+          /// and turns the action's text to bold text.
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Yes'),
+        ),
+      ],
+    ),
+  );
+}
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -111,40 +141,60 @@ class _SettingsState extends State<SettingsPage> {
                           color: Color(0xffF6F6F6)),
                       // padding: const EdgeInsets.only(
                       //     top: 10, left: 10, right: 10, bottom: 10),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SettingsItem(
                             name: 'Account Information',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.person,
                               color: CupertinoColors.black,
                             ),
-                            page: AccountSettingPage(),
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const AccountSettingPage()));
+                            },
                           ),
                           SettingsItem(
                             name: 'Change Password',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.lock,
                               color: CupertinoColors.black,
                             ),
-                            page: AuthSettingPage(),
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const AuthSettingPage()));
+                            },
                           ),
                           SettingsItem(
                             name: 'Delete Account',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.trash,
                               color: CupertinoColors.black,
                             ),
-                            page: ExplorePage(),
+                            callback: () {
+                              _showDeletePasswordDialog(context);
+                            },
                           ),
                           SettingsItem(
                             name: 'Notification',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.bell,
                               color: CupertinoColors.black,
                             ),
-                            page: NotificationSettingPage(),
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const NotificationSettingPage()));
+                            },
                           ),
                         ],
                       ),
@@ -220,32 +270,50 @@ class _SettingsState extends State<SettingsPage> {
                           color: Color(0xffF6F6F6)),
                       // padding: const EdgeInsets.only(
                       //     top: 10, left: 10, right: 10, bottom: 10),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SettingsItem(
                             name: 'Report',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.flag,
                               color: CupertinoColors.black,
                             ),
-                            page: ReportSettingPage(),
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const ReportSettingPage()));
+                            },
                           ),
                           SettingsItem(
                             name: 'Live Support',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.headphones,
                               color: CupertinoColors.black,
                             ),
-                            page: ExplorePage(),
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const ExplorePage()));
+                            },
                           ),
                           SettingsItem(
                             name: 'Term & Policies',
-                            icon: Icon(
+                            icon: const Icon(
                               CupertinoIcons.doc,
                               color: CupertinoColors.black,
                             ),
-                            page: TermsSettingPage(),
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const TermsSettingPage()));
+                            },
                           ),
                         ],
                       ),

@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 
 class SettingsItem extends StatefulWidget {
   const SettingsItem(
-      {super.key, required this.name, required this.icon, required this.page});
+      {super.key,
+      required this.name,
+      required this.icon,
+      required this.callback});
   final String name;
   final Icon icon;
-  final Widget page;
+  final callback;
 
   @override
   State<SettingsItem> createState() => _SettingsItemState();
@@ -17,10 +20,7 @@ class _SettingsItemState extends State<SettingsItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {
-          Navigator.push(
-              context, CupertinoPageRoute(builder: (context) => widget.page));
-        },
+        onTap: widget.callback,
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: Row(
