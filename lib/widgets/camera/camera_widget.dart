@@ -22,41 +22,75 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
-    // print(widget.cameras[0])
     _cameraController =
         CameraController(widget.cameras[0], ResolutionPreset.veryHigh);
-    try {
-      cameraValue = _cameraController.initialize();
-    } on CameraException catch (e) {
-      switch (e.code) {
-        case 'CameraAccessDenied':
-          showInSnackBar('You have denied camera access.');
-          break;
-        case 'CameraAccessDeniedWithoutPrompt':
-          // iOS only
-          showInSnackBar('Please go to Settings app to enable camera access.');
-          break;
-        case 'CameraAccessRestricted':
-          // iOS only
-          showInSnackBar('Camera access is restricted.');
-          break;
-        case 'AudioAccessDenied':
-          showInSnackBar('You have denied audio access.');
-          break;
-        case 'AudioAccessDeniedWithoutPrompt':
-          // iOS only
-          showInSnackBar('Please go to Settings app to enable audio access.');
-          break;
-        case 'AudioAccessRestricted':
-          // iOS only
-          showInSnackBar('Audio access is restricted.');
-          break;
-        default:
-          _showCameraException(e);
-          break;
+    cameraValue = _cameraController.initialize().then((_) {
+      if (!mounted) {
+        return;
       }
-    }
+      setState(() {});
+    }).catchError((Object e) {
+      if (e is CameraException) {
+        switch (e.code) {
+          case 'CameraAccessDenied':
+            // Handle access errors here.
+            Navigator.of(context, rootNavigator: true).pop(context);
+            break;
+          default:
+            Navigator.of(context, rootNavigator: true).pop(context);
+            // Handle other errors here.
+            break;
+        }
+      }
+    });
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // print(widget.cameras[0])
+  //   _cameraController =
+  //       CameraController(widget.cameras[0], ResolutionPreset.veryHigh);
+  //   try {
+  //     cameraValue = _cameraController.initialize();
+  //   } on CameraException catch (e) {
+  //     switch (e.code) {
+  //       case 'CameraAccessDenied':
+  //         // showInSnackBar('You have denied camera access.');
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+
+  //         break;
+  //       case 'CameraAccessDeniedWithoutPrompt':
+  //         // iOS only
+  //         // showInSnackBar('Please go to Settings app to enable camera access.');
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+  //         break;
+  //       case 'CameraAccessRestricted':
+  //         // iOS only
+  //         showInSnackBar('Camera access is restricted.');
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+  //       // break;
+  //       case 'AudioAccessDenied':
+  //         // showInSnackBar('You have denied audio access.');
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+  //         break;
+  //       case 'AudioAccessDeniedWithoutPrompt':
+  //         // iOS only
+  //         // showInSnackBar('Please go to Settings app to enable audio access.');
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+  //         break;
+  //       case 'AudioAccessRestricted':
+  //         // iOS only
+  //         // showInSnackBar('Audio access is restricted.');
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+  //         break;
+  //       default:
+  //         // _showCameraException(e);
+  //         Navigator.of(context, rootNavigator: true).pop(context);
+  //         break;
+  //     }
+  //   }
+  // }
 
   // @override
   // void initState() {
@@ -102,11 +136,12 @@ class _CameraScreenState extends State<CameraScreen> {
   // }
 
   void showInSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.black,
-      duration: const Duration(seconds: 2),
-    ));
+    Navigator.pop(context);
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   content: Text(message),
+    //   backgroundColor: Colors.black,
+    //   duration: const Duration(seconds: 2),
+    // ));
   }
 
   void _logError(String code, String? message) {
@@ -114,10 +149,10 @@ class _CameraScreenState extends State<CameraScreen> {
     print('Error: $code${message == null ? '' : '\nError Message: $message'}');
   }
 
-  void _showCameraException(CameraException e) {
-    _logError(e.code, e.description);
-    showInSnackBar('Error: ${e.code}\n${e.description}');
-  }
+  // void _showCameraException(CameraException e) {
+  //   _logError(e.code, e.description);
+  //   showInSnackBar('Error: ${e.code}\n${e.description}');
+  // }
 
   // Future<void> _initializeCameraController(
   //     CameraDescription cameraDescription) async {
