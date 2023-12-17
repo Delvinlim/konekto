@@ -1,25 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class TermsSettingPage extends StatelessWidget {
+class TermsSettingPage extends StatefulWidget {
   const TermsSettingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: TermsSetting(),
-    );
-  }
+  State<TermsSettingPage> createState() => _TermsSettingState();
 }
 
-class TermsSetting extends StatefulWidget {
-  const TermsSetting({super.key});
-
-  @override
-  State<TermsSetting> createState() => _TermsSettingState();
-}
-
-class _TermsSettingState extends State<TermsSetting> {
+class _TermsSettingState extends State<TermsSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

@@ -2,26 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:konekto/widgets/item/account_settings_item_widget.dart';
 import 'package:konekto/widgets/item/settings_item_widget.dart';
 
-class AccountSettingPage extends StatelessWidget {
+class AccountSettingPage extends StatefulWidget {
   const AccountSettingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: AccountSetting(),
-    );
-  }
+  State<AccountSettingPage> createState() => _AccountSettingState();
 }
 
-class AccountSetting extends StatefulWidget {
-  const AccountSetting({super.key});
-
-  @override
-  State<AccountSetting> createState() => _AccountSettingState();
-}
-
-class _AccountSettingState extends State<AccountSetting> {
+class _AccountSettingState extends State<AccountSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

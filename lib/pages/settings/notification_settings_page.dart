@@ -1,26 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:konekto/widgets/item/notification_settings_item_widget.dart';
 
-class NotificationSettingPage extends StatelessWidget {
+class NotificationSettingPage extends StatefulWidget {
   const NotificationSettingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: NotificationSetting(),
-    );
-  }
+  State<NotificationSettingPage> createState() => _NotificationSettingState();
 }
 
-class NotificationSetting extends StatefulWidget {
-  const NotificationSetting({super.key});
-
-  @override
-  State<NotificationSetting> createState() => _NotificationSettingState();
-}
-
-class _NotificationSettingState extends State<NotificationSetting> {
+class _NotificationSettingState extends State<NotificationSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

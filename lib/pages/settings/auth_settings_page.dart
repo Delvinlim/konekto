@@ -1,25 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class AuthSettingPage extends StatelessWidget {
+class AuthSettingPage extends StatefulWidget {
   const AuthSettingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: AuthSetting(),
-    );
-  }
+  State<AuthSettingPage> createState() => _AuthSettingState();
 }
 
-class AuthSetting extends StatefulWidget {
-  const AuthSetting({super.key});
-
-  @override
-  State<AuthSetting> createState() => _AuthSettingState();
-}
-
-class _AuthSettingState extends State<AuthSetting> {
+class _AuthSettingState extends State<AuthSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

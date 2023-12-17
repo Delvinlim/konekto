@@ -1,26 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:konekto/widgets/card/report_settings_card_widget.dart';
 
-class ReportSettingPage extends StatelessWidget {
+class ReportSettingPage extends StatefulWidget {
   const ReportSettingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: ReportSetting(),
-    );
-  }
+  State<ReportSettingPage> createState() => _ReportSettingState();
 }
 
-class ReportSetting extends StatefulWidget {
-  const ReportSetting({super.key});
-
-  @override
-  State<ReportSetting> createState() => _ReportSettingState();
-}
-
-class _ReportSettingState extends State<ReportSetting> {
+class _ReportSettingState extends State<ReportSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

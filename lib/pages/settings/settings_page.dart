@@ -12,26 +12,26 @@ import 'package:konekto/widgets/item/settings_item_widget.dart';
 
 // void main() => runApp(const SettingsPage());
 
-class SettingsPage extends StatelessWidget {
+// class SettingsPage extends StatelessWidget {
+//   const SettingsPage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const CupertinoApp(
+//       theme: CupertinoThemeData(brightness: Brightness.light),
+//       home: Settings(),
+//     );
+//   }
+// }
+
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Settings(),
-    );
-  }
+  State<SettingsPage> createState() => _SettingsState();
 }
 
-class Settings extends StatefulWidget {
-  const Settings({super.key});
-
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
+class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
