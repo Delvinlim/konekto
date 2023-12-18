@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:konekto/pages/communities/community_list_page.dart';
 import 'package:konekto/pages/notifications/notification_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/widgets/card/event_card_widget.dart';
@@ -45,125 +46,207 @@ Widget homeSlider = SizedBox(
   ),
 );
 
-Widget homeCommunityCategories = SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/football.png',
-              height: 50.0,
-              width: 50.0,
+Widget homeCommunityCategories(context) {
+  return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Football',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/football.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/volleyball.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Volleyball',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/volleyball.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/basketball.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Basketball',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/basketball.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/billiard.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Billiard',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/billiard.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/badminton.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Badminton',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/badminton.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/swimming.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Swimming',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/swimming.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/tennis.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Tennis',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/tennis.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-          Container(
-            width: 64,
-            height: 64,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-                border: KonektoBorder.all(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: const Color(0xffD9D9D9)),
-            child: Image.asset(
-              'assets/images/categories/gaming.png',
-              height: 50.0,
-              width: 50.0,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const CommunitiesListPage(
+                              categoryName: 'Gaming',
+                            )));
+              },
+              child: Container(
+                width: 64,
+                height: 64,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                    border: KonektoBorder.all(color: Colors.grey.shade400),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    color: const Color(0xffD9D9D9)),
+                child: Image.asset(
+                  'assets/images/categories/gaming.png',
+                  height: 50.0,
+                  width: 50.0,
+                ),
+              ),
             ),
-          ),
-        ]));
+          ]));
+}
 
 class _HomeState extends State<Home> {
   @override
@@ -298,7 +381,7 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          homeCommunityCategories,
+          homeCommunityCategories(context),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
             child: Row(
@@ -384,7 +467,7 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          homeCommunityCategories,
+          homeCommunityCategories(context),
         ],
       ),
     ));
