@@ -54,8 +54,7 @@ class _EventState extends State<Event> {
                     margin: const EdgeInsets.symmetric(vertical: 12),
                     decoration: ShapeDecoration(
                       image: const DecorationImage(
-                        image:
-                            NetworkImage("https://via.placeholder.com/350x150"),
+                        image: AssetImage("assets/images/event_detail.png"),
                         fit: BoxFit.fill,
                       ),
                       shape: RoundedRectangleBorder(
@@ -78,13 +77,13 @@ class _EventState extends State<Event> {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 13),
               ),
               Expanded(
-                  child: Column(
+                  child: ListView(
                 children: [
                   Container(
                     padding:
                         const EdgeInsets.only(left: 12, right: 12, top: 12),
                     child: const Text(
-                      'Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello WoHello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World',
+                      "Kepri Cup 2023 is set to make its grand return this year, promising to be a sporting extravaganza like no other. Scheduled for October 30, 2023, this highly anticipated event will bring together athletes, sports enthusiasts, and spectators from all corners of the globe. The Kepri Cup is not just a competition; it's a celebration of human physical prowess and a testament to the unifying power of sports. With an array of sport categories on display, this event is poised to be a magnificent spectacle of athleticism, dedication, and camaraderie.",
                       textAlign: TextAlign.justify,
                       style:
                           TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
@@ -94,7 +93,7 @@ class _EventState extends State<Event> {
                     padding:
                         const EdgeInsets.only(left: 12, right: 12, top: 12),
                     child: const Text(
-                      'Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello WoHello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World',
+                      "Kepri Cup 2023 is set to make its grand return this year, promising to be a sporting extravaganza like no other. Scheduled for October 30, 2023, this highly anticipated event will bring together athletes, sports enthusiasts, and spectators from all corners of the globe. The Kepri Cup is not just a competition; it's a celebration of human physical prowess and a testament to the unifying power of sports. With an array of sport categories on display, this event is poised to be a magnificent spectacle of athleticism, dedication, and camaraderie.",
                       textAlign: TextAlign.justify,
                       style:
                           TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
@@ -104,7 +103,7 @@ class _EventState extends State<Event> {
                     padding:
                         const EdgeInsets.only(left: 12, right: 12, top: 12),
                     child: const Text(
-                      'Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello WoHello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World',
+                      "This year, the Kepri Cup will be held at the state-of-the-art Kepri Sports Complex, a sprawling facility designed to host a wide range of sporting activities. The complex boasts world-class amenities, including modern stadiums, well-maintained fields, and top-notch training facilities, ensuring that athletes are at the top of their game.",
                       textAlign: TextAlign.justify,
                       style:
                           TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
@@ -113,7 +112,7 @@ class _EventState extends State<Event> {
                 ],
               )),
               Container(
-                margin: const EdgeInsets.only(bottom: 24),
+                margin: const EdgeInsets.only(bottom: 12, top: 12),
                 child: CupertinoButton(
                     // padding: const EdgeInsets.only(left: 24, right: 24),
                     color: Colors.blue.shade600,
