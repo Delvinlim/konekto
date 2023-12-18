@@ -251,7 +251,7 @@ class CommunityListModal extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
-                leading: const Icon(Icons.people),
+                leading: Image.asset('assets/images/communities/odba.png'),
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(CupertinoPageRoute(
                         builder: (context) => const CommunitiesPostCreationPage(
@@ -264,7 +264,7 @@ class CommunityListModal extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
-                leading: const Icon(Icons.post_add),
+                leading: Image.asset('assets/images/communities/buaran.png'),
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(CupertinoPageRoute(
                         builder: (context) => const CommunitiesPostCreationPage(
@@ -273,11 +273,12 @@ class CommunityListModal extends StatelessWidget {
               ),
               ListTile(
                 title: const Text(
-                  'ODBA',
+                  'PSEG Fossil',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
-                leading: const Icon(Icons.people),
+                leading:
+                    Image.asset('assets/images/communities/pseg_fossil.png'),
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(CupertinoPageRoute(
                         builder: (context) => const CommunitiesPostCreationPage(
@@ -286,11 +287,11 @@ class CommunityListModal extends StatelessWidget {
               ),
               ListTile(
                 title: const Text(
-                  'Buaran',
+                  'Devils Rejected Nation',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
-                leading: const Icon(Icons.post_add),
+                leading: Image.asset('assets/images/communities/dnr.png'),
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(CupertinoPageRoute(
                         builder: (context) => const CommunitiesPostCreationPage(
@@ -299,11 +300,11 @@ class CommunityListModal extends StatelessWidget {
               ),
               ListTile(
                 title: const Text(
-                  'ODBA',
+                  'NorthArm',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
-                leading: const Icon(Icons.people),
+                leading: Image.asset('assets/images/communities/northarm.png'),
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(CupertinoPageRoute(
                         builder: (context) => const CommunitiesPostCreationPage(
@@ -312,11 +313,11 @@ class CommunityListModal extends StatelessWidget {
               ),
               ListTile(
                 title: const Text(
-                  'Buaran',
+                  'Spartans',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: const Text('Last updated 1 hour ago'),
-                leading: const Icon(Icons.post_add),
+                leading: Image.asset('assets/images/communities/spartans.png'),
                 onTap: () => Navigator.of(context, rootNavigator: true)
                     .push(CupertinoPageRoute(
                         builder: (context) => const CommunitiesPostCreationPage(

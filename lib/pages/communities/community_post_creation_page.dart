@@ -1,30 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/profile/profile_page.dart';
+import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 import 'package:konekto/widgets/message/comment_widget.dart';
 
-class CommunitiesPostCreationPage extends StatelessWidget {
+// class CommunitiesPostCreationPage extends StatelessWidget {
+//   const CommunitiesPostCreationPage({super.key, required this.communityName});
+//   final String communityName;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoApp(
+//       theme: const CupertinoThemeData(brightness: Brightness.light),
+//       home: CommunitiesPostCreationPage(communityName: communityName),
+//     );
+//   }
+// }
+
+class CommunitiesPostCreationPage extends StatefulWidget {
   const CommunitiesPostCreationPage({super.key, required this.communityName});
   final String communityName;
 
   @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: CommunitiesPostCreation(communityName: communityName),
-    );
-  }
-}
-
-class CommunitiesPostCreation extends StatefulWidget {
-  const CommunitiesPostCreation({super.key, required this.communityName});
-  final String communityName;
-
-  @override
-  State<CommunitiesPostCreation> createState() =>
+  State<CommunitiesPostCreationPage> createState() =>
       _CommunitiesPostCreationState();
 }
 
-class _CommunitiesPostCreationState extends State<CommunitiesPostCreation> {
+class _CommunitiesPostCreationState extends State<CommunitiesPostCreationPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -73,7 +75,13 @@ class _CommunitiesPostCreationState extends State<CommunitiesPostCreation> {
                       fontSize: 16,
                       // color: Colors.black,
                       fontWeight: FontWeight.bold)),
-              onPressed: () {}),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const KonektoTabBar()),
+                    ((route) => false));
+              }),
         ],
       ),
     );
