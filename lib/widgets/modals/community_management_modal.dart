@@ -69,6 +69,7 @@ void _showCommunityCreatedDialog(BuildContext context, String communityName) {
             Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                 builder: (context) => CommunitiesDetailPage(
                       communityName: communityName,
+                      communityImage: 'assets/images/communities/odba.png',
                     )));
           },
           child: const Text('OK'),

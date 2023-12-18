@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:konekto/pages/auth/forget_password_page.dart';
+import 'package:konekto/pages/communities/community_list_page.dart';
 import 'package:konekto/widgets/card/communities_card_widget.dart';
 import 'package:konekto/widgets/modals/community_management_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -306,7 +306,9 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPasswordPage()));
+                                                  const CommunitiesListPage(
+                                                    categoryName: 'General',
+                                                  )));
                                     },
                                     child: const Text(
                                       'See All',
@@ -387,7 +389,9 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPasswordPage()));
+                                                  const CommunitiesListPage(
+                                                    categoryName: 'Motorcycle',
+                                                  )));
                                     },
                                     child: const Text(
                                       'See All',
@@ -468,7 +472,9 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPasswordPage()));
+                                                  const CommunitiesListPage(
+                                                    categoryName: 'Basketball',
+                                                  )));
                                     },
                                     child: const Text(
                                       'See All',
@@ -549,7 +555,9 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPasswordPage()));
+                                                  const CommunitiesListPage(
+                                                    categoryName: 'Badminton',
+                                                  )));
                                     },
                                     child: const Text(
                                       'See All',
@@ -630,7 +638,9 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPasswordPage()));
+                                                  const CommunitiesListPage(
+                                                    categoryName: 'Volleyball',
+                                                  )));
                                     },
                                     child: const Text(
                                       'See All',
@@ -712,7 +722,9 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPasswordPage()));
+                                                  const CommunitiesListPage(
+                                                    categoryName: 'Games',
+                                                  )));
                                     },
                                     child: const Text(
                                       'See All',

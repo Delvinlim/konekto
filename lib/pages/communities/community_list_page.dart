@@ -43,52 +43,64 @@ class _CommunitiesListState extends State<CommunitiesList> {
           padding: const EdgeInsets.all(12),
           child: ListView(children: const [
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Aberdeen FC',
+              communityImage: 'assets/images/football_team/aberdeen.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Chelsea FC',
+              communityImage: 'assets/images/football_team/chelsea.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Aldenaire',
+              communityImage: 'assets/images/football_team/aldenaire.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Waterloo FC',
+              communityImage: 'assets/images/football_team/waterloo.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Keithston FC',
+              communityImage: 'assets/images/football_team/keithston.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Deagleders FC',
+              communityImage: 'assets/images/football_team/deagleders.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Southside Eagles FC',
+              communityImage: 'assets/images/football_team/southside.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'L.F.C',
+              communityImage: 'assets/images/football_team/llfc.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Golden Common FC',
+              communityImage: 'assets/images/football_team/golden_common.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Rangers FC',
+              communityImage: 'assets/images/football_team/rangers.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Middlesbrough',
+              communityImage: 'assets/images/football_team/middlesbrough.png',
             ),
             CommunitiesCard(
-              communityName: 'ODBA',
-              communityImage: 'assets/images/communities/odba.png',
+              communityName: 'Paucek & Lage FC',
+              communityImage: 'assets/images/football_team/paucek.png',
+            ),
+            CommunitiesCard(
+              communityName: 'Borcelle FC',
+              communityImage: 'assets/images/football_team/borcelle.png',
+            ),
+            CommunitiesCard(
+              communityName: 'Hanover FC',
+              communityImage: 'assets/images/football_team/hanover.png',
+            ),
+            CommunitiesCard(
+              communityName: 'Barcelona FC',
+              communityImage: 'assets/images/football_team/barcelona.png',
             ),
           ])),
     );

@@ -4,28 +4,17 @@ import 'package:sticky_headers/sticky_headers.dart';
 
 import '../../widgets/card/communities_card_widget.dart';
 
-class CommunitiesDetailPage extends StatelessWidget {
-  const CommunitiesDetailPage({super.key, required this.communityName});
+class CommunitiesDetailPage extends StatefulWidget {
+  const CommunitiesDetailPage(
+      {super.key, required this.communityName, required this.communityImage});
   final String communityName;
+  final String communityImage;
 
   @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: CommunitiesDetail(communityName: communityName),
-    );
-  }
+  State<CommunitiesDetailPage> createState() => _CommunitiesDetailState();
 }
 
-class CommunitiesDetail extends StatefulWidget {
-  const CommunitiesDetail({super.key, required this.communityName});
-  final String communityName;
-
-  @override
-  State<CommunitiesDetail> createState() => _CommunitiesDetailState();
-}
-
-class _CommunitiesDetailState extends State<CommunitiesDetail> {
+class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -35,7 +24,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
         leading: CupertinoNavigationBarBackButton(
           color: CupertinoColors.black,
           onPressed: () => {
-            Navigator.of(context, rootNavigator: true).pop(context),
+            Navigator.of(context).pop(context),
             // Navigator.pushAndRemoveUntil(context,
             //     CupertinoPageRoute(builder: (BuildContext context) {
             //   return const CommunitiesPage();
@@ -75,8 +64,8 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
                                   height: 147,
                                   decoration: ShapeDecoration(
                                     image: const DecorationImage(
-                                      image: NetworkImage(
-                                          "https://via.placeholder.com/340x147"),
+                                      image: AssetImage(
+                                          "assets/images/community_background.png"),
                                       fit: BoxFit.fill,
                                     ),
                                     shape: RoundedRectangleBorder(
@@ -106,9 +95,9 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
                                           width: 69,
                                           height: 69,
                                           decoration: ShapeDecoration(
-                                            image: const DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/69x69"),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  widget.communityImage),
                                               fit: BoxFit.fill,
                                             ),
                                             shape: RoundedRectangleBorder(
@@ -259,26 +248,26 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
                       ],
                     ),
                   ),
-                  content: const Column(
+                  content: Column(
                     children: [
                       ForYouCommunitiesCard(
-                        communityName: 'ODBA',
-                        communityImage: 'assets/images/communities/odba.png',
+                        communityName: widget.communityName,
+                        communityImage: widget.communityImage,
                         creatorName: 'Delvin Lim',
                       ),
                       ForYouCommunitiesCard(
-                        communityName: 'ODBA',
-                        communityImage: 'assets/images/communities/odba.png',
+                        communityName: widget.communityName,
+                        communityImage: widget.communityImage,
                         creatorName: 'Delvin Lim',
                       ),
                       ForYouCommunitiesCard(
-                        communityName: 'ODBA',
-                        communityImage: 'assets/images/communities/odba.png',
+                        communityName: widget.communityName,
+                        communityImage: widget.communityImage,
                         creatorName: 'Delvin Lim',
                       ),
                       ForYouCommunitiesCard(
-                        communityName: 'ODBA',
-                        communityImage: 'assets/images/communities/odba.png',
+                        communityName: widget.communityName,
+                        communityImage: widget.communityImage,
                         creatorName: 'Delvin Lim',
                       ),
                     ],

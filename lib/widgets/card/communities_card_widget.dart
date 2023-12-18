@@ -22,6 +22,7 @@ class CommunitiesCard extends StatelessWidget {
               CupertinoPageRoute(
                   builder: (context) => CommunitiesDetailPage(
                         communityName: communityName,
+                        communityImage: communityImage,
                       )));
         },
         child: Row(
