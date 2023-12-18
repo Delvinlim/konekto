@@ -109,11 +109,10 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const KonektoTabBar()),
-                        (Route<dynamic> route) => false,
-                      );
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const KonektoTabBar()),
+                          ((route) => false));
                       // Navigator.pushReplacement(
                       //     context,
                       //     CupertinoPageRoute(

@@ -33,8 +33,10 @@ class _OnBoardingState extends State<OnBoarding> {
     return CupertinoOnboarding(
       // color: Colors.white,
       bottomButtonColor: Colors.lightBlue,
-      onPressedOnLastPage: () => Navigator.pushReplacement(
-          context, CupertinoPageRoute(builder: (context) => const Login())),
+      onPressedOnLastPage: () => Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => const Login()),
+          ((route) => false)),
       // onPressedOnLastPage: () => Navigator.of(context).pushNamedAndRemoveUntil(CupertinoPageRoute(builder: (context) => const KonektoTabBar()), (route) => false),
 
       bottomButtonChild: const Text(
