@@ -4,6 +4,10 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/safe_area_values.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({required this.cameras, super.key});
@@ -35,10 +39,26 @@ class _CameraScreenState extends State<CameraScreen> {
           case 'CameraAccessDenied':
             // Handle access errors here.
             Navigator.of(context, rootNavigator: true).pop(context);
+            showTopSnackBar(
+              snackBarPosition: SnackBarPosition.bottom,
+              Overlay.of(context),
+              const CustomSnackBar.info(
+                message:
+                    "Camera access denied. Please enable camera permissions in your device settings.",
+              ),
+            );
             break;
           default:
             Navigator.of(context, rootNavigator: true).pop(context);
             // Handle other errors here.
+            showTopSnackBar(
+              snackBarPosition: SnackBarPosition.bottom,
+              Overlay.of(context),
+              const CustomSnackBar.info(
+                message:
+                    "Camera access denied. Please enable camera permissions in your device settings.",
+              ),
+            );
             break;
         }
       }
