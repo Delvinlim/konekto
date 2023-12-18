@@ -1,28 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:konekto/pages/explore/explore_page.dart';
-import 'package:konekto/pages/home/home_page.dart';
 import 'package:konekto/pages/settings/account_settings_page.dart';
 import 'package:konekto/pages/settings/auth_settings_page.dart';
 import 'package:konekto/pages/settings/notification_settings_page.dart';
 import 'package:konekto/pages/settings/report_settings_page.dart';
 import 'package:konekto/pages/settings/terms_settings_page.dart';
 import 'package:konekto/widgets/item/settings_item_widget.dart';
-
-/// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const SettingsPage());
-
-// class SettingsPage extends StatelessWidget {
-//   const SettingsPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const CupertinoApp(
-//       theme: CupertinoThemeData(brightness: Brightness.light),
-//       home: Settings(),
-//     );
-//   }
-// }
 
 void _showDeletePasswordDialog(BuildContext context) {
   showCupertinoModalPopup<void>(

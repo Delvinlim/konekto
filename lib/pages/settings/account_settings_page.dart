@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:konekto/widgets/item/account_settings_item_widget.dart';
-import 'package:konekto/widgets/item/settings_item_widget.dart';
 
 class AccountSettingPage extends StatefulWidget {
   const AccountSettingPage({super.key});

@@ -324,17 +324,15 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: const Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            CupertinoIcons.heart,
-                            color: Colors.black,
-                          ),
-                          Text('2.1k')
-                        ]),
-                  ),
+                  const Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.heart,
+                          color: Colors.black,
+                        ),
+                        Text('2.1k')
+                      ]),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 24),
                     child: const Row(
@@ -347,11 +345,9 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                           Text('2.1k')
                         ]),
                   ),
-                  Container(
-                    child: const Icon(
-                      CupertinoIcons.share,
-                      color: Colors.black,
-                    ),
+                  const Icon(
+                    CupertinoIcons.share,
+                    color: Colors.black,
                   ),
                 ],
               ),

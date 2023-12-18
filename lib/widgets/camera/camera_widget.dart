@@ -5,8 +5,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/safe_area_values.dart';
-import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -164,10 +162,10 @@ class _CameraScreenState extends State<CameraScreen> {
     // ));
   }
 
-  void _logError(String code, String? message) {
-    // ignore: avoid_print
-    print('Error: $code${message == null ? '' : '\nError Message: $message'}');
-  }
+  // void _logError(String code, String? message) {
+  //   // ignore: avoid_print
+  //   print('Error: $code${message == null ? '' : '\nError Message: $message'}');
+  // }
 
   // void _showCameraException(CameraException e) {
   //   _logError(e.code, e.description);

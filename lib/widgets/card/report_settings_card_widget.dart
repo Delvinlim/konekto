@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:konekto/utils/konekto_border.dart';
 
 class ReportSettingsCard extends StatefulWidget {
   const ReportSettingsCard({super.key, required this.state});
