@@ -33,7 +33,6 @@ class _LoginFormState extends State<LoginForm> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your username or email',
               padding:
@@ -60,9 +59,10 @@ class _LoginFormState extends State<LoginForm> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               decoration: BoxDecoration(

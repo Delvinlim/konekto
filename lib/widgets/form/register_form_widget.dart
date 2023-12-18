@@ -86,6 +86,8 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
@@ -112,6 +114,8 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
