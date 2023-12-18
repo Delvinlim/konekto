@@ -126,9 +126,9 @@ class _CommunitiesDetailState extends State<CommunitiesDetail> {
                           ),
                         ],
                       ),
-                      const Text(
-                        'Community Name',
-                        style: TextStyle(
+                      Text(
+                        widget.communityName,
+                        style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: CupertinoColors.black,

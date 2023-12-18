@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
-import 'package:konekto/pages/notifications/notification_page.dart';
 import 'package:konekto/widgets/card/communities_card_widget.dart';
 import 'package:konekto/widgets/modals/community_management_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';

@@ -65,6 +65,7 @@ void _showCommunityCreatedDialog(BuildContext context, String communityName) {
           /// and turns the action's text to bold text.
           isDefaultAction: true,
           onPressed: () {
+            Navigator.pop(context);
             Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                 builder: (context) => CommunitiesDetailPage(
                       communityName: communityName,
@@ -201,6 +202,8 @@ class CommunityCreationModal extends StatelessWidget {
                         onPressed: () {
                           if (_formCommunityCreationKey.currentState!
                               .validate()) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
                             _showCommunityCreatedDialog(context, communityName);
                           }
                         }),
