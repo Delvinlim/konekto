@@ -169,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  custom_accordion:
+    dependency: "direct main"
+    description:
+      name: custom_accordion
+      sha256: "79a8e4375806a76d88bf0db5d9e4d697e343e2e729f3cdf6a888805fa34bd63f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   dots_indicator:
     dependency: transitive
     description:
