@@ -125,7 +125,7 @@ class _ProfileState extends State<Profile> {
                                           '@username',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 12,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w400,
@@ -141,7 +141,7 @@ class _ProfileState extends State<Profile> {
                                   child: Text(
                                     'Jhon Doe',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: CupertinoColors.black,
                                       fontSize: 12,
                                       fontFamily: 'Inter',
                                       fontWeight: FontWeight.w400,
@@ -179,7 +179,7 @@ class _ProfileState extends State<Profile> {
                           },
                           child: const Icon(
                             CupertinoIcons.bars,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                           ),
                         ),
                       ),
@@ -215,7 +215,7 @@ class _ProfileState extends State<Profile> {
                     'Communities',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontSize: 12,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
@@ -229,7 +229,7 @@ class _ProfileState extends State<Profile> {
                     'Likes',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontSize: 12,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
@@ -243,7 +243,7 @@ class _ProfileState extends State<Profile> {
                     'Posts',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontSize: 12,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
@@ -257,7 +257,7 @@ class _ProfileState extends State<Profile> {
                     '3',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontSize: 18,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w700,
@@ -271,7 +271,7 @@ class _ProfileState extends State<Profile> {
                     '69',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontSize: 18,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w700,
@@ -285,7 +285,7 @@ class _ProfileState extends State<Profile> {
                     '0',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontSize: 18,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w700,

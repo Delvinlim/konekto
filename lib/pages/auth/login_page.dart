@@ -59,7 +59,8 @@ class _LoginState extends State<Login> {
                   const TextSpan(
                     text: 'New to Konekto? ',
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w500),
+                        color: CupertinoColors.black,
+                        fontWeight: FontWeight.w500),
                   ),
                   TextSpan(
                       text: 'Sign up',

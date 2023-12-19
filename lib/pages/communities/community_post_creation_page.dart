@@ -55,7 +55,7 @@ class _CommunitiesPostCreationState extends State<CommunitiesPostCreationPage> {
                     //             ))),
                     child: const Icon(
                       CupertinoIcons.camera,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                     ),
                   ),
                 ],
@@ -73,7 +73,7 @@ class _CommunitiesPostCreationState extends State<CommunitiesPostCreationPage> {
               child: const Text('Post',
                   style: TextStyle(
                       fontSize: 16,
-                      // color: Colors.black,
+                      // color: CupertinoColors.black,
                       fontWeight: FontWeight.bold)),
               onPressed: () {
                 Navigator.pushAndRemoveUntil(

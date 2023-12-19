@@ -55,7 +55,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                     child: Text('Team Name',
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
@@ -84,7 +84,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                     child: Text('Leader Name',
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
@@ -112,7 +112,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                     child: Text('Leader Email',
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
@@ -141,7 +141,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                     child: Text('Leader Phone',
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
@@ -169,7 +169,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                     child: Text('Player',
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
@@ -198,7 +198,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                     child: Text('Team Base',
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(

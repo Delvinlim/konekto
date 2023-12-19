@@ -157,7 +157,7 @@ class _CameraScreenState extends State<CameraScreen> {
     Navigator.pop(context);
     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     //   content: Text(message),
-    //   backgroundColor: Colors.black,
+    //   backgroundColor: CupertinoColors.black,
     //   duration: const Duration(seconds: 2),
     // ));
   }
@@ -294,7 +294,7 @@ class _CameraScreenState extends State<CameraScreen> {
           //   },
           //   child: const Icon(
           //     Icons.camera_alt,
-          //     color: Colors.black,
+          //     color: CupertinoColors.black,
           //     size: 36,
           //   ),
           // ),

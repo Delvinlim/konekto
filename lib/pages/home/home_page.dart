@@ -319,7 +319,7 @@ class _HomeState extends State<Home> {
                           },
                           child: const Icon(
                             CupertinoIcons.bell,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                           ),
                         ),
                       ),
@@ -371,7 +371,7 @@ class _HomeState extends State<Home> {
                           },
                           child: const Text(
                             'See All',
-                            style: TextStyle(color: Colors.black87),
+                            style: TextStyle(color: CupertinoColors.black87),
                           ),
                         )
                       ],

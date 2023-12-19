@@ -182,7 +182,7 @@ class CommunityCreationModal extends StatelessWidget {
                         child: const Text('Cancel',
                             style: TextStyle(
                                 fontSize: 14,
-                                // color: Colors.black,
+                                // color: CupertinoColors.black,
                                 fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.pop(context);
@@ -198,7 +198,7 @@ class CommunityCreationModal extends StatelessWidget {
                         child: const Text('Create',
                             style: TextStyle(
                                 fontSize: 14,
-                                // color: Colors.black,
+                                // color: CupertinoColors.black,
                                 fontWeight: FontWeight.bold)),
                         onPressed: () {
                           if (_formCommunityCreationKey.currentState!

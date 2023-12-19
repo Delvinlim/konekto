@@ -46,7 +46,7 @@ class _SettingsItemState extends State<SettingsItem> {
               ),
               const Icon(
                 CupertinoIcons.chevron_right,
-                color: Colors.black,
+                color: CupertinoColors.black,
               ),
             ],
           ),

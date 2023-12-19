@@ -102,7 +102,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                     //             ))),
                     child: const Icon(
                       CupertinoIcons.camera,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                     ),
                   ),
                   const Expanded(
@@ -114,7 +114,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                   )),
                   const Icon(
                     CupertinoIcons.share,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                   ),
                 ],
               ),

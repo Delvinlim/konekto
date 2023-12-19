@@ -119,7 +119,7 @@ class _EventState extends State<Event> {
                     child: const Text('Register Now',
                         style: TextStyle(
                             fontSize: 14,
-                            // color: Colors.black,
+                            // color: CupertinoColors.black,
                             fontWeight: FontWeight.bold)),
                     onPressed: () {
                       Navigator.of(context).push(CupertinoPageRoute(

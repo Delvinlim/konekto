@@ -67,7 +67,7 @@ class _NotificationCardState extends State<NotificationCard> {
                       child: Text(
                         widget.communityName,
                         style: const TextStyle(
-                          color: Colors.black,
+                          color: CupertinoColors.black,
                           fontSize: 14,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w700,
@@ -186,7 +186,7 @@ class _SystemNotificationCardState extends State<SystemNotificationCard> {
                   widget.notificationMessage,
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontSize: 10,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w400,

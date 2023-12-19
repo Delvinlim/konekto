@@ -222,7 +222,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 width: 0.50,
-                                color: Colors.black
+                                color: CupertinoColors.black
                                     .withOpacity(0.4000000059604645),
                               ),
                               borderRadius: BorderRadius.circular(6),
@@ -241,7 +241,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                               child: const Text('Post',
                                   style: TextStyle(
                                       fontSize: 16,
-                                      // color: Colors.black,
+                                      // color: CupertinoColors.black,
                                       fontWeight: FontWeight.bold)),
                               onPressed: () {}),
                         )
@@ -447,7 +447,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
               //           shape: RoundedRectangleBorder(
               //             side: BorderSide(
               //               width: 0.50,
-              //               color: Colors.black.withOpacity(0.4000000059604645),
+              //               color: CupertinoColors.black.withOpacity(0.4000000059604645),
               //             ),
               //             borderRadius: BorderRadius.circular(6),
               //           ),
@@ -464,7 +464,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
               //             child: const Text('Post',
               //                 style: TextStyle(
               //                     fontSize: 16,
-              //                     // color: Colors.black,
+              //                     // color: CupertinoColors.black,
               //                     fontWeight: FontWeight.bold)),
               //             onPressed: () {}),
               //       )

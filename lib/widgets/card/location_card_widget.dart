@@ -30,7 +30,7 @@ class _LocationCardState extends State<LocationCard> {
         // height: 170,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          border: KonektoBorder.all(color: Colors.black),
+          border: KonektoBorder.all(color: CupertinoColors.black),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Column(
@@ -61,7 +61,7 @@ class _LocationCardState extends State<LocationCard> {
                 child: const Text('View Location',
                     style: TextStyle(
                         fontSize: 14,
-                        // color: Colors.black,
+                        // color: CupertinoColors.black,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   launchMap('Universitas Internasional Batam');

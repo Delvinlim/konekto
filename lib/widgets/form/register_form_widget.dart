@@ -27,7 +27,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Text('Username',
                 style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
@@ -53,7 +53,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Text('Email',
                 style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
@@ -79,7 +79,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Text('Password',
                 style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
@@ -107,7 +107,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Text('Confirm Password',
                 style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(

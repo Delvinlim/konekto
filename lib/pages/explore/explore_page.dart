@@ -128,7 +128,7 @@ class _ExploreState extends State<Explore> {
                                 'Devils Rejected Nation',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 14,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
@@ -138,7 +138,7 @@ class _ExploreState extends State<Explore> {
                                 '105 Members',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -148,7 +148,7 @@ class _ExploreState extends State<Explore> {
                                 'Joined',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 10,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -158,33 +158,36 @@ class _ExploreState extends State<Explore> {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        decoration: ShapeDecoration(
-                          color: const Color(0xFF0689FF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFF0689FF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Message',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.50,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Message',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.50,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -225,7 +228,7 @@ class _ExploreState extends State<Explore> {
                                 'Inter',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 14,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
@@ -235,7 +238,7 @@ class _ExploreState extends State<Explore> {
                                 '24 Members',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 12,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
@@ -245,7 +248,7 @@ class _ExploreState extends State<Explore> {
                                 'Joined',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 10,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
@@ -322,7 +325,7 @@ class _ExploreState extends State<Explore> {
                                 'Spartans',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 14,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
@@ -332,7 +335,7 @@ class _ExploreState extends State<Explore> {
                                 '24 Members',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -342,7 +345,7 @@ class _ExploreState extends State<Explore> {
                               //   'Joined',
                               //   textAlign: TextAlign.center,
                               //   style: TextStyle(
-                              //     color: Colors.black,
+                              //     color: CupertinoColors.black,
                               //     fontSize: 10,
                               //     fontFamily: 'Inter',
                               //     fontWeight: FontWeight.w400,
@@ -419,7 +422,7 @@ class _ExploreState extends State<Explore> {
                                 'Rasson',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 14,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
@@ -429,22 +432,12 @@ class _ExploreState extends State<Explore> {
                                 '16 Members',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              // Text(
-                              //   'Joined',
-                              //   textAlign: TextAlign.center,
-                              //   style: TextStyle(
-                              //     color: Colors.black,
-                              //     fontSize: 10,
-                              //     fontFamily: 'Inter',
-                              //     fontWeight: FontWeight.w400,
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -516,7 +509,7 @@ class _ExploreState extends State<Explore> {
                                 'NorthArm',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 14,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
@@ -526,7 +519,7 @@ class _ExploreState extends State<Explore> {
                                 '15 Members',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -536,7 +529,7 @@ class _ExploreState extends State<Explore> {
                                 'Joined',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: CupertinoColors.black,
                                   fontSize: 10,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,

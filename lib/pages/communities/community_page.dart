@@ -84,7 +84,7 @@ class _CommunitiesState extends State<Communities> {
                               },
                               child: const Icon(
                                 CupertinoIcons.plus,
-                                color: Colors.black,
+                                color: CupertinoColors.black,
                                 size: 32,
                               ),
                             )),
@@ -98,7 +98,7 @@ class _CommunitiesState extends State<Communities> {
                         //     },
                         //     child: const Icon(
                         //       CupertinoIcons.search,
-                        //       color: Colors.black,
+                        //       color: CupertinoColors.black,
                         //     ),
                         //   ),
                         // ),
@@ -201,7 +201,7 @@ class _CommunitiesState extends State<Communities> {
                       child: Text(
                         'Your Communities',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: CupertinoColors.black,
                           fontSize: 18,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w700,
@@ -221,7 +221,7 @@ class _CommunitiesState extends State<Communities> {
                       child: Text(
                         'Joined',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: CupertinoColors.black,
                           fontSize: 18,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w700,
@@ -285,7 +285,7 @@ class _CommunitiesState extends State<Communities> {
                                     children: [
                                       Text('General',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 18,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w700,
@@ -368,7 +368,7 @@ class _CommunitiesState extends State<Communities> {
                                     children: [
                                       Text('Motorcycle',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 18,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w700,
@@ -451,7 +451,7 @@ class _CommunitiesState extends State<Communities> {
                                     children: [
                                       Text('Basketball',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 18,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w700,
@@ -534,7 +534,7 @@ class _CommunitiesState extends State<Communities> {
                                     children: [
                                       Text('Badminton',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 18,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w700,
@@ -617,7 +617,7 @@ class _CommunitiesState extends State<Communities> {
                                     children: [
                                       Text('Volleyball',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 18,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w700,
@@ -700,7 +700,7 @@ class _CommunitiesState extends State<Communities> {
                                     children: [
                                       Text('Games',
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: CupertinoColors.black,
                                             fontSize: 18,
                                             fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w700,

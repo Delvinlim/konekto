@@ -178,7 +178,7 @@ class CommunitiesCard extends StatelessWidget {
 //                       'ODBA',
 //                       textAlign: TextAlign.center,
 //                       style: TextStyle(
-//                         color: Colors.black,
+//                         color: CupertinoColors.black,
 //                         fontSize: 16,
 //                         fontFamily: 'Inter',
 //                         fontWeight: FontWeight.w700,
@@ -188,7 +188,7 @@ class CommunitiesCard extends StatelessWidget {
 //                       'Since 2019',
 //                       textAlign: TextAlign.center,
 //                       style: TextStyle(
-//                         color: Colors.black,
+//                         color: CupertinoColors.black,
 //                         fontSize: 12,
 //                         fontFamily: 'Inter',
 //                         fontWeight: FontWeight.w400,
@@ -286,7 +286,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                 const Text(
                   'October, 3 2023',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontSize: 8,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w400,
@@ -300,7 +300,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                 'Unleash your inner champion and join us for the ultimate battle of wits, skill, and determination! 🏆🔥 #CompetitionCraze #RiseToTheChallenge',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: CupertinoColors.black,
                   fontSize: 12,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
@@ -330,7 +330,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                       children: [
                         Icon(
                           CupertinoIcons.heart,
-                          color: Colors.black,
+                          color: CupertinoColors.black,
                         ),
                         Text('2.1k')
                       ]),
@@ -341,14 +341,14 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                         children: [
                           Icon(
                             CupertinoIcons.chat_bubble_text,
-                            color: Colors.black,
+                            color: CupertinoColors.black,
                           ),
                           Text('2.1k')
                         ]),
                   ),
                   const Icon(
                     CupertinoIcons.share,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                   ),
                 ],
               ),

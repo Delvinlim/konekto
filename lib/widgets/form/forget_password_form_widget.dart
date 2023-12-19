@@ -27,7 +27,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
             child: Text(
               'Find Your Account',
               style: TextStyle(
-                  color: Colors.black,
+                  color: CupertinoColors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
             ),
@@ -36,7 +36,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
             child: Text(
               'Please enter your email address or mobile number to search for your account.',
-              style: TextStyle(color: Colors.black, fontSize: 16),
+              style: TextStyle(color: CupertinoColors.black, fontSize: 16),
             ),
           ),
           SizedBox(

@@ -59,7 +59,8 @@ class _RegisterState extends State<Register> {
                   const TextSpan(
                     text: 'Already have an account? ',
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w500),
+                        color: CupertinoColors.black,
+                        fontWeight: FontWeight.w500),
                   ),
                   TextSpan(
                       text: 'Sign in',

@@ -29,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Text('Username / Email',
                 style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Text('Password',
                 style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: CupertinoColors.black,
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(

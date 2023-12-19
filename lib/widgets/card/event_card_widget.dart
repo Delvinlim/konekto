@@ -21,7 +21,7 @@ class _EventCardState extends State<EventCard> {
         // height: 170,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
-          border: KonektoBorder.all(color: Colors.black),
+          border: KonektoBorder.all(color: CupertinoColors.black),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Column(
@@ -52,7 +52,7 @@ class _EventCardState extends State<EventCard> {
                 child: const Text('View Details',
                     style: TextStyle(
                         fontSize: 14,
-                        // color: Colors.black,
+                        // color: CupertinoColors.black,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).push(CupertinoPageRoute(

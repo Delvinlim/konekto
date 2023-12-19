@@ -130,7 +130,7 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                             '#RPKT52549233',
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: CupertinoColors.black,
                               fontSize: 12,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w700,
@@ -142,7 +142,7 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                             'Someone is sharing a sensitive content. there is a man in injured in a competition',
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: CupertinoColors.black,
                               fontSize: 12,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,

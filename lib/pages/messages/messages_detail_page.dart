@@ -103,7 +103,7 @@ class _MessagesDetailState extends State<MessagesDetail> {
                                     ))),
                         child: const Icon(
                           CupertinoIcons.camera,
-                          color: Colors.black,
+                          color: CupertinoColors.black,
                         ),
                       ),
                       const Expanded(
@@ -128,7 +128,7 @@ class _MessagesDetailState extends State<MessagesDetail> {
                       // ),
                       const Icon(
                         CupertinoIcons.share,
-                        color: Colors.black,
+                        color: CupertinoColors.black,
                       ),
                     ],
                   ),

@@ -64,7 +64,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -75,7 +75,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -91,7 +91,7 @@ class _OnBoardingState extends State<OnBoarding> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: CupertinoColors.black,
                       ),
                     ),
                   )),
@@ -118,7 +118,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -129,7 +129,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -145,7 +145,7 @@ class _OnBoardingState extends State<OnBoarding> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: CupertinoColors.black,
                       ),
                     ),
                   )),
@@ -172,7 +172,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -183,7 +183,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black,
+                      color: CupertinoColors.black,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -199,7 +199,7 @@ class _OnBoardingState extends State<OnBoarding> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black,
+                        color: CupertinoColors.black,
                       ),
                     ),
                   )),
