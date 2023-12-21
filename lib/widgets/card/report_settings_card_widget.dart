@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/pages/settings/report_settings_detail_page.dart';
 
 class ReportSettingsCard extends StatefulWidget {
   const ReportSettingsCard({super.key, required this.state});
@@ -192,28 +193,38 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                     width: 20,
                   ),
                   Expanded(
-                    child: Container(
-                      height: 40,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFF0689FF),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'View Details',
-                            style: TextStyle(
-                              color: CupertinoColors.white,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    const ReportSettingDetailPage()));
+                      },
+                      child: Container(
+                        height: 40,
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFF0689FF),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'View Details',
+                              style: TextStyle(
+                                color: CupertinoColors.white,
+                                fontSize: 14,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   )
