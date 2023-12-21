@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:konekto/pages/profile/profile_page.dart';
 import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 import 'package:konekto/widgets/message/comment_widget.dart';
 

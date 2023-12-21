@@ -371,7 +371,7 @@ class _HomeState extends State<Home> {
                           },
                           child: const Text(
                             'See All',
-                            style: TextStyle(color: CupertinoColors.black87),
+                            style: TextStyle(color: CupertinoColors.black),
                           ),
                         )
                       ],
