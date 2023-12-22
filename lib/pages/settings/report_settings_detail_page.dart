@@ -1,7 +1,45 @@
 import 'package:flutter/cupertino.dart';
 
+void _showCancelReportDialog(BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('Cancel Report?'),
+      content: const Text('Are you sure want to cancel your report?'),
+      actions: <CupertinoDialogAction>[
+        CupertinoDialogAction(
+          /// This parameter indicates this action is the default,
+          /// and turns the action's text to bold text.
+          isDestructiveAction: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('No'),
+        ),
+        CupertinoDialogAction(
+          /// This parameter indicates this action is the default,
+          /// and turns the action's text to bold text.
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+          child: const Text('Yes'),
+        ),
+      ],
+    ),
+  );
+}
+
 class ReportSettingDetailPage extends StatefulWidget {
-  const ReportSettingDetailPage({super.key});
+  const ReportSettingDetailPage({
+    super.key,
+    required this.reportNumber,
+    required this.reportStatus,
+    required this.reportDate,
+  });
+  final String reportNumber;
+  final String reportStatus;
+  final String reportDate;
 
   @override
   State<ReportSettingDetailPage> createState() => _ReportSettingDetailState();
@@ -31,14 +69,14 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 16),
-                width: 52,
-                height: 52,
+                width: 64,
+                height: 64,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: 52,
-                      height: 52,
+                      width: 64,
+                      height: 64,
                       decoration: ShapeDecoration(
                         color: const Color(0xFFECEFF1),
                         shape: RoundedRectangleBorder(
@@ -47,11 +85,12 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                       ),
                     ),
                     const SizedBox(
-                      width: 46,
-                      height: 46,
+                      width: 52,
+                      height: 52,
                       child: Icon(
                         CupertinoIcons.person,
                         color: CupertinoColors.black,
+                        size: 36,
                       ),
                     ),
                   ],
@@ -63,11 +102,11 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       child: Text(
-                        '#RPKT52549233',
+                        widget.reportNumber,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: CupertinoColors.black,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -76,12 +115,13 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const SizedBox(
+                    SizedBox(
                       width: 343,
                       child: Text(
-                        'October 20, 2023',
+                        widget.reportDate,
+                        // 'October 20, 2023',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: CupertinoColors.black,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -95,20 +135,29 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 4),
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFEEEEEE),
+                        // color: const Color(0xFFEEEEEE),
+                        color: widget.reportStatus == 'Waiting'
+                            ? const Color(0xFFEEEEEE)
+                            : widget.reportStatus == 'Approved'
+                                ? const Color(0xFFCBFFC5)
+                                : CupertinoColors.systemRed,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4)),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Waiting',
+                            widget.reportStatus,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                              color: CupertinoColors.black,
+                              color: widget.reportStatus == 'Waiting'
+                                  ? CupertinoColors.black
+                                  : widget.reportStatus == 'Approved'
+                                      ? const Color(0xFF00B505)
+                                      : CupertinoColors.white,
                               fontSize: 12,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
@@ -167,8 +216,7 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                             height: 60,
                             decoration: ShapeDecoration(
                               image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://via.placeholder.com/60x60"),
+                                image: AssetImage("assets/images/report_1.png"),
                                 fit: BoxFit.fill,
                               ),
                               shape: RoundedRectangleBorder(
@@ -181,8 +229,7 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                             height: 60,
                             decoration: ShapeDecoration(
                               image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://via.placeholder.com/60x60"),
+                                image: AssetImage("assets/images/report_2.png"),
                                 fit: BoxFit.fill,
                               ),
                               shape: RoundedRectangleBorder(
@@ -195,8 +242,7 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                             height: 60,
                             decoration: ShapeDecoration(
                               image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://via.placeholder.com/60x60"),
+                                image: AssetImage("assets/images/report_1.png"),
                                 fit: BoxFit.fill,
                               ),
                               shape: RoundedRectangleBorder(
@@ -209,36 +255,44 @@ class _ReportSettingDetailState extends State<ReportSettingDetailPage> {
                   ],
                 ),
               ),
-              Container(
-                // height: 40,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-                decoration: ShapeDecoration(
-                  color: const Color(0xFFF6F6F6),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                      width: 1,
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: Color(0xFFF6F6F6),
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Cancel Report',
-                      style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  _showCancelReportDialog(context);
+                },
+                child: Container(
+                  // height: 40,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  decoration: ShapeDecoration(
+                    color: const Color(0xFFF6F6F6),
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1,
+                        strokeAlign: BorderSide.strokeAlignCenter,
+                        color: Color(0xFFF6F6F6),
                       ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ],
+                  ),
+                  child: const Row(
+                    // mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Cancel Report',
+                        style: TextStyle(
+                          color: CupertinoColors.black,
+                          fontSize: 14,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

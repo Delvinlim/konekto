@@ -113,7 +113,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                     ),
                   )),
                   const Icon(
-                    CupertinoIcons.share,
+                    CupertinoIcons.paperplane,
                     color: CupertinoColors.black,
                   ),
                 ],

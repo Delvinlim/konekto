@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
 import 'package:konekto/pages/communities/community_post_page.dart';
+import 'package:konekto/pages/communities/community_rules_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CommunitiesCard extends StatelessWidget {
   const CommunitiesCard(
@@ -222,6 +224,8 @@ class ForYouCommunitiesCard extends StatefulWidget {
 }
 
 class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
+  IconData heartIcon = CupertinoIcons.heart;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -325,15 +329,27 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          CupertinoIcons.heart,
-                          color: CupertinoColors.black,
-                        ),
-                        Text('2.1k')
-                      ]),
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          heartIcon == CupertinoIcons.heart_fill
+                              ? heartIcon = CupertinoIcons.heart
+                              : heartIcon = CupertinoIcons.heart_fill;
+                        });
+                      },
+                      child: Icon(
+                        heartIcon,
+                        color: heartIcon == CupertinoIcons.heart_fill
+                            ? CupertinoColors.systemRed
+                            : CupertinoColors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    const Text('2.1k')
+                  ]),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 24),
                     child: const Row(
@@ -343,11 +359,14 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                             CupertinoIcons.chat_bubble_text,
                             color: CupertinoColors.black,
                           ),
+                          SizedBox(
+                            width: 2,
+                          ),
                           Text('2.1k')
                         ]),
                   ),
                   const Icon(
-                    CupertinoIcons.share,
+                    CupertinoIcons.paperplane,
                     color: CupertinoColors.black,
                   ),
                 ],
@@ -357,6 +376,251 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
         ),
       ),
     );
+  }
+}
+
+class CommunitySettingModal extends StatelessWidget {
+  const CommunitySettingModal({super.key, this.reverse = false});
+  final bool reverse;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+        child: CupertinoPageScaffold(
+      child: SafeArea(
+          top: false,
+          child: ListView(
+            reverse: reverse,
+            shrinkWrap: true,
+            controller: ModalScrollController.of(context),
+            physics: const ClampingScrollPhysics(),
+            children: <Widget>[
+              ListTile(
+                title: const Text(
+                  'Community Rules',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                leading: const Icon(Icons.book),
+                // onTap: () => showCupertinoModalBottomSheet(
+                //     expand: false,
+                //     context: context,
+                //     builder: ((context) => CommunityCreationModal(
+                //           reverse: reverse,
+                //         ))),
+                onTap: () {
+                  Navigator.of(context).pop(context);
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const CommunityRulesPage()));
+                },
+              ),
+              ListTile(
+                title: const Text(
+                  'Community Settings',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                leading: const Icon(Icons.settings),
+                // onTap: () => showCupertinoModalBottomSheet(
+                //     expand: false,
+                //     context: context,
+                //     builder: ((context) => CommunityCreationModal(
+                //           reverse: reverse,
+                //         ))),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text(
+                  'Leave Community',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                leading: const Icon(Icons.keyboard_return),
+                onTap: () {},
+                // onTap: () => showCupertinoModalBottomSheet(
+                //     expand: false,
+                //     context: context,
+                //     builder: ((context) => CommunityListModal(
+                //           reverse: reverse,
+                //         ))),
+              ),
+            ],
+          )),
+    ));
+  }
+}
+
+class CommunityDiscoverModal extends StatelessWidget {
+  const CommunityDiscoverModal(
+      {super.key, this.reverse = false, required this.discoverImage});
+  final bool reverse;
+  final String discoverImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+        child: CupertinoPageScaffold(
+      child: SafeArea(
+        top: false,
+        child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: const BoxDecoration(color: CupertinoColors.white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 340,
+                      height: 200,
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 340,
+                            height: 147,
+                            decoration: ShapeDecoration(
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/community_background.png"),
+                                fit: BoxFit.fill,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 128,
+                            top: 105,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 6),
+                              width: 84,
+                              height: 84,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: 84,
+                                    height: 84,
+                                    decoration: const ShapeDecoration(
+                                      color: Color(0xFFECEFF1),
+                                      shape: OvalBorder(),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 69,
+                                    height: 69,
+                                    decoration: ShapeDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(discoverImage),
+                                        fit: BoxFit.fill,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(232),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const Text(
+                  'ODBA',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: CupertinoColors.black,
+                      fontFamily: 'Roboto'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          '66',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                        Text(
+                          'Members',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '13',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                        Text(
+                          'Achievement',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '2019',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                        Text(
+                          'Since',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  child: const Text(
+                    "Devil's Reject Nation is a tight-knit company of motorcycle enthusiasts who share a passion for the open road and a love for are things two-wheeled. We're not your typical riders, we're a bothered and sisterhood of rebels, adventures, and free spirits who to together to embrace the thrill of a trip",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                  ),
+                ),
+                // BUTTON JOIN DISINI
+              ],
+            )),
+      ),
+    ));
   }
 }
 
@@ -372,19 +636,28 @@ class DiscoverCommunitiesCard extends StatefulWidget {
 class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 65,
-      height: 65,
-      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-      decoration: BoxDecoration(
-          border: KonektoBorder.all(color: Colors.grey.shade400),
-          borderRadius: const BorderRadius.all(Radius.circular(50)),
-          color: const Color(0xffECEFF1)),
-      child: Image.asset(
-        widget.communitiesImage,
-        height: 55.0,
-        width: 55.0,
-      ),
-    );
+    return GestureDetector(
+        onTap: () {
+          showCupertinoModalBottomSheet(
+              expand: false,
+              context: context,
+              builder: (context) => CommunityDiscoverModal(
+                    discoverImage: widget.communitiesImage,
+                  ));
+        },
+        child: Container(
+          width: 65,
+          height: 65,
+          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+          decoration: BoxDecoration(
+              border: KonektoBorder.all(color: Colors.grey.shade400),
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
+              color: const Color(0xffECEFF1)),
+          child: Image.asset(
+            widget.communitiesImage,
+            height: 55.0,
+            width: 55.0,
+          ),
+        ));
   }
 }

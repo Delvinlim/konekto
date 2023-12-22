@@ -2,9 +2,19 @@ import 'package:flutter/cupertino.dart';
 
 enum ChatType { personal, opposite }
 
+enum TextType { text, image }
+
 class ChatMessage extends StatelessWidget {
-  const ChatMessage({super.key, required this.type});
+  const ChatMessage(
+      {super.key,
+      required this.textType,
+      required this.type,
+      required this.chatMessage,
+      required this.chatTime});
+  final TextType textType;
   final ChatType type;
+  final String chatMessage;
+  final String chatTime;
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +52,24 @@ class ChatMessage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Nanti malam jam 7 jangan lupa, ada tanding persahabatan dengan Barbar FC',
-                        style: TextStyle(
-                          color: type.name == 'personal'
-                              ? CupertinoColors.white
-                              : CupertinoColors.black,
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      textType == TextType.text
+                          ? Text(
+                              chatMessage,
+                              style: TextStyle(
+                                color: type.name == 'personal'
+                                    ? CupertinoColors.white
+                                    : CupertinoColors.black,
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          : Image.asset('assets/images/event_1.png'),
                       const SizedBox(
                         height: 4,
                       ),
                       Text(
-                        '3:00 PM',
+                        chatTime,
                         style: TextStyle(
                           color: type.name == 'personal'
                               ? CupertinoColors.lightBackgroundGray

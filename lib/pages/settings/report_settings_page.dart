@@ -29,18 +29,28 @@ class _ReportSettingState extends State<ReportSettingPage> {
           children: const [
             ReportSettingsCard(
               state: 'Waiting',
+              reportDate: 'October 20, 2023',
+              reportNumber: '#RPKT52549233',
             ),
             ReportSettingsCard(
               state: 'Waiting',
+              reportDate: 'October 20, 2023',
+              reportNumber: '#RPKT52549233',
             ),
             ReportSettingsCard(
               state: 'Approved',
+              reportDate: 'October 20, 2023',
+              reportNumber: '#RPKT52549233',
             ),
             ReportSettingsCard(
               state: 'Rejected',
+              reportDate: 'October 20, 2023',
+              reportNumber: '#RPKT52549233',
             ),
             ReportSettingsCard(
               state: 'Approved',
+              reportDate: 'October 20, 2023',
+              reportNumber: '#RPKT52549233',
             ),
           ],
         )));

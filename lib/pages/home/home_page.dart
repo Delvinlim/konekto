@@ -27,12 +27,18 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+final List imageList = [
+  'assets/images/banner_1.png',
+  'assets/images/banner_2.png',
+  'assets/images/banner_3.png',
+];
+
 Widget homeSlider = SizedBox(
   height: 200,
   child: Swiper(
     itemBuilder: (BuildContext context, int index) {
       return Image.asset(
-        'assets/images/banner_1.png',
+        imageList[index],
         fit: BoxFit.fill,
       );
       // return Image.network(
@@ -40,7 +46,7 @@ Widget homeSlider = SizedBox(
       //   fit: BoxFit.fill,
       // );
     },
-    itemCount: 5,
+    itemCount: 3,
     pagination: const SwiperPagination(),
     control: const SwiperControl(),
   ),

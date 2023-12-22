@@ -1,35 +1,70 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:konekto/widgets/camera/camera_widget.dart';
 import 'package:konekto/widgets/message/chat_message_widget.dart';
+import 'package:intl/intl.dart';
 
-class MessagesDetailPage extends StatelessWidget {
-  const MessagesDetailPage(
-      {super.key, required this.communityName, required this.cameras});
-  final List<CameraDescription> cameras;
+// class MessagesDetailPage extends StatelessWidget {
+//   const MessagesDetailPage(
+//       {super.key, required this.communityName, required this.cameras});
+//   final List<CameraDescription> cameras;
+//   final String communityName;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoApp(
+//       theme: const CupertinoThemeData(brightness: Brightness.light),
+//       home: MessagesDetail(communityName: communityName, cameras: cameras),
+//     );
+//   }
+// }
+
+class MessagesDetailPage extends StatefulWidget {
+  const MessagesDetailPage({
+    super.key,
+    required this.communityName,
+    required this.cameras,
+  });
   final String communityName;
+  final List<CameraDescription> cameras;
 
   @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: MessagesDetail(communityName: communityName, cameras: cameras),
-    );
+  State<MessagesDetailPage> createState() => _MessagesDetailPageState();
+}
+
+class _MessagesDetailPageState extends State<MessagesDetailPage> {
+  var textController = TextEditingController(text: '');
+  String formattedDate = DateFormat('h:mm a').format(DateTime.now());
+
+  late List<Map> chatMessages = [
+    {
+      'type': ChatType.opposite,
+      'message': "Hi Team, Besok pagi kita jadi main?",
+      'time': '3:00 PM'
+    },
+    {
+      'type': ChatType.personal,
+      'message': "Jadi bang, langsung kumpul ditempat saja",
+      'time': '3:00 PM'
+    },
+    {
+      'type': ChatType.opposite,
+      'message': "Okee, lengkap semua kita kan bang?",
+      'time': '3:00 PM'
+    },
+    {
+      'type': ChatType.opposite,
+      'message': "Si Andy itu jadi ikut gak ya?",
+      'time': '3:00 PM'
+    },
+  ];
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
   }
-}
 
-class MessagesDetail extends StatefulWidget {
-  const MessagesDetail(
-      {super.key, required this.communityName, required this.cameras});
-  final String communityName;
-  final List<CameraDescription> cameras;
-
-  @override
-  State<MessagesDetail> createState() => _MessagesDetailState();
-}
-
-class _MessagesDetailState extends State<MessagesDetail> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -52,29 +87,31 @@ class _MessagesDetailState extends State<MessagesDetail> {
                   child: SizedBox(
                 height: 200.0,
                 child: ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  children: const [
-                    ChatMessage(type: ChatType.opposite),
-                    ChatMessage(type: ChatType.opposite),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.opposite),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.opposite),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.personal),
-                    ChatMessage(type: ChatType.opposite),
-                    ChatMessage(type: ChatType.opposite),
-                  ],
-                ),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    children: [
+                      for (var index = 0; index < chatMessages.length; index++)
+                        ChatMessage(
+                          textType: TextType.text,
+                          type: chatMessages[index]['type'],
+                          chatMessage: chatMessages[index]['message'],
+                          chatTime: chatMessages[index]['time'],
+                        ),
+                      for (var index = 0; index < chatMessages.length; index++)
+                        ChatMessage(
+                          textType: TextType.text,
+                          type: chatMessages[index]['type'],
+                          chatMessage: chatMessages[index]['message'],
+                          chatTime: chatMessages[index]['time'],
+                        ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       horizontal: 16, vertical: 8),
+                      //   child: Row(
+                      //     children: [Image.asset('assets/images/event_1.png')],
+                      //   ),
+                      // ),
+                    ]),
               )),
               // const CameraApp(),
               Container(
@@ -106,30 +143,36 @@ class _MessagesDetailState extends State<MessagesDetail> {
                           color: CupertinoColors.black,
                         ),
                       ),
-                      const Expanded(
+                      Expanded(
                           child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: CupertinoTextField(
+                          controller: textController,
                           placeholder: 'Message',
+                          onChanged: (value) => setState(() {
+                            textController.text = value;
+                          }),
                         ),
                       )),
-                      // CupertinoSearchTextField(
-                      //   controller: textController,
-                      //   placeholder: 'Search',
-                      //   onTap: () {
-                      //     // Navigate to the blank page on search submit
-                      //     Navigator.push(
-                      //       context,
-                      //       CupertinoPageRoute(
-                      //         builder: (context) => const ExploreResult(),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      const Icon(
-                        CupertinoIcons.share,
-                        color: CupertinoColors.black,
-                      ),
+                      GestureDetector(
+                        onTap: () {
+                          if (textController.text != '') {
+                            setState(() {
+                              chatMessages.add({
+                                'type': ChatType.personal,
+                                'message': textController.text,
+                                'time':
+                                    DateFormat('h:mm a').format(DateTime.now())
+                              });
+                              textController.text = '';
+                            });
+                          }
+                        },
+                        child: const Icon(
+                          CupertinoIcons.paperplane,
+                          color: CupertinoColors.black,
+                        ),
+                      )
                     ],
                   ),
                 ),

@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:konekto/pages/settings/report_settings_detail_page.dart';
 
 class ReportSettingsCard extends StatefulWidget {
-  const ReportSettingsCard({super.key, required this.state});
+  const ReportSettingsCard(
+      {super.key,
+      required this.state,
+      required this.reportDate,
+      required this.reportNumber});
   final String state;
+  final String reportDate;
+  final String reportNumber;
 
   @override
   State<ReportSettingsCard> createState() => _ReportSettingsCardState();
@@ -39,9 +45,10 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'October 20, 2023',
-                    style: TextStyle(
+                  Text(
+                    widget.reportDate,
+                    // 'October 20, 2023',
+                    style: const TextStyle(
                       color: CupertinoColors.black,
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -118,7 +125,7 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     // width: 237,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -128,9 +135,9 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                         SizedBox(
                           width: 242.85,
                           child: Text(
-                            '#RPKT52549233',
+                            widget.reportNumber,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: CupertinoColors.black,
                               fontSize: 12,
                               fontFamily: 'Inter',
@@ -138,7 +145,7 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           child: Text(
                             'Someone is sharing a sensitive content. there is a man in injured in a competition',
                             textAlign: TextAlign.justify,
@@ -199,8 +206,11 @@ class _ReportSettingsCardState extends State<ReportSettingsCard> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) =>
-                                    const ReportSettingDetailPage()));
+                                builder: (context) => ReportSettingDetailPage(
+                                      reportDate: widget.reportDate,
+                                      reportNumber: widget.reportNumber,
+                                      reportStatus: widget.state,
+                                    )));
                       },
                       child: Container(
                         height: 40,
