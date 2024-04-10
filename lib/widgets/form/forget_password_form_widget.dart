@@ -19,6 +19,22 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      CupertinoIcons.back,
+                      color: CupertinoColors.black,
+                      size: 36,
+                    ))
+              ],
+            ),
+          ),
           Center(
             child: Image.asset('assets/images/logo.png'),
           ),

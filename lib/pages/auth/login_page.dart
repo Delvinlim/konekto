@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => const RegisterPage()));
+                                  builder: (context) => const Register()));
                         }),
                 ]))
               ],

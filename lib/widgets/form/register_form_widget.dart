@@ -19,8 +19,28 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      CupertinoIcons.back,
+                      color: CupertinoColors.black,
+                      size: 36,
+                    ))
+              ],
+            ),
+          ),
           Center(
-            child: Image.asset('assets/images/logo.png'),
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 150.0,
+              height: 150.0,
+            ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),

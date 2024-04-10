@@ -26,6 +26,26 @@ class CommunitiesPost extends StatefulWidget {
 }
 
 class _CommunitiesPostState extends State<CommunitiesPost> {
+  var textController = TextEditingController(text: '');
+  final List<Map> commentsMessage = [
+    {'message': 'Semangat Bang'},
+    {'message': 'Nice Banget Bang'},
+  ];
+  final List<Widget> comments = [
+    const Comment(
+      message: 'Semangat Bang',
+    ),
+    const Comment(
+      message: 'Nice Banget Bang',
+    ),
+  ];
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -55,7 +75,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
             child: Container(
               clipBehavior: Clip.antiAlias,
               decoration: const BoxDecoration(),
-              child: const SingleChildScrollView(
+              child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
 
                 // mainAxisSize: MainAxisSize.min,
@@ -64,14 +84,10 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Comment(),
-                    Comment(),
-                    Comment(),
-                    Comment(),
-                    Comment(),
-                    Comment(),
-                    Comment(),
-                    Comment(),
+                    for (var index = 0; index < commentsMessage.length; index++)
+                      Comment(
+                        message: commentsMessage[index]['message'],
+                      )
                   ],
                 ),
               ),
@@ -105,17 +121,29 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                       color: CupertinoColors.black,
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                       child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: CupertinoTextField(
+                      controller: textController,
                       placeholder: 'Message',
+                      onChanged: (value) => setState(() {
+                        textController.text = value;
+                      }),
                     ),
                   )),
-                  const Icon(
-                    CupertinoIcons.paperplane,
-                    color: CupertinoColors.black,
-                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        commentsMessage.add({'message': textController.text});
+                      });
+                      textController.text = '';
+                    },
+                    child: const Icon(
+                      CupertinoIcons.paperplane,
+                      color: CupertinoColors.black,
+                    ),
+                  )
                 ],
               ),
             ),

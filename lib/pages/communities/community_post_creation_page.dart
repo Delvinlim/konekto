@@ -45,7 +45,9 @@ class _CommunitiesPostCreationState extends State<CommunitiesPostCreationPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Comment(),
+                  const Comment(
+                    message: 'Semangat Bang',
+                  ),
                   GestureDetector(
                     // onTap: () => Navigator.of(context, rootNavigator: true)
                     //     .push(CupertinoPageRoute(

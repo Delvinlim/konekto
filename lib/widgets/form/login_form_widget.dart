@@ -87,8 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) =>
-                                  const ForgetPasswordPage()));
+                              builder: (context) => const ForgetPassword()));
                     },
                     child: Text(
                       'Reset Password',

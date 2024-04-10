@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class Comment extends StatelessWidget {
-  const Comment({super.key});
+  const Comment({super.key, required this.message});
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,10 @@ class Comment extends StatelessWidget {
               ),
             ),
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Hendri Santoso',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -35,9 +36,9 @@ class Comment extends StatelessWidget {
                 ),
               ),
               Text(
-                'Wonderfull',
+                message,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: CupertinoColors.black,
                   fontSize: 12,
                   fontFamily: 'Roboto',

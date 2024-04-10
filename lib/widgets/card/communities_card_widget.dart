@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
 import 'package:konekto/pages/communities/community_post_page.dart';
 import 'package:konekto/pages/communities/community_rules_page.dart';
+import 'package:konekto/pages/communities/community_settings_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -421,13 +422,19 @@ class CommunitySettingModal extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 leading: const Icon(Icons.settings),
+                onTap: () {
+                  Navigator.of(context).pop(context);
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const CommunitySettingPage()));
+                },
                 // onTap: () => showCupertinoModalBottomSheet(
                 //     expand: false,
                 //     context: context,
                 //     builder: ((context) => CommunityCreationModal(
                 //           reverse: reverse,
                 //         ))),
-                onTap: () {},
               ),
               ListTile(
                 title: const Text(
@@ -435,7 +442,10 @@ class CommunitySettingModal extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 leading: const Icon(Icons.keyboard_return),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                  _showLeaveCommunityDialog(context);
+                },
                 // onTap: () => showCupertinoModalBottomSheet(
                 //     expand: false,
                 //     context: context,
@@ -447,6 +457,37 @@ class CommunitySettingModal extends StatelessWidget {
           )),
     ));
   }
+}
+
+void _showLeaveCommunityDialog(BuildContext context) {
+  showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('Leave Community'),
+      content: const Text('Are you sure want to leave this community?'),
+      actions: <CupertinoDialogAction>[
+        CupertinoDialogAction(
+          /// This parameter indicates this action is the default,
+          /// and turns the action's text to bold text.
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('No'),
+        ),
+        CupertinoDialogAction(
+          /// This parameter indicates the action would perform
+          /// a destructive action such as deletion, and turns
+          /// the action's text color to red.
+          isDestructiveAction: true,
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+          child: const Text('Yes'),
+        ),
+      ],
+    ),
+  );
 }
 
 class CommunityDiscoverModal extends StatelessWidget {

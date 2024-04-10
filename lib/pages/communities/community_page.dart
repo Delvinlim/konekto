@@ -73,7 +73,7 @@ class _CommunitiesState extends State<Communities> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
-                            padding: const EdgeInsets.only(top: 30),
+                            padding: const EdgeInsets.only(top: 30, right: 10),
                             child: GestureDetector(
                               onTap: () {
                                 showCupertinoModalBottomSheet(

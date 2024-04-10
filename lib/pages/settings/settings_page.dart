@@ -6,6 +6,7 @@ import 'package:konekto/pages/settings/notification_settings_page.dart';
 import 'package:konekto/pages/settings/report_settings_page.dart';
 import 'package:konekto/pages/settings/terms_settings_page.dart';
 import 'package:konekto/widgets/item/settings_item_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void _showDeletePasswordDialog(BuildContext context) {
   showCupertinoModalPopup<void>(
@@ -42,6 +43,18 @@ class SettingsPage extends StatefulWidget {
 
   @override
   State<SettingsPage> createState() => _SettingsState();
+}
+
+void launchWhatsapp(String message, String phone) async {
+  String queryMessage = Uri.encodeComponent(message);
+  String queryPhone = Uri.encodeComponent(message);
+  // String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+  String whatsappUrl =
+      "https://api.whatsapp.com/send/?phone=$queryPhone&text=$queryMessage&type=phone_number&app_absent=0";
+
+  if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
+    await launchUrl(Uri.parse(whatsappUrl));
+  }
 }
 
 class _SettingsState extends State<SettingsPage> {
@@ -277,11 +290,8 @@ class _SettingsState extends State<SettingsPage> {
                               color: CupertinoColors.black,
                             ),
                             callback: () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const ExplorePage()));
+                              launchWhatsapp('Halo, saya ada butuh bantuan',
+                                  '+6282288521900');
                             },
                           ),
                           SettingsItem(
