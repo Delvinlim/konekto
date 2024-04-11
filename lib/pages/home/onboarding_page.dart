@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_onboarding/cupertino_onboarding.dart';
 import 'package:konekto/pages/auth/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
@@ -27,16 +28,25 @@ class OnBoarding extends StatefulWidget {
 }
 
 class _OnBoardingState extends State<OnBoarding> {
+  void _completeOnboarding() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboardingCompleted', true);
+
+    // Navigate to the next screen after onboarding
+    // ignore: use_build_context_synchronously
+    Navigator.pushAndRemoveUntil(
+        context,
+        CupertinoPageRoute(builder: (context) => const Login()),
+        ((route) => false));
+  }
+
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_unnecessary_containers
     return CupertinoOnboarding(
       // color: Colors.white,
       bottomButtonColor: Colors.lightBlue,
-      onPressedOnLastPage: () => Navigator.pushAndRemoveUntil(
-          context,
-          CupertinoPageRoute(builder: (context) => const Login()),
-          ((route) => false)),
+      onPressedOnLastPage: () => _completeOnboarding(),
       // onPressedOnLastPage: () => Navigator.of(context).pushNamedAndRemoveUntil(CupertinoPageRoute(builder: (context) => const KonektoTabBar()), (route) => false),
 
       bottomButtonChild: const Text(
