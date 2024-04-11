@@ -64,7 +64,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Football',
                             )));
               },
@@ -88,7 +88,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Volleyball',
                             )));
               },
@@ -112,7 +112,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Basketball',
                             )));
               },
@@ -136,7 +136,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Billiard',
                             )));
               },
@@ -160,7 +160,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Badminton',
                             )));
               },
@@ -184,7 +184,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Swimming',
                             )));
               },
@@ -208,7 +208,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Tennis',
                             )));
               },
@@ -232,7 +232,7 @@ Widget homeCommunityCategories(context) {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const CommunitiesListPage(
+                        builder: (context) => const CommunitiesList(
                               categoryName: 'Gaming',
                             )));
               },
@@ -320,8 +320,7 @@ class _HomeState extends State<Home> {
                         child: CupertinoButton(
                           onPressed: () {
                             Navigator.of(context).push(CupertinoPageRoute(
-                                builder: (context) =>
-                                    const NotificationsPage()));
+                                builder: (context) => const Notifications()));
                           },
                           child: const Icon(
                             CupertinoIcons.bell,

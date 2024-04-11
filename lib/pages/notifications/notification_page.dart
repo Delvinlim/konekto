@@ -42,8 +42,7 @@ class _NotificationsState extends State<Notifications> {
           middle: const Text('Notification'),
           leading: CupertinoNavigationBarBackButton(
             color: CupertinoColors.black,
-            onPressed: () =>
-                Navigator.of(context, rootNavigator: true).pop(context),
+            onPressed: () => Navigator.of(context).pop(context),
           ),
         ),
         child: Column(
