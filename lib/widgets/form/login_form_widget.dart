@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
+import 'package:konekto/utils/konekto_route.dart';
 import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 
 class LoginForm extends StatefulWidget {
@@ -16,6 +17,9 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    bool isUsernameError = false;
+    bool isPasswordError = false;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -43,7 +47,8 @@ class _LoginFormState extends State<LoginForm> {
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  // return Container(child: Text('Please enter your username or email'))
+                  return 'Please enter your username or email';
                 }
                 return null;
               },
@@ -70,7 +75,7 @@ class _LoginFormState extends State<LoginForm> {
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter your password';
                 }
                 return null;
               },
@@ -91,7 +96,9 @@ class _LoginFormState extends State<LoginForm> {
                     },
                     child: Text(
                       'Reset Password',
-                      style: TextStyle(color: Colors.blue.shade600),
+                      style: TextStyle(
+                          color: Colors.blue.shade600,
+                          fontWeight: FontWeight.w500),
                     ),
                   ))
             ],
@@ -109,17 +116,13 @@ class _LoginFormState extends State<LoginForm> {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          CupertinoPageRoute(
-                              builder: (context) => const KonektoTabBar()),
+                          FadeRoute(page: const KonektoTabBarApp()),
                           ((route) => false));
-                      // Navigator.pushReplacement(
+                      // Navigator.pushAndRemoveUntil(
                       //     context,
                       //     CupertinoPageRoute(
-                      //         builder: (context) => const KonektoTabBar()));
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     CupertinoPageRoute(
-                      //         builder: (context) => const KonektoTabBar()));
+                      //         builder: (context) => const KonektoTabBar()),
+                      //     ((route) => false));
                     }
                   }),
             ),

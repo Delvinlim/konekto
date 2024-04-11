@@ -16,7 +16,7 @@ class CategoryModalItem extends StatelessWidget {
             Navigator.push(
                 context,
                 CupertinoPageRoute(
-                    builder: (context) => CommunitiesListPage(
+                    builder: (context) => CommunitiesList(
                           categoryName: categoryName,
                         )));
           },

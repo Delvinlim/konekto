@@ -28,7 +28,7 @@ class KonektoBorder extends Border {
   }
 
   @override
-  EdgeInsetsGeometry get dimensions => const EdgeInsets.all(8.0);
+  EdgeInsetsGeometry get dimensions => const EdgeInsets.all(4.0);
 
   final BorderSide top;
 
