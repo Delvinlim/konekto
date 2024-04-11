@@ -8,18 +8,6 @@ import 'package:konekto/widgets/card/notification_card_widget.dart';
 
 enum NotificationType { all, system, community }
 
-class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Notifications(),
-    );
-  }
-}
-
 class Notifications extends StatefulWidget {
   const Notifications({super.key});
 

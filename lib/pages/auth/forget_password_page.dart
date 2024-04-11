@@ -6,18 +6,6 @@ import 'package:konekto/widgets/form/forget_password_form_widget.dart';
 
 // void main() => runApp(const ForgetPasswordPage());
 
-class ForgetPasswordPage extends StatelessWidget {
-  const ForgetPasswordPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: ForgetPassword(),
-    );
-  }
-}
-
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
 

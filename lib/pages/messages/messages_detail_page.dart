@@ -4,21 +4,6 @@ import 'package:konekto/widgets/camera/camera_widget.dart';
 import 'package:konekto/widgets/message/chat_message_widget.dart';
 import 'package:intl/intl.dart';
 
-// class MessagesDetailPage extends StatelessWidget {
-//   const MessagesDetailPage(
-//       {super.key, required this.communityName, required this.cameras});
-//   final List<CameraDescription> cameras;
-//   final String communityName;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoApp(
-//       theme: const CupertinoThemeData(brightness: Brightness.light),
-//       home: MessagesDetail(communityName: communityName, cameras: cameras),
-//     );
-//   }
-// }
-
 class MessagesDetailPage extends StatefulWidget {
   const MessagesDetailPage({
     super.key,

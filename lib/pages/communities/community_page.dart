@@ -11,18 +11,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 enum CommunitiesType { forYou, yourCommunities, discover }
 
-class CommunitiesPage extends StatelessWidget {
-  const CommunitiesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Communities(),
-    );
-  }
-}
-
 class Communities extends StatefulWidget {
   const Communities({super.key});
 
@@ -306,7 +294,7 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const CommunitiesListPage(
+                                                  const CommunitiesList(
                                                     categoryName: 'General',
                                                   )));
                                     },
@@ -389,7 +377,7 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const CommunitiesListPage(
+                                                  const CommunitiesList(
                                                     categoryName: 'Motorcycle',
                                                   )));
                                     },
@@ -472,7 +460,7 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const CommunitiesListPage(
+                                                  const CommunitiesList(
                                                     categoryName: 'Basketball',
                                                   )));
                                     },
@@ -555,7 +543,7 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const CommunitiesListPage(
+                                                  const CommunitiesList(
                                                     categoryName: 'Badminton',
                                                   )));
                                     },
@@ -638,7 +626,7 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const CommunitiesListPage(
+                                                  const CommunitiesList(
                                                     categoryName: 'Volleyball',
                                                   )));
                                     },
@@ -722,7 +710,7 @@ class _CommunitiesState extends State<Communities> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const CommunitiesListPage(
+                                                  const CommunitiesList(
                                                     categoryName: 'Games',
                                                   )));
                                     },

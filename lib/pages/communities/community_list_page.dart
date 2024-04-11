@@ -2,21 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../widgets/card/communities_card_widget.dart';
 
-class CommunitiesListPage extends StatelessWidget {
-  const CommunitiesListPage({super.key, required this.categoryName});
-  final String categoryName;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: CommunitiesList(
-        categoryName: categoryName,
-      ),
-    );
-  }
-}
-
 class CommunitiesList extends StatefulWidget {
   const CommunitiesList({super.key, required this.categoryName});
   final String categoryName;

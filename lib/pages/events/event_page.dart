@@ -4,21 +4,6 @@ import 'package:konekto/pages/events/event_registration_page.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
-class EventPage extends StatelessWidget {
-  const EventPage({super.key, required this.eventName});
-  final String eventName;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: Event(
-        eventName: eventName,
-      ),
-    );
-  }
-}
-
 class Event extends StatefulWidget {
   const Event({super.key, required this.eventName});
   final String eventName;

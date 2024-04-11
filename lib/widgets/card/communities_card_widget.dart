@@ -235,7 +235,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => CommunitiesPostPage(
+                  builder: (context) => CommunitiesPost(
                         communityName: widget.communityName,
                       )));
         }

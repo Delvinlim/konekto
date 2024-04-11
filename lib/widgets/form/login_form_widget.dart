@@ -17,9 +17,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    bool isUsernameError = false;
-    bool isPasswordError = false;
-
     return Form(
       key: _formKey,
       child: Column(
@@ -116,7 +113,7 @@ class _LoginFormState extends State<LoginForm> {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          FadeRoute(page: const KonektoTabBarApp()),
+                          FadeRoute(page: const KonektoTabBar()),
                           ((route) => false));
                       // Navigator.pushAndRemoveUntil(
                       //     context,

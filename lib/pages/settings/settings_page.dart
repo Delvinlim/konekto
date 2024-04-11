@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:konekto/pages/explore/explore_page.dart';
 import 'package:konekto/pages/settings/account_settings_page.dart';
 import 'package:konekto/pages/settings/auth_settings_page.dart';
 import 'package:konekto/pages/settings/notification_settings_page.dart';

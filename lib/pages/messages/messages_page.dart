@@ -2,18 +2,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:konekto/widgets/message/message_widget.dart';
 
-class MessagesPage extends StatelessWidget {
-  const MessagesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Messages(),
-    );
-  }
-}
-
 class Messages extends StatefulWidget {
   const Messages({super.key});
 

@@ -4,19 +4,6 @@ import 'package:konekto/widgets/message/comment_widget.dart';
 
 import '../../widgets/card/communities_card_widget.dart';
 
-class CommunitiesPostPage extends StatelessWidget {
-  const CommunitiesPostPage({super.key, required this.communityName});
-  final String communityName;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: CommunitiesPost(communityName: communityName),
-    );
-  }
-}
-
 class CommunitiesPost extends StatefulWidget {
   const CommunitiesPost({super.key, required this.communityName});
   final String communityName;

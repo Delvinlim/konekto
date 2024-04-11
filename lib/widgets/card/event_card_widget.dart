@@ -56,7 +56,7 @@ class _EventCardState extends State<EventCard> {
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (context) => EventPage(
+                      builder: (context) => Event(
                             eventName: widget.eventName,
                           )));
                 })

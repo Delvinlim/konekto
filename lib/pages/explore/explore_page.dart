@@ -6,18 +6,6 @@ import '../../widgets/card/location_card_widget.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
-class ExplorePage extends StatelessWidget {
-  const ExplorePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Explore(),
-    );
-  }
-}
-
 class Explore extends StatefulWidget {
   const Explore({super.key});
 

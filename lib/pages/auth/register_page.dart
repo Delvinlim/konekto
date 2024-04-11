@@ -8,18 +8,6 @@ import 'package:konekto/widgets/form/register_form_widget.dart';
 
 // void main() => runApp(const RegisterPage());
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Register(),
-    );
-  }
-}
-
 class Register extends StatefulWidget {
   const Register({super.key});
 

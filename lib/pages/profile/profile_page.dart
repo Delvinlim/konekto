@@ -3,22 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:konekto/utils/konekto_profile_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-/// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const ProfilePage());
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Profile(),
-    );
-  }
-}
-
 class Profile extends StatefulWidget {
   const Profile({super.key});
 

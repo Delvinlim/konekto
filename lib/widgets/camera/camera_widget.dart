@@ -1,6 +1,6 @@
-/// CameraScreen.dart
 import 'dart:io';
 
+/// CameraScreen.dart
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

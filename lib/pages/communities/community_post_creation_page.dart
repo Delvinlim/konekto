@@ -3,19 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 import 'package:konekto/widgets/message/comment_widget.dart';
 
-// class CommunitiesPostCreationPage extends StatelessWidget {
-//   const CommunitiesPostCreationPage({super.key, required this.communityName});
-//   final String communityName;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoApp(
-//       theme: const CupertinoThemeData(brightness: Brightness.light),
-//       home: CommunitiesPostCreationPage(communityName: communityName),
-//     );
-//   }
-// }
-
 class CommunitiesPostCreationPage extends StatefulWidget {
   const CommunitiesPostCreationPage({super.key, required this.communityName});
   final String communityName;

@@ -9,18 +9,6 @@ import 'package:konekto/pages/profile/profile_page.dart';
 
 // void main() => runApp(const KonektoTabBarApp());
 
-class KonektoTabBarApp extends StatelessWidget {
-  const KonektoTabBarApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: KonektoTabBar(),
-    );
-  }
-}
-
 class KonektoTabBar extends StatelessWidget {
   const KonektoTabBar({super.key});
 
