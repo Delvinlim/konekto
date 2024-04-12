@@ -1,9 +1,18 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/utils/konekto_route.dart';
 import 'package:konekto/widgets/appbar/app_bar_widget.dart';
+import 'package:konekto/services/dio_service.dart';
+import 'package:toastification/toastification.dart';
+import 'package:flutter_session_jwt/flutter_session_jwt.dart';
+
+final dio = Dio();
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -14,6 +23,78 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void _login() async {
+    try {
+      // Consume API
+      dynamic res = await dioClient.post('/auth/login', data: {
+        'email': emailController.text,
+        'password': passwordController.text
+      });
+      final response = json.decode(res.toString());
+
+      // Save Token
+      await FlutterSessionJwt.saveToken(response['token']);
+
+      // Show Notification
+      // ignore: use_build_context_synchronously
+      toastification.show(
+        context: context,
+        title: const Text("Success"),
+        description: const Text(
+          'Please wait a moment...',
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        autoCloseDuration: const Duration(seconds: 3),
+        type: ToastificationType.success,
+        style: ToastificationStyle.flatColored,
+        alignment: Alignment.topCenter,
+        direction: TextDirection.ltr,
+        showProgressBar: false,
+        closeButtonShowType: CloseButtonShowType.none,
+        callbacks: ToastificationCallbacks(
+            onAutoCompleteCompleted: (toastItem) =>
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    FadeRoute(page: const KonektoTabBar()),
+                    ((route) => false))),
+      );
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // print(e.requestOptions);
+        if (e.message != null) {
+          // ignore: use_build_context_synchronously
+          toastification.show(
+              context: context,
+              title: const Text("Server Error"),
+              autoCloseDuration: const Duration(seconds: 3),
+              type: ToastificationType.error,
+              style: ToastificationStyle.flatColored,
+              alignment: Alignment.topCenter,
+              direction: TextDirection.ltr,
+              dragToClose: true,
+              showProgressBar: false);
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +117,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your username or email',
+              controller: emailController,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               decoration: BoxDecoration(
@@ -63,6 +145,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
+              controller: passwordController,
               obscureText: true,
               keyboardType: TextInputType.visiblePassword,
               padding:
@@ -111,10 +194,11 @@ class _LoginFormState extends State<LoginForm> {
                   child: const Text('Submit'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          FadeRoute(page: const KonektoTabBar()),
-                          ((route) => false));
+                      _login();
+                      // Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     FadeRoute(page: const KonektoTabBar()),
+                      //     ((route) => false));
                       // Navigator.pushAndRemoveUntil(
                       //     context,
                       //     CupertinoPageRoute(

@@ -2,8 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/login_page.dart';
 import 'package:konekto/pages/settings/settings_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-void _logout(BuildContext context) {
+const _storage = FlutterSecureStorage();
+
+void _logout(BuildContext context) async {
+  // Logout
+  await _storage.delete(key: 'jwtToken');
+
+  // ignore: use_build_context_synchronously
   Navigator.pushAndRemoveUntil(context,
       CupertinoPageRoute(builder: (BuildContext context) {
     return const LoginPage();

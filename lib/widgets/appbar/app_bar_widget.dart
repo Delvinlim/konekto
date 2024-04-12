@@ -5,6 +5,18 @@ import 'package:konekto/pages/home/home_page.dart';
 import 'package:konekto/pages/messages/messages_page.dart';
 import 'package:konekto/pages/profile/profile_page.dart';
 
+class MainBarPage extends StatelessWidget {
+  const MainBarPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CupertinoApp(
+      theme: CupertinoThemeData(brightness: Brightness.light),
+      home: KonektoTabBar(),
+    );
+  }
+}
+
 class KonektoTabBar extends StatelessWidget {
   const KonektoTabBar({super.key});
 

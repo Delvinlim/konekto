@@ -51,6 +51,8 @@ dependencies:
   shared_preferences: ^2.2.3
   flutter_session_jwt: ^0.0.6
   dio: ^5.4.2+1
+  fluttertoast: ^8.0.9
+  toastification: ^1.2.1
 
 dev_dependencies:
   flutter_test:
