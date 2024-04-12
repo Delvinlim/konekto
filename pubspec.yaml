@@ -55,6 +55,7 @@ dependencies:
   toastification: ^1.2.1
   flutter_easyloading: ^3.0.5
   skeletonizer: ^1.0.1
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:
