@@ -5,10 +5,6 @@ import 'package:konekto/pages/home/home_page.dart';
 import 'package:konekto/pages/messages/messages_page.dart';
 import 'package:konekto/pages/profile/profile_page.dart';
 
-/// Flutter code sample for [CupertinoTabBar].
-
-// void main() => runApp(const KonektoTabBarApp());
-
 class KonektoTabBar extends StatelessWidget {
   const KonektoTabBar({super.key});
 
@@ -39,7 +35,7 @@ class KonektoTabBar extends StatelessWidget {
       tabBuilder: (BuildContext context, int index) {
         switch (index) {
           case 0:
-            return const Home();
+            return const HomePage();
           case 1:
             return const Explore();
           case 2:
@@ -49,7 +45,7 @@ class KonektoTabBar extends StatelessWidget {
           case 4:
             return const Profile();
           default:
-            return const Home();
+            return const HomePage();
         }
         // return CupertinoTabView(
         //   builder: (BuildContext context) {

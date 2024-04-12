@@ -62,9 +62,8 @@ class ProfileModal extends StatelessWidget {
             leading: const Icon(Icons.settings),
             onTap: () => {
               Navigator.of(context, rootNavigator: true).pop(context),
-              Navigator.of(context, rootNavigator: true).push(
-                  CupertinoPageRoute(
-                      builder: (context) => const SettingsPage()))
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (context) => const SettingsPage()))
             },
           ),
           ListTile(

@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/register_page.dart';
 import 'package:konekto/widgets/form/login_form_widget.dart';
 
-/// Flutter code sample for [CupertinoPageScaffold].
-
-// void main() => runApp(const LoginPage());
-
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 

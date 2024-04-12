@@ -67,8 +67,7 @@ class _SettingsState extends State<SettingsPage> {
           middle: const Text('Settings & Support'),
           leading: CupertinoNavigationBarBackButton(
             color: CupertinoColors.black,
-            onPressed: () =>
-                Navigator.of(context, rootNavigator: true).pop(context),
+            onPressed: () => Navigator.of(context).pop(context),
           ),
         ),
         child: SafeArea(

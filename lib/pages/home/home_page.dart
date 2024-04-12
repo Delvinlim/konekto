@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:konekto/pages/communities/community_list_page.dart';
 import 'package:konekto/pages/notifications/notification_page.dart';
+import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/widgets/card/event_card_widget.dart';
 import 'package:konekto/widgets/modals/category_modal.dart';
@@ -14,9 +15,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Home(),
-    );
+        theme: CupertinoThemeData(brightness: Brightness.light), home: Home());
+    // home: DoubleBackToCloseApp(
+    //     snackBar: SnackBar(
+    //       content: Text('Tap back again to leave'),
+    //     ),
+    //     child: Home()));q
   }
 }
 
@@ -252,6 +256,10 @@ Widget homeCommunityCategories(context) {
               ),
             ),
           ]));
+}
+
+void _getBanners() {
+  dioClient.get('/banners');
 }
 
 class _HomeState extends State<Home> {
