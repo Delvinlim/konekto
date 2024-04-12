@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/utils/konekto_route.dart';
@@ -11,6 +10,7 @@ import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 import 'package:konekto/services/dio_service.dart';
 import 'package:toastification/toastification.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 final dio = Dio();
 
@@ -61,10 +61,18 @@ class _LoginFormState extends State<LoginForm> {
                     FadeRoute(page: const KonektoTabBar()),
                     ((route) => false))),
       );
+
+      await EasyLoading.dismiss();
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-      if (e.response != null) {
+      print('error...');
+      print(e);
+      print(e.response?.statusCode);
+      print(e.response);
+      print(e.message);
+      print('\n');
+      if (e.response != null && e.response?.statusCode != 429) {
         // ignore: use_build_context_synchronously
         toastification.show(
             context: context,
@@ -79,20 +87,23 @@ class _LoginFormState extends State<LoginForm> {
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         // print(e.requestOptions);
-        if (e.message != null) {
-          // ignore: use_build_context_synchronously
-          toastification.show(
-              context: context,
-              title: const Text("Server Error"),
-              autoCloseDuration: const Duration(seconds: 3),
-              type: ToastificationType.error,
-              style: ToastificationStyle.flatColored,
-              alignment: Alignment.topCenter,
-              direction: TextDirection.ltr,
-              dragToClose: true,
-              showProgressBar: false);
-        }
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
       }
+      if (e.message != null) {}
+
+      await EasyLoading.dismiss();
     }
   }
 
@@ -194,6 +205,9 @@ class _LoginFormState extends State<LoginForm> {
                   child: const Text('Submit'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      EasyLoading.show(
+                          status: 'loading...',
+                          maskType: EasyLoadingMaskType.black);
                       _login();
                       // Navigator.pushAndRemoveUntil(
                       //     context,

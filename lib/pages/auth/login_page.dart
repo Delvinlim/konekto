@@ -3,16 +3,21 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/register_page.dart';
 import 'package:konekto/widgets/form/login_form_widget.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Login(),
-    );
+    return CupertinoApp(
+        theme: const CupertinoThemeData(brightness: Brightness.light),
+        home: const Login(),
+        builder: EasyLoading.init()
+        // builder: (context, child) {
+        //   EasyLoading.init();
+        // },
+        );
   }
 }
 

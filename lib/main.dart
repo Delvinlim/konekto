@@ -6,8 +6,23 @@ import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 // import 'package:konekto/widgets/appbar/app_bar_widget.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 // void main() {
+void configLoading() {
+  EasyLoading.instance
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..radius = 10.0
+    ..indicatorSize = 45.0
+    ..textColor = Colors.black
+    ..indicatorColor = Colors.black
+    ..maskColor = Colors.transparent
+    ..backgroundColor = Colors.transparent
+    ..boxShadow = []
+    ..userInteractions = true
+    ..dismissOnTap = false;
+}
+
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // Ensure that plugins are initialized
@@ -26,8 +41,6 @@ void main() async {
   } catch (e) {
     isExpired = true;
   }
-  print('is expired...');
-  print(isExpired);
 
   // Determine which screen to show based on onboarding completion status
   Widget initialScreen = isOnboardingCompleted
@@ -37,4 +50,5 @@ void main() async {
       : const OnboardingPage();
 
   runApp(initialScreen);
+  configLoading();
 }
