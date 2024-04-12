@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/events/event_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class EventCard extends StatefulWidget {
   const EventCard(
@@ -20,6 +21,7 @@ class _EventCardState extends State<EventCard> {
         width: 200,
         // height: 170,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           border: KonektoBorder.all(color: CupertinoColors.black),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -46,20 +48,21 @@ class _EventCardState extends State<EventCard> {
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            CupertinoButton(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                color: Colors.blue.shade600,
-                child: const Text('View Details',
-                    style: TextStyle(
-                        fontSize: 14,
-                        // color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (context) => Event(
-                            eventName: widget.eventName,
-                          )));
-                })
+            Skeleton.ignore(
+                child: CupertinoButton(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
+                    color: CupertinoColors.activeBlue,
+                    child: const Text('View Details',
+                        style: TextStyle(
+                            fontSize: 14,
+                            // color: CupertinoColors.black,
+                            fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => Event(
+                                eventName: widget.eventName,
+                              )));
+                    }))
           ],
         ));
   }

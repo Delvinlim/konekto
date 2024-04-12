@@ -99,7 +99,6 @@ class _LoginFormState extends State<LoginForm> {
             dragToClose: true,
             showProgressBar: false);
       }
-      if (e.message != null) {}
 
       await EasyLoading.dismiss();
     }
