@@ -66,12 +66,6 @@ class _LoginFormState extends State<LoginForm> {
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-      print('error...');
-      print(e);
-      print(e.response?.statusCode);
-      print(e.response);
-      print(e.message);
-      print('\n');
       if (e.response != null && e.response?.statusCode != 429) {
         // ignore: use_build_context_synchronously
         toastification.show(
@@ -93,6 +87,10 @@ class _LoginFormState extends State<LoginForm> {
             title: e.message != null
                 ? Text(e.response!.statusMessage!)
                 : const Text("Server Error"),
+            description: const Text(
+              'Please try again later',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             autoCloseDuration: const Duration(seconds: 3),
             type: ToastificationType.error,
             style: ToastificationStyle.flatColored,
