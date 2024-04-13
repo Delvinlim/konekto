@@ -4,8 +4,8 @@ import 'package:konekto/pages/communities/community_list_page.dart';
 class CategoryModalItem extends StatelessWidget {
   const CategoryModalItem(
       {super.key, required this.categoryName, required this.categoryImage});
-  final String categoryName;
-  final String categoryImage;
+  final String? categoryName;
+  final String? categoryImage;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class CategoryModalItem extends StatelessWidget {
                 context,
                 CupertinoPageRoute(
                     builder: (context) => CommunitiesList(
-                          categoryName: categoryName,
+                          categoryName: categoryName ?? 'Default Category',
                         )));
           },
           child: Container(
@@ -34,8 +34,9 @@ class CategoryModalItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  categoryImage,
+                // TODO Default network image
+                Image.network(
+                  categoryImage ?? '',
                   height: 50.0,
                   width: 50.0,
                 ),
@@ -46,7 +47,7 @@ class CategoryModalItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: Text(
-            categoryName,
+            categoryName ?? 'Default Category',
             style: const TextStyle(
               color: CupertinoColors.black,
               fontSize: 14,

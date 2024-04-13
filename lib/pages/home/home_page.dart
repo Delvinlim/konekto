@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
+import 'package:konekto/models/community_categories_response.dart';
 import 'package:konekto/models/profile_response.dart';
 import 'package:konekto/pages/communities/community_list_page.dart';
 import 'package:konekto/pages/notifications/notification_page.dart';
@@ -54,201 +55,46 @@ Widget homeCommunityCategories(context) {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Football',
-                            )));
-              },
-              child: Container(
+            Container(
                 width: 64,
                 height: 64,
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child: Image.asset(
-                    'assets/images/categories/football.png',
-                    height: 50.0,
-                    width: 50.0,
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Volleyball',
-                            )));
-              },
-              child: Container(
+                child: const Bone.square(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  size: 20,
+                )),
+            Container(
                 width: 64,
                 height: 64,
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/volleyball.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Basketball',
-                            )));
-              },
-              child: Container(
+                child: const Bone.square(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  size: 20,
+                )),
+            Container(
                 width: 64,
                 height: 64,
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/basketball.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Billiard',
-                            )));
-              },
-              child: Container(
+                child: const Bone.square(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  size: 20,
+                )),
+            Container(
                 width: 64,
                 height: 64,
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/billiard.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Badminton',
-                            )));
-              },
-              child: Container(
+                child: const Bone.square(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  size: 20,
+                )),
+            Container(
                 width: 64,
                 height: 64,
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/badminton.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Swimming',
-                            )));
-              },
-              child: Container(
-                width: 64,
-                height: 64,
-                margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/swimming.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Tennis',
-                            )));
-              },
-              child: Container(
-                width: 64,
-                height: 64,
-                margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/tennis.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const CommunitiesList(
-                              categoryName: 'Gaming',
-                            )));
-              },
-              child: Container(
-                width: 64,
-                height: 64,
-                margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                    border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: const Color(0xffD9D9D9)),
-                child: Image.asset(
-                  'assets/images/categories/gaming.png',
-                  height: 50.0,
-                  width: 50.0,
-                ),
-              ),
-            ),
+                child: const Bone.square(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  size: 20,
+                )),
           ]));
 }
 
@@ -261,9 +107,12 @@ class _HomeState extends State<Home> {
 
   // API Values
   late ProfileResponse profile = ProfileResponse(id: '', name: '', email: '');
+  // late CommunityCategoriesResponse communityCategories =
+  //     CommunityCategoriesResponse(id: '', name: '', imageUrl: '');
   late String greeting;
   late bool isUnreadNotification = true;
   late List imageUrlList = [];
+  late List<CommunityCategory> communityCategoriesList = [];
 
   @override
   void initState() {
@@ -271,6 +120,7 @@ class _HomeState extends State<Home> {
     _fetchProfile();
     _getUnreadNotification();
     _fetchBanners();
+    _fetchCommunityCategories();
     setState(() {
       greeting = getGreetings();
     });
@@ -441,6 +291,68 @@ class _HomeState extends State<Home> {
       // that falls out of the range of 2xx and is also not 304.
       setState(() {
         isBannerFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Please try again later',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _fetchCommunityCategories() async {
+    setState(() {
+      isCategoriesFetched = true;
+    });
+
+    try {
+      Response response = await dioClient.get('/community/categories?limit=8');
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        Map<String, dynamic> responseData = response.data;
+        CommunityCategoriesResponse communityCategoriesResponse =
+            CommunityCategoriesResponse.fromJson(responseData);
+        print('community categories response');
+        print(responseData);
+        setState(() {
+          communityCategoriesList =
+              communityCategoriesResponse.categories ?? [];
+          isCategoriesFetched = false;
+        });
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      setState(() {
+        isCategoriesFetched = false;
       });
       if (e.response?.data['message'] != null &&
           e.response?.statusCode != 429) {
@@ -686,7 +598,47 @@ class _HomeState extends State<Home> {
           ),
           Skeletonizer(
             enabled: isCategoriesFetched,
-            child: homeCommunityCategories(context),
+            child: isCategoriesFetched
+                ? homeCommunityCategories(context) // Fake Data
+                : SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          for (var category in communityCategoriesList)
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => CommunitiesList(
+                                              categoryName: category.name!,
+                                            )));
+                              },
+                              child: Container(
+                                width: 64,
+                                height: 64,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                decoration: BoxDecoration(
+                                    border: KonektoBorder.all(
+                                        color: Colors.grey.shade400),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4)),
+                                    color: const Color(0xffD9D9D9)),
+                                child: ClipRRect(
+                                  // borderRadius: BorderRadius.circular(50.0),
+                                  // TODO Default network image
+                                  child: Image.network(
+                                    category.imageUrl ?? '',
+                                    height: 50.0,
+                                    width: 50.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ])),
           ),
 
           // Events
