@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:konekto/models/community_categories_response.dart';
+import 'package:konekto/models/community_events_response.dart';
 import 'package:konekto/models/profile_response.dart';
 import 'package:konekto/pages/communities/community_list_page.dart';
 import 'package:konekto/pages/notifications/notification_page.dart';
@@ -113,6 +114,7 @@ class _HomeState extends State<Home> {
   late bool isUnreadNotification = true;
   late List imageUrlList = [];
   late List<CommunityCategory> communityCategoriesList = [];
+  late List<CommunityEvent> communityEventsList = [];
 
   @override
   void initState() {
@@ -121,6 +123,7 @@ class _HomeState extends State<Home> {
     _getUnreadNotification();
     _fetchBanners();
     _fetchCommunityCategories();
+    _fetchCommunityEvents();
     setState(() {
       greeting = getGreetings();
     });
@@ -353,6 +356,67 @@ class _HomeState extends State<Home> {
       // that falls out of the range of 2xx and is also not 304.
       setState(() {
         isCategoriesFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Please try again later',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _fetchCommunityEvents() async {
+    setState(() {
+      isEventsFetched = true;
+    });
+
+    try {
+      Response response = await dioClient.get('/community/events');
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        Map<String, dynamic> responseData = response.data;
+        CommunityEventsResponse communityEventsResponse =
+            CommunityEventsResponse.fromJson(responseData);
+        print('community events response');
+        print(responseData);
+        setState(() {
+          communityEventsList = communityEventsResponse.events ?? [];
+          isEventsFetched = false;
+        });
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      setState(() {
+        isEventsFetched = false;
       });
       if (e.response?.data['message'] != null &&
           e.response?.statusCode != 429) {
@@ -671,37 +735,69 @@ class _HomeState extends State<Home> {
           Skeletonizer(
             enabled: isEventsFetched,
             ignoreContainers: true,
-            child: const SizedBox(
+            child: SizedBox(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    EventCard(
-                      eventName: '2023 Kepri Cup',
-                      eventImage: 'assets/images/events/kepri_cup.png',
-                    ),
-                    EventCard(
-                      eventName: 'Batam Drawing',
-                      eventImage: 'assets/images/events/batam_drawing.png',
-                    ),
-                    EventCard(
-                      eventName: 'UIB Run',
-                      eventImage: 'assets/images/events/ika_uib.png',
-                    ),
-                    EventCard(
-                      eventName: '2023 Kepri Cup',
-                      eventImage: 'assets/images/events/kepri_cup.png',
-                    ),
-                    EventCard(
-                      eventName: 'Batam Drawing',
-                      eventImage: 'assets/images/events/batam_drawing.png',
-                    ),
-                    EventCard(
-                      eventName: 'UIB Run',
-                      eventImage: 'assets/images/events/ika_uib.png',
-                    ),
-                  ],
-                ),
+                child: isEventsFetched
+                    ? Row(
+                        children: [
+                          for (int i = 0; i < 5; i++)
+                            Container(
+                                width: 180,
+                                height: 180,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      width: 200,
+                                      height: 85,
+                                      child: Bone.square(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16)),
+                                        size: 1,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          top: 12, bottom: 8),
+                                      child: const Text(
+                                        'Title goes here',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 150,
+                                      height: 30,
+                                      child: Bone.square(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16)),
+                                        size: 10,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          for (var event in communityEventsList)
+                            EventCard(
+                              eventName: event.name!,
+                              eventImage: event.imageUrl!,
+                            ),
+                          // EventCard(
+                          //   eventName: 'Batam Drawing',
+                          //   eventImage: 'assets/images/events/batam_drawing.png',
+                          // ),
+                          // EventCard(
+                          //   eventName: 'UIB Run',
+                          //   eventImage: 'assets/images/events/ika_uib.png',
+                          // ),
+                        ],
+                      ),
               ),
             ),
           ),

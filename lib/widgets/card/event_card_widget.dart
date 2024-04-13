@@ -7,8 +7,8 @@ import 'package:skeletonizer/skeletonizer.dart';
 class EventCard extends StatefulWidget {
   const EventCard(
       {super.key, required this.eventName, required this.eventImage});
-  final String eventName;
-  final String eventImage;
+  final String? eventName;
+  final String? eventImage;
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -33,7 +33,8 @@ class _EventCardState extends State<EventCard> {
               height: 85,
               decoration: ShapeDecoration(
                 image: DecorationImage(
-                  image: AssetImage(widget.eventImage),
+                  image: NetworkImage(
+                      widget.eventImage ?? ''), //TODO Default network image
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -43,7 +44,7 @@ class _EventCardState extends State<EventCard> {
             Container(
               margin: const EdgeInsets.only(top: 12, bottom: 8),
               child: Text(
-                widget.eventName,
+                widget.eventName ?? 'Default Event Name',
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -60,7 +61,8 @@ class _EventCardState extends State<EventCard> {
                     onPressed: () {
                       Navigator.of(context).push(CupertinoPageRoute(
                           builder: (context) => Event(
-                                eventName: widget.eventName,
+                                eventName:
+                                    widget.eventName ?? 'Default Event Name',
                               )));
                     }))
           ],
