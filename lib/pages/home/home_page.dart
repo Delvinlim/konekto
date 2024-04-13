@@ -41,33 +41,11 @@ class Home extends StatefulWidget {
 
 const _storage = FlutterSecureStorage();
 
-final List imageList = [
+final List tempImageList = [
   'assets/images/banner_1.png',
   'assets/images/banner_2.png',
   'assets/images/banner_3.png',
 ];
-
-Widget homeSlider = SizedBox(
-  height: 200,
-  child: Swiper(
-    itemBuilder: (BuildContext context, int index) {
-      // Ideal size 320 x 200 or 16:9 image
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(16.0),
-        child: Image.asset(
-          imageList[index],
-          fit: BoxFit.fill,
-        ),
-      );
-    },
-    itemCount: 3,
-    viewportFraction: 0.8,
-    scale: 0.9,
-    autoplay: true,
-    pagination: const SwiperPagination(),
-    // control: const SwiperControl(),
-  ),
-);
 
 Widget homeCommunityCategories(context) {
   return SingleChildScrollView(
@@ -285,12 +263,14 @@ class _HomeState extends State<Home> {
   late ProfileResponse profile = ProfileResponse(id: '', name: '', email: '');
   late String greeting;
   late bool isUnreadNotification = true;
+  late List imageUrlList = [];
 
   @override
   void initState() {
     super.initState();
     _fetchProfile();
     _getUnreadNotification();
+    _fetchBanners();
     setState(() {
       greeting = getGreetings();
     });
@@ -440,6 +420,64 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void _fetchBanners() async {
+    setState(() {
+      isBannerFetched = true;
+    });
+
+    try {
+      Response res = await dioClient.get('/banners');
+      final response = json.decode(res.toString());
+      if (res.statusCode == 200) {
+        setState(() {
+          imageUrlList = response['data'];
+          isBannerFetched = false;
+        });
+      }
+      print('banner reponse');
+      print(response);
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      setState(() {
+        isBannerFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Please try again later',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -534,7 +572,64 @@ class _HomeState extends State<Home> {
           // Home Banners
           Skeletonizer(
             enabled: isBannerFetched,
-            child: homeSlider,
+            child: SizedBox(
+              height: 200,
+              child: isBannerFetched
+                  ? Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        // Ideal size 320 x 200 or 16:9 image
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Image.asset(
+                            tempImageList[index],
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
+                      itemCount: 3,
+                      viewportFraction: 0.8,
+                      scale: 0.9,
+                      autoplay: true,
+                      pagination: const SwiperPagination(),
+                      // control: const SwiperControl(),
+                    )
+                  : Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        // Ideal size 320 x 200 or 16:9 image
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Image.network(
+                            imageUrlList[index],
+                            fit: BoxFit.fill,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: CupertinoColors.black,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
+                          // child: Image.asset(
+                          //   imageUrlList[index],
+                          //   fit: BoxFit.fill,
+                          // ),
+                        );
+                      },
+                      itemCount: imageUrlList.length,
+                      viewportFraction: 0.8,
+                      scale: 0.9,
+                      autoplay: true,
+                      pagination: const SwiperPagination(),
+                      // control: const SwiperControl(),
+                    ),
+            ),
           ),
 
           // Categories
