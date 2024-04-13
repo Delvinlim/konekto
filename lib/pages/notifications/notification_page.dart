@@ -41,7 +41,7 @@ class _NotificationsState extends State<Notifications> {
                 child: SizedBox(
                   // height: MediaQuery.of(context).size.height * 0.10,
                   child: CupertinoSlidingSegmentedControl<NotificationType>(
-                    backgroundColor: CupertinoColors.systemGrey2,
+                    backgroundColor: CupertinoColors.systemGrey3,
                     thumbColor: Colors.blue.shade600,
                     groupValue: _selectedSegment,
                     onValueChanged: (NotificationType? value) {
@@ -56,21 +56,27 @@ class _NotificationsState extends State<Notifications> {
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'All',
-                          style: TextStyle(color: CupertinoColors.white),
+                          style: TextStyle(
+                              color: CupertinoColors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                       NotificationType.system: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'System',
-                          style: TextStyle(color: CupertinoColors.white),
+                          style: TextStyle(
+                              color: CupertinoColors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                       NotificationType.community: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'Community',
-                          style: TextStyle(color: CupertinoColors.white),
+                          style: TextStyle(
+                              color: CupertinoColors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     },
@@ -78,6 +84,37 @@ class _NotificationsState extends State<Notifications> {
                 )),
             Expanded(
                 child: SizedBox(
+                    child: GestureDetector(
+              onHorizontalDragEnd: (details) {
+                // Swiping in right direction.
+                // print(details);
+                if (details.primaryVelocity! > 0) {
+                  print('swipe right');
+                  if (_selectedSegment.name == 'system') {
+                    setState(() {
+                      _selectedSegment = NotificationType.all;
+                    });
+                  } else if (_selectedSegment.name == 'community') {
+                    setState(() {
+                      _selectedSegment = NotificationType.system;
+                    });
+                  }
+                }
+
+                // Swiping in left direction.
+                if (details.primaryVelocity! < 0) {
+                  print('swipe left');
+                  if (_selectedSegment.name == 'all') {
+                    setState(() {
+                      _selectedSegment = NotificationType.system;
+                    });
+                  } else if (_selectedSegment.name == 'system') {
+                    setState(() {
+                      _selectedSegment = NotificationType.community;
+                    });
+                  }
+                }
+              },
               child: ListView(
                 padding: const EdgeInsets.all(8),
                 children: [
@@ -269,7 +306,7 @@ class _NotificationsState extends State<Notifications> {
                   ],
                 ],
               ),
-            ))
+            )))
           ],
         ));
   }
