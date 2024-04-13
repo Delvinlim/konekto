@@ -47,11 +47,12 @@ class _LoginFormState extends State<LoginForm> {
           'Please wait a moment...',
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
-        autoCloseDuration: const Duration(seconds: 3),
+        autoCloseDuration: const Duration(seconds: 2),
         type: ToastificationType.success,
         style: ToastificationStyle.flatColored,
         alignment: Alignment.topCenter,
         direction: TextDirection.ltr,
+        dragToClose: false,
         showProgressBar: false,
         closeButtonShowType: CloseButtonShowType.none,
         callbacks: ToastificationCallbacks(
