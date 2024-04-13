@@ -131,7 +131,7 @@ class _LoginFormState extends State<LoginForm> {
               decoration: BoxDecoration(
                   // border: Border.all(color: Colors.grey.shade400),
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   // return Container(child: Text('Please enter your username or email'))
@@ -160,7 +160,7 @@ class _LoginFormState extends State<LoginForm> {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your password';
@@ -199,7 +199,10 @@ class _LoginFormState extends State<LoginForm> {
               width: double.infinity,
               child: CupertinoButton(
                   color: Colors.blue.shade600,
-                  child: const Text('Submit'),
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       EasyLoading.show(

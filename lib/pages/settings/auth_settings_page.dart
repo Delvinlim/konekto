@@ -74,7 +74,7 @@ class _AuthSettingState extends State<AuthSettingPage> {
                         // border: Border.all(color: Colors.grey.shade400),
                         border: KonektoBorder.all(color: Colors.grey.shade400),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(8))),
+                            const BorderRadius.all(Radius.circular(4))),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -102,7 +102,7 @@ class _AuthSettingState extends State<AuthSettingPage> {
                     decoration: BoxDecoration(
                         border: KonektoBorder.all(color: Colors.grey.shade400),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(8))),
+                            const BorderRadius.all(Radius.circular(4))),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -130,7 +130,7 @@ class _AuthSettingState extends State<AuthSettingPage> {
                     decoration: BoxDecoration(
                         border: KonektoBorder.all(color: Colors.grey.shade400),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(8))),
+                            const BorderRadius.all(Radius.circular(4))),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';

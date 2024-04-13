@@ -24,7 +24,7 @@ class _EventCardState extends State<EventCard> {
         padding: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           border: KonektoBorder.all(color: CupertinoColors.black),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         child: Column(
           children: [

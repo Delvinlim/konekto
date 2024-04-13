@@ -89,7 +89,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50.0),
@@ -116,7 +116,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/volleyball.png',
@@ -140,7 +140,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/basketball.png',
@@ -164,7 +164,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/billiard.png',
@@ -188,7 +188,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/badminton.png',
@@ -212,7 +212,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/swimming.png',
@@ -236,7 +236,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/tennis.png',
@@ -260,7 +260,7 @@ Widget homeCommunityCategories(context) {
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                     border: KonektoBorder.all(color: Colors.grey.shade400),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                     color: const Color(0xffD9D9D9)),
                 child: Image.asset(
                   'assets/images/categories/gaming.png',
@@ -279,11 +279,29 @@ class _HomeState extends State<Home> {
   bool isCategoriesFetched = false;
   bool isEventsFetched = false;
   late ProfileResponse profile = ProfileResponse(id: '', name: '', email: '');
+  late String greeting;
 
   @override
   void initState() {
     super.initState();
     _fetchProfile();
+    setState(() {
+      greeting = getGreetings();
+    });
+  }
+
+  String getGreetings() {
+    var hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 12) {
+      return 'Good Morning';
+    } else if (hour >= 12 && hour < 16) {
+      return 'Good Evening';
+    } else if (hour >= 16 && hour < 19) {
+      return 'Good Afternoon';
+    } else {
+      return 'Good Night';
+    }
   }
 
   void _fetchProfile() async {
@@ -396,17 +414,17 @@ class _HomeState extends State<Home> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Good Morning',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
+                                Text(
+                                  greeting,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
                                 ),
                                 Text(
                                   profile.name!,
                                   style: const TextStyle(
                                       fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.w800),
                                 )
                               ],
                             ),

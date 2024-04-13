@@ -69,7 +69,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                           border:
                               KonektoBorder.all(color: Colors.grey.shade400),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(4))),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your team name';
@@ -97,7 +97,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                           border:
                               KonektoBorder.all(color: Colors.grey.shade400),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(4))),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your leader name';
@@ -126,7 +126,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                           border:
                               KonektoBorder.all(color: Colors.grey.shade400),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(4))),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your leader email';
@@ -154,7 +154,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                           border:
                               KonektoBorder.all(color: Colors.grey.shade400),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(4))),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your leader phone';
@@ -183,7 +183,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                           border:
                               KonektoBorder.all(color: Colors.grey.shade400),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(4))),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your player';
@@ -211,7 +211,7 @@ class _EventRegistrationFormState extends State<EventRegistrationForm> {
                           border:
                               KonektoBorder.all(color: Colors.grey.shade400),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(4))),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your team base';

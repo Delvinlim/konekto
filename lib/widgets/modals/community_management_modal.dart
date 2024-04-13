@@ -123,7 +123,7 @@ class CommunityCreationModal extends StatelessWidget {
                                     border: KonektoBorder.all(
                                         color: Colors.grey.shade400),
                                     borderRadius: const BorderRadius.all(
-                                        Radius.circular(8))),
+                                        Radius.circular(4))),
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter community name';
@@ -159,7 +159,7 @@ class CommunityCreationModal extends StatelessWidget {
                                     border: KonektoBorder.all(
                                         color: Colors.grey.shade400),
                                     borderRadius: const BorderRadius.all(
-                                        Radius.circular(8))),
+                                        Radius.circular(4))),
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter community description';

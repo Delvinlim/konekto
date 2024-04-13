@@ -31,7 +31,7 @@ class _LocationCardState extends State<LocationCard> {
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
           border: KonektoBorder.all(color: CupertinoColors.black),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         child: Column(
           children: [

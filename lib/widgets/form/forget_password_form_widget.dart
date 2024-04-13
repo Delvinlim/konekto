@@ -63,7 +63,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter some text';

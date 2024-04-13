@@ -1,6 +1,15 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/utils/konekto_border.dart';
+import 'package:konekto/utils/konekto_route.dart';
+import 'package:konekto/widgets/appbar/app_bar_widget.dart';
+import 'package:konekto/services/dio_service.dart';
+import 'package:toastification/toastification.dart';
+import 'package:flutter_session_jwt/flutter_session_jwt.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -11,6 +20,91 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  void _register() async {
+    try {
+      // Consume API
+      dynamic res = await dioClient.post('/auth/register', data: {
+        'name': nameController.text,
+        'username': usernameController.text,
+        'email': emailController.text,
+        'password': passwordController.text
+      });
+      final response = json.decode(res.toString());
+
+      // Save Token
+      await FlutterSessionJwt.saveToken(response['token']);
+
+      // Show Notification
+      // ignore: use_build_context_synchronously
+      toastification.show(
+        context: context,
+        title: const Text("Registered"),
+        description: const Text(
+          'Please wait a moment...',
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        autoCloseDuration: const Duration(seconds: 3),
+        type: ToastificationType.success,
+        style: ToastificationStyle.flatColored,
+        alignment: Alignment.topCenter,
+        direction: TextDirection.ltr,
+        showProgressBar: false,
+        closeButtonShowType: CloseButtonShowType.none,
+        callbacks: ToastificationCallbacks(
+            onAutoCompleteCompleted: (toastItem) =>
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    FadeRoute(page: const KonektoTabBar()),
+                    ((route) => false))),
+      );
+
+      await EasyLoading.dismiss();
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null && e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // print(e.requestOptions);
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Please try again later',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+
+      await EasyLoading.dismiss();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +129,46 @@ class _RegisterFormState extends State<RegisterForm> {
               ],
             ),
           ),
-          Center(
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 150.0,
-              height: 150.0,
+          // Center(
+          //   child: Image.asset(
+          //     'assets/images/logo.png',
+          //     width: 150.0,
+          //     height: 150.0,
+          //   ),
+          // ),
+          const Center(
+              child: Text(
+            "Register to Konekto",
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+          )),
+          const SizedBox(height: 20.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text('Name',
+                style: TextStyle(
+                    fontSize: 14,
+                    color: CupertinoColors.black,
+                    fontWeight: FontWeight.bold)),
+          ),
+          SizedBox(
+            child: CupertinoTextFormFieldRow(
+              placeholder: 'Enter your name',
+              controller: nameController,
+              keyboardType: TextInputType.name,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                  border: KonektoBorder.all(color: Colors.grey.shade400),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
             ),
           ),
+          const SizedBox(height: 10.0),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Text('Username',
@@ -51,17 +178,17 @@ class _RegisterFormState extends State<RegisterForm> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your username',
+              controller: usernameController,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter your username';
                 }
                 return null;
               },
@@ -77,17 +204,18 @@ class _RegisterFormState extends State<RegisterForm> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your email',
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter your email';
                 }
                 return null;
               },
@@ -103,19 +231,19 @@ class _RegisterFormState extends State<RegisterForm> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
+              controller: passwordController,
               obscureText: true,
               keyboardType: TextInputType.visiblePassword,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter your password';
                 }
                 return null;
               },
@@ -131,19 +259,21 @@ class _RegisterFormState extends State<RegisterForm> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            height: 60,
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your password',
+              controller: confirmPasswordController,
               obscureText: true,
               keyboardType: TextInputType.visiblePassword,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
               decoration: BoxDecoration(
                   border: KonektoBorder.all(color: Colors.grey.shade400),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(4))),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter your password confirmation';
+                } else if (value != passwordController.text) {
+                  return "Confirm password doesn't match with password";
                 }
                 return null;
               },
@@ -170,9 +300,17 @@ class _RegisterFormState extends State<RegisterForm> {
               width: double.infinity,
               child: CupertinoButton(
                   color: Colors.blue.shade600,
-                  child: const Text('Sign In'),
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      EasyLoading.show(
+                          status: 'loading...',
+                          maskType: EasyLoadingMaskType.black);
+                      _register();
+                    }
                   }),
             ),
           ))

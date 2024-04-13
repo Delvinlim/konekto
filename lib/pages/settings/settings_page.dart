@@ -131,7 +131,7 @@ class _SettingsState extends State<SettingsPage> {
                     child: Container(
                       padding: const EdgeInsets.all(6),
                       decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
                           color: Color(0xffF6F6F6)),
                       // padding: const EdgeInsets.only(
                       //     top: 10, left: 10, right: 10, bottom: 10),
@@ -210,7 +210,7 @@ class _SettingsState extends State<SettingsPage> {
             //                   border: KonektoBorder.all(
             //                       color: CupertinoColors.lightBackgroundGray),
             //                   borderRadius:
-            //                       const BorderRadius.all(Radius.circular(8)),
+            //                       const BorderRadius.all(Radius.circular(4)),
             //                   color: const Color(0xffD9D9D9)),
             //               padding: const EdgeInsets.only(
             //                   top: 10, left: 10, right: 10, bottom: 10),
@@ -260,7 +260,7 @@ class _SettingsState extends State<SettingsPage> {
                     child: Container(
                       padding: const EdgeInsets.only(top: 6, bottom: 6),
                       decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
                           color: Color(0xffF6F6F6)),
                       // padding: const EdgeInsets.only(
                       //     top: 10, left: 10, right: 10, bottom: 10),
