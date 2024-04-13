@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -278,13 +280,17 @@ class _HomeState extends State<Home> {
   bool isBannerFetched = false;
   bool isCategoriesFetched = false;
   bool isEventsFetched = false;
+
+  // API Values
   late ProfileResponse profile = ProfileResponse(id: '', name: '', email: '');
   late String greeting;
+  late bool isUnreadNotification = true;
 
   @override
   void initState() {
     super.initState();
     _fetchProfile();
+    _getUnreadNotification();
     setState(() {
       greeting = getGreetings();
     });
@@ -301,6 +307,62 @@ class _HomeState extends State<Home> {
       return 'Good Afternoon';
     } else {
       return 'Good Night';
+    }
+  }
+
+  void _getUnreadNotification() async {
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response res = await dioClient.get('/me/notifications?unread=1',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      final response = json.decode(res.toString());
+      if (res.statusCode == 200) {
+        // Successful response, parse the JSON
+        setState(() {
+          isUnreadNotification = response['isUnread'];
+        });
+        print('notification...');
+        print(response);
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch notification data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get unread notifications',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
     }
   }
 
@@ -342,7 +404,8 @@ class _HomeState extends State<Home> {
       setState(() {
         isProfileFetched = false;
       });
-      if (e.response != null && e.response?.statusCode != 429) {
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
         // ignore: use_build_context_synchronously
         toastification.show(
             context: context,
@@ -356,7 +419,6 @@ class _HomeState extends State<Home> {
             showProgressBar: false);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        // print(e.requestOptions);
         // ignore: use_build_context_synchronously
         toastification.show(
             context: context,
@@ -433,31 +495,39 @@ class _HomeState extends State<Home> {
                       ),
                     ],
                   ),
-                  Skeleton.keep(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30, left: 10, right: 10, bottom: 10),
-                              child: CupertinoButton(
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 30, left: 10, right: 10, bottom: 10),
+                            child: CupertinoButton(
                                 onPressed: () {
                                   Navigator.of(context).push(CupertinoPageRoute(
                                       builder: (context) =>
                                           const Notifications()));
                                 },
-                                child: const Icon(
-                                  CupertinoIcons.bell,
-                                  color: CupertinoColors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
+                                child: Stack(
+                                  alignment: const Alignment(1, -1),
+                                  children: [
+                                    const Icon(
+                                      CupertinoIcons.bell,
+                                      color: CupertinoColors.black,
+                                    ),
+                                    if (isUnreadNotification) // Conditionally render based on isUnreadNotification
+                                      const Icon(
+                                        CupertinoIcons.circle_fill,
+                                        color: CupertinoColors.systemRed,
+                                        size: 12,
+                                      ),
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               )),
 
