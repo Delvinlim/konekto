@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/login_page.dart';
 import 'package:konekto/pages/settings/settings_page.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const _storage = FlutterSecureStorage();
 
 void _logout(BuildContext context) async {
   // Logout
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   await _storage.delete(key: 'jwtToken');
+  await prefs.remove('user');
 
   // ignore: use_build_context_synchronously
   Navigator.pushAndRemoveUntil(context,

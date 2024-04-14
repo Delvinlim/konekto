@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/models/profile_response.dart';
 import 'package:konekto/utils/konekto_profile_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -11,14 +15,31 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  ProfileResponse profile =
+      ProfileResponse(id: '', name: '', username: '', email: '');
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProfile();
+  }
+
+  void _fetchProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userPref = prefs.getString('user');
+    print('profile user..');
+    print(userPref);
+    ProfileResponse profileResponse =
+        ProfileResponse.fromJson(json.decode(userPref!));
+
+    setState(() {
+      profile = profileResponse;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      // Uncomment to change the background color
-      // backgroundColor: CupertinoColors.systemPink,
-      // navigationBar: const CupertinoNavigationBar(
-      //   middle: Text('Profile'),
-      // ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -98,7 +119,7 @@ class _ProfileState extends State<Profile> {
                                             BorderRadius.circular(100),
                                       ),
                                     ),
-                                    child: const Row(
+                                    child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -106,9 +127,9 @@ class _ProfileState extends State<Profile> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          '@username',
+                                          '@${profile.username!}',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: CupertinoColors.black,
                                             fontSize: 12,
                                             fontFamily: 'Inter',
@@ -119,12 +140,12 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                 ),
-                                const Positioned(
+                                Positioned(
                                   left: 0,
                                   top: 0,
                                   child: Text(
-                                    'Jhon Doe',
-                                    style: TextStyle(
+                                    profile.name!,
+                                    style: const TextStyle(
                                       color: CupertinoColors.black,
                                       fontSize: 12,
                                       fontFamily: 'Inter',

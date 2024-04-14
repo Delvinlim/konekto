@@ -15,6 +15,7 @@ import 'package:konekto/utils/konekto_border.dart';
 import 'package:konekto/widgets/card/event_card_widget.dart';
 import 'package:konekto/widgets/modals/category_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toastification/toastification.dart';
@@ -107,7 +108,8 @@ class _HomeState extends State<Home> {
   bool isEventsFetched = false;
 
   // API Values
-  late ProfileResponse profile = ProfileResponse(id: '', name: '', email: '');
+  ProfileResponse profile =
+      ProfileResponse(id: '', name: '', username: '', email: '');
   // late CommunityCategoriesResponse communityCategories =
   //     CommunityCategoriesResponse(id: '', name: '', imageUrl: '');
   late String greeting;
@@ -204,8 +206,9 @@ class _HomeState extends State<Home> {
       isProfileFetched = true;
     });
     dynamic accessToken = await _storage.read(key: 'jwtToken');
-    // dynamic jwtPayload = await FlutterSessionJwt.getPayload();
-    // print(jwtPayload);
+    dynamic jwtPayload = await FlutterSessionJwt.getPayload();
+    print('jwt payload');
+    print(jwtPayload);
     // print(await FlutterSessionJwt.getDurationFromIssuedTime());
     // print(await FlutterSessionJwt.getIssuedDateTime());
     // print(await FlutterSessionJwt.getExpirationDateTime());
@@ -223,9 +226,13 @@ class _HomeState extends State<Home> {
           isProfileFetched = false;
         });
 
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('user', json.encode(profileResponse));
+
         // Now you can use profileResponse
         print('Profile ID: ${profileResponse.id}');
         print('Profile Name: ${profileResponse.name}');
+        print('Profile Username: ${profileResponse.username}');
         print('Profile Email: ${profileResponse.email}');
       } else {
         // Handle error response (non-200 status code)
