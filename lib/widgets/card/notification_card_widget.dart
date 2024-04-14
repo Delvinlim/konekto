@@ -7,9 +7,9 @@ class NotificationCard extends StatefulWidget {
       required this.communityName,
       required this.communityImage,
       required this.notificationMessage});
-  final String communityName;
-  final String communityImage;
-  final String notificationMessage;
+  final String? communityName;
+  final String? communityImage;
+  final String? notificationMessage;
 
   @override
   State<NotificationCard> createState() => _NotificationCardState();
@@ -21,7 +21,8 @@ class _NotificationCardState extends State<NotificationCard> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      width: 344,
+      // width: 344,
+      width: MediaQuery.of(context).size.width, // Match screen width
       height: 64,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -48,7 +49,7 @@ class _NotificationCardState extends State<NotificationCard> {
                 margin: const EdgeInsets.only(right: 6),
                 decoration: ShapeDecoration(
                   image: DecorationImage(
-                    image: AssetImage(widget.communityImage),
+                    image: NetworkImage(widget.communityImage!),
                     fit: BoxFit.fill,
                   ),
                   shape: RoundedRectangleBorder(
@@ -65,7 +66,7 @@ class _NotificationCardState extends State<NotificationCard> {
                   children: [
                     SizedBox(
                       child: Text(
-                        widget.communityName,
+                        widget.communityName!,
                         style: const TextStyle(
                           color: CupertinoColors.black,
                           fontSize: 14,
@@ -76,7 +77,7 @@ class _NotificationCardState extends State<NotificationCard> {
                     ),
                     SizedBox(
                       child: Text(
-                        widget.notificationMessage,
+                        widget.notificationMessage!,
                         style: const TextStyle(
                           color: CupertinoColors.black,
                           fontSize: 11,
@@ -110,7 +111,7 @@ class _NotificationCardState extends State<NotificationCard> {
 
 class SystemNotificationCard extends StatefulWidget {
   const SystemNotificationCard({super.key, required this.notificationMessage});
-  final String notificationMessage;
+  final String? notificationMessage;
 
   @override
   State<SystemNotificationCard> createState() => _SystemNotificationCardState();
@@ -123,7 +124,7 @@ class _SystemNotificationCardState extends State<SystemNotificationCard> {
       children: [
         Container(
           margin: const EdgeInsets.symmetric(vertical: 8),
-          width: 400,
+          width: MediaQuery.of(context).size.width, // Match screen width
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -183,7 +184,7 @@ class _SystemNotificationCardState extends State<SystemNotificationCard> {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 width: 390,
                 child: Text(
-                  widget.notificationMessage,
+                  widget.notificationMessage!,
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
                     color: CupertinoColors.black,
