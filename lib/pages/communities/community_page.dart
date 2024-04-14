@@ -1,9 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/models/community_posts_response.dart';
 import 'package:konekto/pages/communities/community_list_page.dart';
+import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/widgets/card/communities_card_widget.dart';
 import 'package:konekto/widgets/modals/community_management_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:toastification/toastification.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
 
@@ -20,6 +24,85 @@ class Communities extends StatefulWidget {
 
 class _CommunitiesState extends State<Communities> {
   CommunitiesType _selectedSegment = CommunitiesType.forYou;
+  bool isPostsFetched = false;
+
+  late List<CommunityPost> postsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    print('commnity page');
+    _fetchPosts();
+  }
+
+  void _fetchPosts() async {
+    setState(() {
+      isPostsFetched = true;
+    });
+    try {
+      Response response = await dioClient.get('/posts');
+      print('check.....');
+      print(response);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        Map<String, dynamic> responseData = response.data;
+        CommunityPostsResponse communityPostsResponse =
+            CommunityPostsResponse.fromJson(responseData);
+        setState(() {
+          postsList = communityPostsResponse.communityPosts ?? [];
+          isPostsFetched = false;
+        });
+        // Successful response, parse the JSON
+        print('posts...');
+        print(communityPostsResponse.communityPosts);
+        print('end post response');
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch notification data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error post...');
+      print(e);
+      setState(() {
+        isPostsFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get posts',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,21 +204,27 @@ class _CommunitiesState extends State<Communities> {
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'For You',
-                          style: TextStyle(color: CupertinoColors.white),
+                          style: TextStyle(
+                              color: CupertinoColors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                       CommunitiesType.yourCommunities: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'Your Coms',
-                          style: TextStyle(color: CupertinoColors.white),
+                          style: TextStyle(
+                              color: CupertinoColors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                       CommunitiesType.discover: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'Discover',
-                          style: TextStyle(color: CupertinoColors.white),
+                          style: TextStyle(
+                              color: CupertinoColors.white,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     },
@@ -148,32 +237,16 @@ class _CommunitiesState extends State<Communities> {
                 // color: const Color(0xFF00FF00),
                 child: ListView(
                   padding: const EdgeInsets.symmetric(vertical: 0),
-                  children: const [
-                    ForYouCommunitiesCard(
-                      communityName: 'ODBA',
-                      communityImage: 'assets/images/communities/odba.png',
-                      creatorName: 'Delvin Lim',
-                      isRedirect: true,
-                    ),
-                    ForYouCommunitiesCard(
-                      communityName: 'Buaran',
-                      communityImage: 'assets/images/communities/buaran.png',
-                      creatorName: 'Delvin Lim',
-                      isRedirect: true,
-                    ),
-                    ForYouCommunitiesCard(
-                      communityName: 'PSEG Fossil',
-                      communityImage:
-                          'assets/images/communities/pseg_fossil.png',
-                      creatorName: 'Delvin Lim',
-                      isRedirect: true,
-                    ),
-                    ForYouCommunitiesCard(
-                      communityName: 'NorthArm',
-                      communityImage: 'assets/images/communities/northarm.png',
-                      creatorName: 'Delvin Lim',
-                      isRedirect: true,
-                    ),
+                  children: [
+                    for (var post in postsList)
+                      ForYouCommunitiesCard(
+                        communityName: post.communityDetail?.name,
+                        communityImage: 'assets/images/communities/odba.png',
+                        content: post.content,
+                        contentImage: post.imageUrl!,
+                        creatorName: post.partnerDetail?.name,
+                        isRedirect: true,
+                      ),
                   ],
                 ),
               )),

@@ -51,6 +51,8 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
             communityName: widget.communityName,
             communityImage: 'assets/images/communities/odba.png',
             creatorName: 'Delvin Lim',
+            content: '',
+            contentImage: '',
           ),
           const Divider(
             height: 4,

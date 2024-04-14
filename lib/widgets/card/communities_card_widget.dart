@@ -6,6 +6,7 @@ import 'package:konekto/pages/communities/community_rules_page.dart';
 import 'package:konekto/pages/communities/community_settings_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CommunitiesCard extends StatelessWidget {
   const CommunitiesCard(
@@ -214,10 +215,14 @@ class ForYouCommunitiesCard extends StatefulWidget {
       required this.communityName,
       required this.communityImage,
       required this.creatorName,
+      required this.content,
+      required this.contentImage,
       this.isRedirect});
-  final String communityName;
-  final String communityImage;
-  final String creatorName;
+  final String? communityName;
+  final String? communityImage;
+  final String? creatorName;
+  final String? content;
+  final String? contentImage;
   final bool? isRedirect;
 
   @override
@@ -236,7 +241,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               context,
               CupertinoPageRoute(
                   builder: (context) => CommunitiesPost(
-                        communityName: widget.communityName,
+                        communityName: widget.communityName!,
                       )));
         }
       },
@@ -253,11 +258,11 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                 Row(
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(right: 10),
+                      margin: const EdgeInsets.only(right: 4),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50.0),
                         child: Image.asset(
-                          widget.communityImage,
+                          widget.communityImage!,
                           height: 50.0,
                           width: 50.0,
                         ),
@@ -267,19 +272,19 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.communityName,
+                          widget.communityName!,
                           style: const TextStyle(
                             color: CupertinoColors.black,
-                            fontSize: 14,
+                            fontSize: 16,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
-                          widget.creatorName,
+                          widget.creatorName!,
                           style: const TextStyle(
                             color: CupertinoColors.black,
-                            fontSize: 10,
+                            fontSize: 12,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
                           ),
@@ -292,87 +297,297 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                   'October, 3 2023',
                   style: TextStyle(
                     color: CupertinoColors.black,
-                    fontSize: 8,
+                    fontSize: 10,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: const Text(
-                'Unleash your inner champion and join us for the ultimate battle of wits, skill, and determination! 🏆🔥 #CompetitionCraze #RiseToTheChallenge',
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  color: CupertinoColors.black,
-                  fontSize: 12,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Container(
-              // margin: const EdgeInsets.only(bottom: 12),
-              height: 200,
-              decoration: ShapeDecoration(
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/post_image.png"),
-                  fit: BoxFit.fill,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.84),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          heartIcon == CupertinoIcons.heart_fill
-                              ? heartIcon = CupertinoIcons.heart
-                              : heartIcon = CupertinoIcons.heart_fill;
-                        });
+            if (widget.contentImage != null && widget.contentImage != '')
+              // Container(
+              //   height: 300,
+              //   decoration: ShapeDecoration(
+              //     image: DecorationImage(
+              //       image: NetworkImage(widget.contentImage!),
+              //       fit: BoxFit.fill,
+              //     ),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(12),
+              //     ),
+              //   ),
+              // ),
+              SizedBox(
+                height: 250,
+                child: AspectRatio(
+                  aspectRatio: 1.0, // Set aspect ratio to 1:1 (square)
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      widget.contentImage!,
+                      fit: BoxFit.cover, // Use BoxFit.cover to fill the square
+                      loadingBuilder: (context, widget, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return widget;
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        }
                       },
-                      child: Icon(
-                        heartIcon,
-                        color: heartIcon == CupertinoIcons.heart_fill
-                            ? CupertinoColors.systemRed
-                            : CupertinoColors.black,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    const Text('2.1k')
-                  ]),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 24),
-                    child: const Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            CupertinoIcons.chat_bubble_text,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 250,
                             color: CupertinoColors.black,
                           ),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Text('2.1k')
-                        ]),
+                        );
+                      },
+                    ),
                   ),
-                  const Icon(
-                    CupertinoIcons.paperplane,
-                    color: CupertinoColors.black,
+                ),
+              ),
+            // SizedBox(
+            //   // Use a LayoutBuilder to get the width of the parent container dynamically
+            //   child: LayoutBuilder(
+            //     builder: (BuildContext context, BoxConstraints constraints) {
+            //       double imageSize = constraints
+            //           .maxWidth; // Use the width as the size for both width and height
+
+            //       return Container(
+            //         width: imageSize,
+            //         height: imageSize,
+            //         decoration: BoxDecoration(
+            //           image: DecorationImage(
+            //             image: NetworkImage(widget.contentImage!),
+            //             fit: BoxFit
+            //                 .cover, // Fill the container while maintaining aspect ratio
+            //           ),
+            //           borderRadius: BorderRadius.circular(4),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+            // SizedBox(
+            //   child: LayoutBuilder(
+            //     builder: (BuildContext context, BoxConstraints constraints) {
+            //       double imageSize = constraints
+            //           .maxWidth; // Use the width as the size for both width and height
+
+            //       return ClipRRect(
+            //         borderRadius: BorderRadius.circular(6),
+            //         child: Image.network(
+            //           widget.contentImage!,
+            //           width: imageSize,
+            //           height: imageSize,
+            //           fit: BoxFit
+            //               .cover, // Fill the container while maintaining aspect ratio
+            //           loadingBuilder: (context, widget, loadingProgress) {
+            //             if (loadingProgress == null) {
+            //               return widget;
+            //             } else {
+            //               return Center(
+            //                 child: CircularProgressIndicator(
+            //                   value: loadingProgress.expectedTotalBytes !=
+            //                           null
+            //                       ? loadingProgress.cumulativeBytesLoaded /
+            //                           loadingProgress.expectedTotalBytes!
+            //                       : null,
+            //                 ),
+            //               );
+            //             }
+            //           },
+            //           errorBuilder: (context, error, stackTrace) {
+            //             return const Center(
+            //               child: Icon(
+            //                 Icons.broken_image,
+            //                 size: 32,
+            //                 color: CupertinoColors.black,
+            //               ),
+            //             );
+            //           },
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+            if (widget.contentImage != null && widget.contentImage != '')
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    heartIcon == CupertinoIcons.heart_fill
+                                        ? heartIcon = CupertinoIcons.heart
+                                        : heartIcon = CupertinoIcons.heart_fill;
+                                  });
+                                },
+                                child: Icon(
+                                  heartIcon,
+                                  color: heartIcon == CupertinoIcons.heart_fill
+                                      ? CupertinoColors.systemRed
+                                      : CupertinoColors.black,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              const Text(
+                                '2,121 likes',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              )
+                            ]),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          child: const Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.chat_bubble_text,
+                                  color: CupertinoColors.black,
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  '298 comments',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ]),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print('tapped');
+                            Share.share('''Hey! check it out\n'''
+                                '''Post In: ${widget.communityName}, By: ${widget.creatorName}\n'''
+                                '''Says that: ${widget.content}\n''');
+                          },
+                          child: const Icon(
+                            CupertinoIcons.paperplane,
+                            color: CupertinoColors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      widget.content!,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        color: CupertinoColors.black,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ],
               ),
-            )
+            if (widget.contentImage == null || widget.contentImage == '')
+              Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      widget.content!,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        color: CupertinoColors.black,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    heartIcon == CupertinoIcons.heart_fill
+                                        ? heartIcon = CupertinoIcons.heart
+                                        : heartIcon = CupertinoIcons.heart_fill;
+                                  });
+                                },
+                                child: Icon(
+                                  heartIcon,
+                                  color: heartIcon == CupertinoIcons.heart_fill
+                                      ? CupertinoColors.systemRed
+                                      : CupertinoColors.black,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              const Text(
+                                '2,121 likes',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              )
+                            ]),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          child: const Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.chat_bubble_text,
+                                  color: CupertinoColors.black,
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  '258 comments',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ]),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print('tapped');
+                            Share.share('''Hey! check it out\n'''
+                                '''Post In: ${widget.communityName}, By: ${widget.creatorName}\n'''
+                                '''Says that: ${widget.content}\n''');
+                          },
+                          child: const Icon(
+                            CupertinoIcons.paperplane,
+                            color: CupertinoColors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              )
           ],
         ),
       ),
