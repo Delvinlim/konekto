@@ -10,9 +10,13 @@ import 'package:share_plus/share_plus.dart';
 
 class CommunitiesCard extends StatelessWidget {
   const CommunitiesCard(
-      {super.key, required this.communityName, required this.communityImage});
-  final String communityName;
+      {super.key,
+      required this.communityName,
+      required this.communityImage,
+      required this.communitySince});
+  final String? communityName;
   final String communityImage;
+  final String? communitySince;
 
   // @override
   // State<CommunitiesCard> createState() => _CommunitiesCardState();
@@ -25,7 +29,7 @@ class CommunitiesCard extends StatelessWidget {
               context,
               CupertinoPageRoute(
                   builder: (context) => CommunitiesDetailPage(
-                        communityName: communityName,
+                        communityName: communityName!,
                         communityImage: communityImage,
                       )));
         },
@@ -78,7 +82,7 @@ class CommunitiesCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          communityName,
+                          communityName!,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: CupertinoColors.black,
@@ -87,10 +91,10 @@ class CommunitiesCard extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const Text(
-                          'Since 2019',
+                        Text(
+                          'Since $communitySince',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: CupertinoColors.black,
                             fontSize: 12,
                             fontFamily: 'Roboto',

@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:konekto/models/communities_response.dart';
 import 'package:konekto/models/community_posts_response.dart';
 import 'package:konekto/pages/communities/community_list_page.dart';
 import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/widgets/card/communities_card_widget.dart';
 import 'package:konekto/widgets/modals/community_management_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:toastification/toastification.dart';
 
 /// Flutter code sample for [CupertinoPageScaffold].
@@ -14,6 +17,8 @@ import 'package:toastification/toastification.dart';
 // void main() => runApp(const CommunitiesPage());
 
 enum CommunitiesType { forYou, yourCommunities, discover }
+
+const _storage = FlutterSecureStorage();
 
 class Communities extends StatefulWidget {
   const Communities({super.key});
@@ -25,14 +30,18 @@ class Communities extends StatefulWidget {
 class _CommunitiesState extends State<Communities> {
   CommunitiesType _selectedSegment = CommunitiesType.forYou;
   bool isPostsFetched = false;
+  bool isCommunitiesFetched = false;
 
   late List<CommunityPost> postsList = [];
+  late List<KonektoCommunity> personalCommunitiesList = [];
+  late List<KonektoCommunity> joinedCommunitiesList = [];
 
   @override
   void initState() {
     super.initState();
     print('commnity page');
     _fetchPosts();
+    _fetchCommunities();
   }
 
   void _fetchPosts() async {
@@ -41,8 +50,6 @@ class _CommunitiesState extends State<Communities> {
     });
     try {
       Response response = await dioClient.get('/posts');
-      print('check.....');
-      print(response);
       if (response.statusCode == 200) {
         // Successful response, parse the JSON
         Map<String, dynamic> responseData = response.data;
@@ -67,6 +74,86 @@ class _CommunitiesState extends State<Communities> {
       print(e);
       setState(() {
         isPostsFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get communities',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _fetchCommunities() async {
+    setState(() {
+      isCommunitiesFetched = true;
+    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.get('/community',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('communities list.....');
+      print(response.data);
+      print(response.data['personalCommunities']);
+      print(response.data['joinedCommunities']);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        Map<String, dynamic> responseData = response.data;
+        PersonalCommunitiesResponse personalCommunitiesResponse =
+            PersonalCommunitiesResponse.fromJson(responseData);
+
+        JoinedCommunitiesResponse joinedCommunitiesResponse =
+            JoinedCommunitiesResponse.fromJson(responseData);
+
+        setState(() {
+          personalCommunitiesList =
+              personalCommunitiesResponse.communities ?? [];
+          joinedCommunitiesList = joinedCommunitiesResponse.communities ?? [];
+          isCommunitiesFetched = false;
+        });
+        // Successful response, parse the JSON
+        print('communities...');
+        print(personalCommunitiesResponse.communities);
+        print(joinedCommunitiesResponse.communities);
+        print('end communities response');
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch notification data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error post...');
+      print(e);
+      setState(() {
+        isCommunitiesFetched = false;
       });
       if (e.response?.data['message'] != null &&
           e.response?.statusCode != 429) {
@@ -233,32 +320,54 @@ class _CommunitiesState extends State<Communities> {
             if (_selectedSegment.name == 'forYou') ...[
               Expanded(
                   child: Container(
-                color: CupertinoColors.systemGrey6,
-                // color: const Color(0xFF00FF00),
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                  children: [
-                    for (var post in postsList)
-                      ForYouCommunitiesCard(
-                        communityName: post.communityDetail?.name,
-                        communityImage:
-                            'assets/images/communities/odba.png', // TODO Image Url
-                        content: post.content,
-                        contentImage: post.imageUrl!,
-                        creatorName: post.partnerDetail?.name,
-                        isRedirect: true,
-                      ),
-                  ],
-                ),
-              )),
+                      color: CupertinoColors.systemGrey6,
+                      // color: const Color(0xFF00FF00),
+                      child: Skeletonizer(
+                        enabled: isPostsFetched,
+                        child: isPostsFetched
+                            ? ListView(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 0),
+                                children: [
+                                  for (int i = 0; i < 5; i++)
+                                    const ForYouCommunitiesCard(
+                                      communityName: 'DTS System',
+                                      communityImage:
+                                          'assets/images/communities/odba.png', // TODO Image Url
+                                      content:
+                                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                      contentImage:
+                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713103435/Konekto/posts/sdkns2vialkwkcbizgpw.png',
+                                      creatorName: 'Delvin Lim',
+                                      isRedirect: true,
+                                    ),
+                                ],
+                              )
+                            : ListView(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 0),
+                                children: [
+                                  for (var post in postsList)
+                                    ForYouCommunitiesCard(
+                                      communityName: post.communityDetail?.name,
+                                      communityImage:
+                                          'assets/images/communities/odba.png', // TODO Image Url
+                                      content: post.content,
+                                      contentImage: post.imageUrl!,
+                                      creatorName: post.partnerDetail?.name,
+                                      isRedirect: true,
+                                    ),
+                                ],
+                              ),
+                      ))),
             ] else if (_selectedSegment.name == 'yourCommunities') ...[
               Expanded(
                   child: SizedBox(
                 // color: const Color(0xFF00FF00),
                 child: ListView(
                   padding: const EdgeInsets.all(8),
-                  children: const [
-                    Padding(
+                  children: [
+                    const Padding(
                       padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
                       child: Text(
                         'Your Communities',
@@ -270,15 +379,17 @@ class _CommunitiesState extends State<Communities> {
                         ),
                       ),
                     ),
-                    CommunitiesCard(
-                      communityName: 'ODBA',
-                      communityImage: 'assets/images/communities/odba.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'Buaran',
-                      communityImage: 'assets/images/communities/buaran.png',
-                    ),
-                    Padding(
+                    for (var community in personalCommunitiesList)
+                      CommunitiesCard(
+                        communityName: community.name,
+                        communityImage: 'assets/images/communities/odba.png',
+                        communitySince: community.since,
+                      ),
+                    // CommunitiesCard(
+                    //   communityName: 'Buaran',
+                    //   communityImage: 'assets/images/communities/buaran.png',
+                    // ),
+                    const Padding(
                       padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
                       child: Text(
                         'Joined',
@@ -290,37 +401,39 @@ class _CommunitiesState extends State<Communities> {
                         ),
                       ),
                     ),
-                    CommunitiesCard(
-                      communityName: 'PSEG Fossil',
-                      communityImage:
-                          'assets/images/communities/pseg_fossil.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: "Devil's Rejected Nation",
-                      communityImage: 'assets/images/communities/dnr.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'NorthArm',
-                      communityImage: 'assets/images/communities/northarm.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'Spartans',
-                      communityImage: 'assets/images/communities/spartans.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'Rasson',
-                      communityImage: 'assets/images/communities/rasson.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'Sydney Real',
-                      communityImage:
-                          'assets/images/communities/sydney_real.png',
-                    ),
-                    CommunitiesCard(
-                      communityName: 'Super Slasher Aquatics',
-                      communityImage:
-                          'assets/images/communities/super_slasher_aquatics.png',
-                    ),
+                    for (var community in joinedCommunitiesList)
+                      CommunitiesCard(
+                        communityName: community.name,
+                        communityImage:
+                            'assets/images/communities/pseg_fossil.png',
+                        communitySince: community.since,
+                      ),
+                    // const CommunitiesCard(
+                    //   communityName: "Devil's Rejected Nation",
+                    //   communityImage: 'assets/images/communities/dnr.png',
+                    // ),
+                    // const CommunitiesCard(
+                    //   communityName: 'NorthArm',
+                    //   communityImage: 'assets/images/communities/northarm.png',
+                    // ),
+                    // const CommunitiesCard(
+                    //   communityName: 'Spartans',
+                    //   communityImage: 'assets/images/communities/spartans.png',
+                    // ),
+                    // const CommunitiesCard(
+                    //   communityName: 'Rasson',
+                    //   communityImage: 'assets/images/communities/rasson.png',
+                    // ),
+                    // const CommunitiesCard(
+                    //   communityName: 'Sydney Real',
+                    //   communityImage:
+                    //       'assets/images/communities/sydney_real.png',
+                    // ),
+                    // const CommunitiesCard(
+                    //   communityName: 'Super Slasher Aquatics',
+                    //   communityImage:
+                    //       'assets/images/communities/super_slasher_aquatics.png',
+                    // ),
                   ],
                 ),
               )),
