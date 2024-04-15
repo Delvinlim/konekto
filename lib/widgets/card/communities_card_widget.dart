@@ -451,7 +451,8 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                               ),
                               const Text(
                                 '2,121 likes',
-                                style: TextStyle(fontWeight: FontWeight.w500),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 12),
                               )
                             ]),
                         Container(
@@ -469,7 +470,9 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                                 ),
                                 Text(
                                   '298 comments',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12),
                                 )
                               ]),
                         ),
@@ -549,7 +552,8 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                               ),
                               const Text(
                                 '2,121 likes',
-                                style: TextStyle(fontWeight: FontWeight.w500),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 12),
                               )
                             ]),
                         Container(
@@ -567,7 +571,9 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                                 ),
                                 Text(
                                   '258 comments',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12),
                                 )
                               ]),
                         ),

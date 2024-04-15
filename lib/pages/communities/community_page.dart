@@ -241,7 +241,8 @@ class _CommunitiesState extends State<Communities> {
                     for (var post in postsList)
                       ForYouCommunitiesCard(
                         communityName: post.communityDetail?.name,
-                        communityImage: 'assets/images/communities/odba.png',
+                        communityImage:
+                            'assets/images/communities/odba.png', // TODO Image Url
                         content: post.content,
                         contentImage: post.imageUrl!,
                         creatorName: post.partnerDetail?.name,
