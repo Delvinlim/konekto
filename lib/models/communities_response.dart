@@ -36,6 +36,30 @@ class JoinedCommunitiesResponse {
   }
 }
 
+class CommunitiesResponse {
+  final Map<String, List<KonektoCommunity>> categories;
+
+  CommunitiesResponse({required this.categories});
+
+  factory CommunitiesResponse.fromJson(Map<String, dynamic> json) {
+    Map<String, List<KonektoCommunity>> categoriesMap = {};
+
+    json['data'].forEach((categoryId, categoryData) {
+      List<dynamic>? communitiesData = categoryData['communities'];
+      if (communitiesData != null) {
+        List<KonektoCommunity> communitiesList = communitiesData
+            .map((communityJson) => KonektoCommunity.fromJson(communityJson))
+            .toList();
+        categoriesMap[categoryId] = communitiesList;
+      } else {
+        categoriesMap[categoryId] = [];
+      }
+    });
+
+    return CommunitiesResponse(categories: categoriesMap);
+  }
+}
+
 class KonektoCommunity {
   String? id;
   String? name;

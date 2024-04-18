@@ -35,6 +35,7 @@ class _CommunitiesState extends State<Communities> {
   late List<CommunityPost> postsList = [];
   late List<KonektoCommunity> personalCommunitiesList = [];
   late List<KonektoCommunity> joinedCommunitiesList = [];
+  late Map<String, List<KonektoCommunity>> communitiesByCategoriesList = {};
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _CommunitiesState extends State<Communities> {
     print('commnity page');
     _fetchPosts();
     _fetchCommunities();
+    _fetchCommunitiesByCategories();
   }
 
   void _fetchPosts() async {
@@ -178,6 +180,97 @@ class _CommunitiesState extends State<Communities> {
                 : const Text("Server Error"),
             description: const Text(
               'Failed to get posts',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _fetchCommunitiesByCategories() async {
+    setState(() {
+      isCommunitiesFetched = true;
+    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.get('/me/communities',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        Map<String, dynamic> responseData = response.data;
+        CommunitiesResponse communitiesResponse =
+            CommunitiesResponse.fromJson(responseData);
+        // Access parsed data
+
+        // communitiesResponse.categories.forEach((categoryId, communities) {
+        //   print('Category ID: $categoryId');
+        //   for (var community in communities) {
+        //     print('Community ID: ${community.id}');
+        //     print('Community Name: ${community.name}');
+        //     print('Since: ${community.since}');
+        //   }
+        // });
+        print('check here important..');
+        print(communitiesResponse);
+        print(communitiesResponse.categories);
+        print(communitiesByCategoriesList);
+        setState(() {
+          communitiesByCategoriesList = communitiesResponse.categories;
+        });
+        print(communitiesByCategoriesList);
+        // });
+        // setState(() {
+        //   personalCommunitiesList =
+        //       personalCommunitiesResponse.communities ?? [];
+        //   joinedCommunitiesList = joinedCommunitiesResponse.communities ?? [];
+        //   isCommunitiesFetched = false;
+        // });
+        // // Successful response, parse the JSON
+        // print('communities...');
+        // print(personalCommunitiesResponse.communities);
+        // print(joinedCommunitiesResponse.communities);
+        // print('end communities response');
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch notification data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error post...');
+      print(e);
+      setState(() {
+        isCommunitiesFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get communities',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             autoCloseDuration: const Duration(seconds: 3),
@@ -444,505 +537,60 @@ class _CommunitiesState extends State<Communities> {
                 child: ListView(
                   padding: const EdgeInsets.all(8),
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    for (var category in communitiesByCategoriesList.entries)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('General',
-                                          style: TextStyle(
-                                            color: CupertinoColors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w700,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 5, bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(category.key,
+                                    style: const TextStyle(
+                                      color: CupertinoColors.black,
+                                      fontSize: 18,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w700,
+                                    )),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const CommunitiesList(
+                                                  categoryName: 'General',
+                                                )));
+                                  },
+                                  child: const Text(
+                                    'See All',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const CommunitiesList(
-                                                    categoryName: 'General',
-                                                  )));
-                                    },
-                                    child: const Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  for (var community in category.value)
+                                    DiscoverCommunitiesCard(
+                                      communitiesImage:
+                                          'assets/images/communities/deagleders.png',
+                                      communitiesName: community.name!,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                                ]),
+                          )
                         ],
-                      ),
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/deagleders.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/inter.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/rasson.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/northarm.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/aldenaire.png',
-                            ),
-                          ]),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Motorcycle',
-                                          style: TextStyle(
-                                            color: CupertinoColors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w700,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const CommunitiesList(
-                                                    categoryName: 'Motorcycle',
-                                                  )));
-                                    },
-                                    child: const Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/dnr.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/punishers.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/merciless.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/berserkers.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/ratled.png',
-                            ),
-                          ]),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Basketball',
-                                          style: TextStyle(
-                                            color: CupertinoColors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w700,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const CommunitiesList(
-                                                    categoryName: 'Basketball',
-                                                  )));
-                                    },
-                                    child: const Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/elite.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/surry_hills.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/borcelle.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/bellerive.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/hanover.png',
-                            ),
-                          ]),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Badminton',
-                                          style: TextStyle(
-                                            color: CupertinoColors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w700,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const CommunitiesList(
-                                                    categoryName: 'Badminton',
-                                                  )));
-                                    },
-                                    child: const Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/friends_united.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/giants_of_manchester.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/shuttle_whackers.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/badminton_warriors.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/team_troubles.png',
-                            ),
-                          ]),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Volleyball',
-                                          style: TextStyle(
-                                            color: CupertinoColors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w700,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const CommunitiesList(
-                                                    categoryName: 'Volleyball',
-                                                  )));
-                                    },
-                                    child: const Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/hardhitters.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/phoenix_volleyball.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/volley_kings.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/spikes_volleyball.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/spread_eagles.png',
-                            ),
-                          ]),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Games',
-                                          style: TextStyle(
-                                            color: CupertinoColors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Roboto',
-                                            fontWeight: FontWeight.w700,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    behavior: HitTestBehavior.translucent,
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const CommunitiesList(
-                                                    categoryName: 'Games',
-                                                  )));
-                                    },
-                                    child: const Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/stryker_gaming.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/titans.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/martians.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/the_last_frontier.png',
-                            ),
-                            DiscoverCommunitiesCard(
-                              communitiesImage:
-                                  'assets/images/communities/kraken.png',
-                            ),
-                          ]),
-                    ),
+                      )
                   ],
                 ),
               )),
@@ -951,3 +599,19 @@ class _CommunitiesState extends State<Communities> {
         ));
   }
 }
+                                // DiscoverCommunitiesCard(
+                                //   communitiesImage:
+                                //       'assets/images/communities/inter.png',
+                                // ),
+                                // DiscoverCommunitiesCard(
+                                //   communitiesImage:
+                                //       'assets/images/communities/rasson.png',
+                                // ),
+                                // DiscoverCommunitiesCard(
+                                //   communitiesImage:
+                                //       'assets/images/communities/northarm.png',
+                                // ),
+                                // DiscoverCommunitiesCard(
+                                //   communitiesImage:
+                                //       'assets/images/communities/aldenaire.png',
+                                // ),

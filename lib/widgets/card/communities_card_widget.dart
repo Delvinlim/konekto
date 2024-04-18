@@ -717,9 +717,13 @@ void _showLeaveCommunityDialog(BuildContext context) {
 
 class CommunityDiscoverModal extends StatelessWidget {
   const CommunityDiscoverModal(
-      {super.key, this.reverse = false, required this.discoverImage});
+      {super.key,
+      this.reverse = false,
+      required this.discoverImage,
+      required this.discoverName});
   final bool reverse;
   final String discoverImage;
+  final String discoverName;
 
   @override
   Widget build(BuildContext context) {
@@ -732,6 +736,8 @@ class CommunityDiscoverModal extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 12),
             decoration: const BoxDecoration(color: CupertinoColors.white),
             child: Column(
+              mainAxisSize:
+                  MainAxisSize.min, // Use min size to prevent fullscreen
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
@@ -797,9 +803,9 @@ class CommunityDiscoverModal extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Text(
-                  'ODBA',
-                  style: TextStyle(
+                Text(
+                  discoverName,
+                  style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: CupertinoColors.black,
@@ -891,8 +897,12 @@ class CommunityDiscoverModal extends StatelessWidget {
 }
 
 class DiscoverCommunitiesCard extends StatefulWidget {
-  const DiscoverCommunitiesCard({super.key, required this.communitiesImage});
+  const DiscoverCommunitiesCard(
+      {super.key,
+      required this.communitiesImage,
+      required this.communitiesName});
   final String communitiesImage;
+  final String communitiesName;
 
   @override
   State<DiscoverCommunitiesCard> createState() =>
@@ -909,6 +919,8 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
               context: context,
               builder: (context) => CommunityDiscoverModal(
                     discoverImage: widget.communitiesImage,
+                    discoverName: widget.communitiesName,
+                    reverse: false,
                   ));
         },
         child: Container(
