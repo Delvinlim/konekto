@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:konekto/models/notifications_response.dart';
 import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/widgets/item/notification_settings_item_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -48,9 +47,11 @@ class _NotificationSettingState extends State<NotificationSettingPage> {
         print('notification preferences list.....');
         final response = json.decode(res.toString());
         print(response['data']);
-        setState(() {
-          notificationPreferences = response['data'];
-        });
+        if (response['data'] != null) {
+          setState(() {
+            notificationPreferences = response['data'];
+          });
+        }
         print(notificationPreferences);
         print('end notif preferences response');
       } else {
