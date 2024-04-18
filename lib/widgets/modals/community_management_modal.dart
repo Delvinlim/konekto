@@ -1,13 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:konekto/models/communities_response.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
 import 'package:konekto/pages/communities/community_post_creation_page.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CommunityManagementModal extends StatelessWidget {
-  const CommunityManagementModal({super.key, this.reverse = false});
+  const CommunityManagementModal(
+      {super.key,
+      this.reverse = false,
+      required this.personalCommunities,
+      required this.joinedCommunities});
   final bool reverse;
+  final List<KonektoCommunity> personalCommunities;
+  final List<KonektoCommunity> joinedCommunities;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +52,8 @@ class CommunityManagementModal extends StatelessWidget {
                     context: context,
                     builder: ((context) => CommunityListModal(
                           reverse: reverse,
+                          personalCommunities: personalCommunities,
+                          joinedCommunities: joinedCommunities,
                         ))),
               ),
             ],
@@ -230,8 +239,14 @@ class CommunityCreationModal extends StatelessWidget {
 }
 
 class CommunityListModal extends StatelessWidget {
-  const CommunityListModal({super.key, this.reverse = false});
+  const CommunityListModal(
+      {super.key,
+      this.reverse = false,
+      required this.personalCommunities,
+      required this.joinedCommunities});
   final bool reverse;
+  final List<KonektoCommunity> personalCommunities;
+  final List<KonektoCommunity> joinedCommunities;
 
   @override
   Widget build(BuildContext context) {
@@ -245,85 +260,20 @@ class CommunityListModal extends StatelessWidget {
             controller: ModalScrollController.of(context),
             physics: const ClampingScrollPhysics(),
             children: <Widget>[
-              ListTile(
-                title: const Text(
-                  'ODBA',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              for (var community in personalCommunities + joinedCommunities)
+                ListTile(
+                  title: Text(
+                    community.name!,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: const Text('Last updated 1 hour ago'),
+                  leading: Image.asset('assets/images/communities/odba.png'),
+                  onTap: () => Navigator.of(context, rootNavigator: true)
+                      .push(CupertinoPageRoute(
+                          builder: (context) => CommunitiesPostCreationPage(
+                                communityName: community.name!,
+                              ))),
                 ),
-                subtitle: const Text('Last updated 1 hour ago'),
-                leading: Image.asset('assets/images/communities/odba.png'),
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(CupertinoPageRoute(
-                        builder: (context) => const CommunitiesPostCreationPage(
-                              communityName: 'ODBA',
-                            ))),
-              ),
-              ListTile(
-                title: const Text(
-                  'Buaran',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text('Last updated 1 hour ago'),
-                leading: Image.asset('assets/images/communities/buaran.png'),
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(CupertinoPageRoute(
-                        builder: (context) => const CommunitiesPostCreationPage(
-                              communityName: 'Buaran',
-                            ))),
-              ),
-              ListTile(
-                title: const Text(
-                  'PSEG Fossil',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text('Last updated 1 hour ago'),
-                leading:
-                    Image.asset('assets/images/communities/pseg_fossil.png'),
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(CupertinoPageRoute(
-                        builder: (context) => const CommunitiesPostCreationPage(
-                              communityName: 'ODBA',
-                            ))),
-              ),
-              ListTile(
-                title: const Text(
-                  'Devils Rejected Nation',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text('Last updated 1 hour ago'),
-                leading: Image.asset('assets/images/communities/dnr.png'),
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(CupertinoPageRoute(
-                        builder: (context) => const CommunitiesPostCreationPage(
-                              communityName: 'Buaran',
-                            ))),
-              ),
-              ListTile(
-                title: const Text(
-                  'NorthArm',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text('Last updated 1 hour ago'),
-                leading: Image.asset('assets/images/communities/northarm.png'),
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(CupertinoPageRoute(
-                        builder: (context) => const CommunitiesPostCreationPage(
-                              communityName: 'ODBA',
-                            ))),
-              ),
-              ListTile(
-                title: const Text(
-                  'Spartans',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text('Last updated 1 hour ago'),
-                leading: Image.asset('assets/images/communities/spartans.png'),
-                onTap: () => Navigator.of(context, rootNavigator: true)
-                    .push(CupertinoPageRoute(
-                        builder: (context) => const CommunitiesPostCreationPage(
-                              communityName: 'Buaran',
-                            ))),
-              ),
             ],
           )),
     ));

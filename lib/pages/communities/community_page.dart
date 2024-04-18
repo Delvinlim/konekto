@@ -331,7 +331,12 @@ class _CommunitiesState extends State<Communities> {
                                     expand: false,
                                     context: context,
                                     builder: (context) =>
-                                        const CommunityManagementModal());
+                                        CommunityManagementModal(
+                                          personalCommunities:
+                                              personalCommunitiesList,
+                                          joinedCommunities:
+                                              joinedCommunitiesList,
+                                        ));
                               },
                               child: const Icon(
                                 CupertinoIcons.plus,
@@ -599,19 +604,3 @@ class _CommunitiesState extends State<Communities> {
         ));
   }
 }
-                                // DiscoverCommunitiesCard(
-                                //   communitiesImage:
-                                //       'assets/images/communities/inter.png',
-                                // ),
-                                // DiscoverCommunitiesCard(
-                                //   communitiesImage:
-                                //       'assets/images/communities/rasson.png',
-                                // ),
-                                // DiscoverCommunitiesCard(
-                                //   communitiesImage:
-                                //       'assets/images/communities/northarm.png',
-                                // ),
-                                // DiscoverCommunitiesCard(
-                                //   communitiesImage:
-                                //       'assets/images/communities/aldenaire.png',
-                                // ),
