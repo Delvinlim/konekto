@@ -27,16 +27,22 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController passwordController = TextEditingController();
 
   void _login() async {
+    final cancelToken = CancelToken();
     try {
       // Consume API
-      dynamic res = await dioClient.post('/auth/login', data: {
-        'email': emailController.text,
-        'password': passwordController.text
-      });
+      Response res = await dioClient
+          .post('/auth/login',
+              data: {
+                'email': emailController.text,
+                'password': passwordController.text
+              },
+              cancelToken: cancelToken)
+          .timeout(const Duration(seconds: 30));
       final response = json.decode(res.toString());
 
       // Save Token
-      await FlutterSessionJwt.saveToken(response['token']);
+      FlutterSessionJwt.saveToken(response['token']);
+      EasyLoading.dismiss();
 
       // Show Notification
       // ignore: use_build_context_synchronously
@@ -62,9 +68,12 @@ class _LoginFormState extends State<LoginForm> {
                     FadeRoute(page: const KonektoTabBar()),
                     ((route) => false))),
       );
-
-      await EasyLoading.dismiss();
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw Exception("Connection  Timeout Exception");
+      }
+      // cancelToken.cancel();
+      EasyLoading.dismiss();
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null && e.response?.statusCode != 429) {
@@ -100,8 +109,6 @@ class _LoginFormState extends State<LoginForm> {
             dragToClose: true,
             showProgressBar: false);
       }
-
-      await EasyLoading.dismiss();
     }
   }
 

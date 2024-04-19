@@ -429,6 +429,7 @@ class _CommunitiesState extends State<Communities> {
                                 children: [
                                   for (int i = 0; i < 5; i++)
                                     const ForYouCommunitiesCard(
+                                      communityId: '1',
                                       communityName: 'DTS System',
                                       communityImage:
                                           'assets/images/communities/odba.png', // TODO Image Url
@@ -437,6 +438,7 @@ class _CommunitiesState extends State<Communities> {
                                       contentImage:
                                           'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713103435/Konekto/posts/sdkns2vialkwkcbizgpw.png',
                                       creatorName: 'Delvin Lim',
+                                      postId: '1',
                                       isRedirect: true,
                                     ),
                                 ],
@@ -447,12 +449,14 @@ class _CommunitiesState extends State<Communities> {
                                 children: [
                                   for (var post in postsList)
                                     ForYouCommunitiesCard(
+                                      communityId: post.communityDetail?.id,
                                       communityName: post.communityDetail?.name,
                                       communityImage:
                                           'assets/images/communities/odba.png', // TODO Image Url
                                       content: post.content,
                                       contentImage: post.imageUrl!,
                                       creatorName: post.partnerDetail?.name,
+                                      postId: post.id,
                                       isRedirect: true,
                                     ),
                                 ],
@@ -479,6 +483,7 @@ class _CommunitiesState extends State<Communities> {
                     ),
                     for (var community in personalCommunitiesList)
                       CommunitiesCard(
+                        communityId: community.id,
                         communityName: community.name,
                         communityImage: 'assets/images/communities/odba.png',
                         communitySince: community.since,
@@ -501,6 +506,7 @@ class _CommunitiesState extends State<Communities> {
                     ),
                     for (var community in joinedCommunitiesList)
                       CommunitiesCard(
+                        communityId: community.id,
                         communityName: community.name,
                         communityImage:
                             'assets/images/communities/pseg_fossil.png',

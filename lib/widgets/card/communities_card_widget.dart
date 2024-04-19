@@ -11,9 +11,11 @@ import 'package:share_plus/share_plus.dart';
 class CommunitiesCard extends StatelessWidget {
   const CommunitiesCard(
       {super.key,
+      required this.communityId,
       required this.communityName,
       required this.communityImage,
       required this.communitySince});
+  final String? communityId;
   final String? communityName;
   final String communityImage;
   final String? communitySince;
@@ -29,6 +31,7 @@ class CommunitiesCard extends StatelessWidget {
               context,
               CupertinoPageRoute(
                   builder: (context) => CommunitiesDetailPage(
+                        communityId: communityId!,
                         communityName: communityName!,
                         communityImage: communityImage,
                       )));
@@ -216,17 +219,21 @@ class CommunitiesCard extends StatelessWidget {
 class ForYouCommunitiesCard extends StatefulWidget {
   const ForYouCommunitiesCard(
       {super.key,
+      required this.communityId,
       required this.communityName,
       required this.communityImage,
       required this.creatorName,
       required this.content,
       required this.contentImage,
+      required this.postId,
       this.isRedirect});
+  final String? communityId;
   final String? communityName;
   final String? communityImage;
   final String? creatorName;
   final String? content;
   final String? contentImage;
+  final String? postId;
   final bool? isRedirect;
 
   @override
@@ -245,7 +252,9 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               context,
               CupertinoPageRoute(
                   builder: (context) => CommunitiesPost(
-                        communityName: widget.communityName!,
+                        communityName: widget.communityName ?? 'Default Name',
+                        communityId: widget.communityId ?? '1',
+                        postId: widget.postId ?? '1',
                       )));
         }
       },
@@ -276,7 +285,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.communityName!,
+                          widget.communityName ?? 'Default Community',
                           style: const TextStyle(
                             color: CupertinoColors.black,
                             fontSize: 16,
@@ -285,7 +294,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                           ),
                         ),
                         Text(
-                          widget.creatorName!,
+                          widget.creatorName ?? 'Admin',
                           style: const TextStyle(
                             color: CupertinoColors.black,
                             fontSize: 12,

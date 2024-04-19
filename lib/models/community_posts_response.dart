@@ -17,6 +17,23 @@ class CommunityPostsResponse {
   }
 }
 
+class PostResponse {
+  CommunityPost? communityPosts;
+
+  PostResponse({this.communityPosts});
+
+  factory PostResponse.fromJson(Map<String, dynamic> json) {
+    dynamic communityPostsData = json['data'];
+    if (communityPostsData == null) {
+      return PostResponse(communityPosts: CommunityPost());
+    }
+
+    CommunityPost singlePost = CommunityPost.fromJson(communityPostsData);
+
+    return PostResponse(communityPosts: singlePost);
+  }
+}
+
 class CommunityPost {
   String? id;
   String? partnerId;
@@ -38,6 +55,10 @@ class CommunityPost {
       this.partnerDetail});
 
   factory CommunityPost.fromJson(Map<String, dynamic> json) {
+    print('check model...');
+    print(json);
+    print(json['data']);
+    print(json['partner']);
     return CommunityPost(
       id: json['id']?.toString(),
       partnerId: json['partnerId'].toString(),
@@ -56,15 +77,16 @@ class CommunityPost {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> notificationData = {
+    final Map<String, dynamic> postdata = {
       'id': id,
       'partnerId': partnerId,
       'communityId': communityId,
       'content': content,
       'imageUrl': imageUrl,
-      'communityDetail': communityDetail
+      'communityDetail': communityDetail,
+      'partnerDetail': partnerDetail
     };
-    return notificationData;
+    return postdata;
   }
 }
 

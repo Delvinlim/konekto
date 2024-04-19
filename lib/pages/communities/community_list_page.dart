@@ -27,6 +27,7 @@ class _CommunitiesListState extends State<CommunitiesList> {
           padding: const EdgeInsets.all(12),
           child: ListView(children: const [
             CommunitiesCard(
+              communityId: '',
               communityName: 'Aberdeen FC',
               communityImage: 'assets/images/football_team/aberdeen.png',
               communitySince: '2020',

@@ -77,6 +77,7 @@ void _showCommunityCreatedDialog(BuildContext context, String communityName) {
             Navigator.pop(context);
             Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(
                 builder: (context) => CommunitiesDetailPage(
+                      communityId: '', //TODO use correct id
                       communityName: communityName,
                       communityImage: 'assets/images/communities/odba.png',
                     )));
