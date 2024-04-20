@@ -19,14 +19,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:toastification/toastification.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-        theme: CupertinoThemeData(brightness: Brightness.light), home: Home());
+    return CupertinoApp(
+        theme: const CupertinoThemeData(brightness: Brightness.light),
+        home: const Home(),
+        builder: EasyLoading.init());
     // home: DoubleBackToCloseApp(
     //     snackBar: SnackBar(
     //       content: Text('Tap back again to leave'),

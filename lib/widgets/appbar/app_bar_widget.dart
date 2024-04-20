@@ -4,16 +4,17 @@ import 'package:konekto/pages/explore/explore_page.dart';
 import 'package:konekto/pages/home/home_page.dart';
 import 'package:konekto/pages/messages/messages_page.dart';
 import 'package:konekto/pages/profile/profile_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class MainBarPage extends StatelessWidget {
   const MainBarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: KonektoTabBar(),
-    );
+    return CupertinoApp(
+        theme: const CupertinoThemeData(brightness: Brightness.light),
+        home: const KonektoTabBar(),
+        builder: EasyLoading.init());
   }
 }
 
@@ -47,7 +48,7 @@ class KonektoTabBar extends StatelessWidget {
       tabBuilder: (BuildContext context, int index) {
         switch (index) {
           case 0:
-            return const HomePage();
+            return const Home();
           case 1:
             return const Explore();
           case 2:
