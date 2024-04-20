@@ -40,7 +40,6 @@ class _CommunitiesState extends State<Communities> {
   @override
   void initState() {
     super.initState();
-    print('commnity page');
     _fetchPosts();
     _fetchCommunities();
     _fetchCommunitiesByCategories();

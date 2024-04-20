@@ -384,6 +384,18 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                   postId: post.id,
                                   isRedirect: true,
                                 ),
+                              if (postsList.isEmpty)
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                              const Center(
+                                child: Text(
+                                  'Empty Post',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ),
+                              )
                             ],
                           )),
               )
