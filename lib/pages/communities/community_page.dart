@@ -594,6 +594,7 @@ class _CommunitiesState extends State<Communities> {
                                 children: <Widget>[
                                   for (var community in category.value)
                                     DiscoverCommunitiesCard(
+                                      communitiesId: community.id!,
                                       communitiesImage:
                                           'assets/images/communities/deagleders.png',
                                       communitiesName: community.name!,

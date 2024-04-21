@@ -1,12 +1,20 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
 import 'package:konekto/pages/communities/community_post_page.dart';
 import 'package:konekto/pages/communities/community_rules_page.dart';
 import 'package:konekto/pages/communities/community_settings_page.dart';
+import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:toastification/toastification.dart';
+
+const _storage = FlutterSecureStorage();
 
 class CommunitiesCard extends StatelessWidget {
   const CommunitiesCard(
@@ -724,183 +732,822 @@ void _showLeaveCommunityDialog(BuildContext context) {
   );
 }
 
-class CommunityDiscoverModal extends StatelessWidget {
+class CommunityDiscoverModal extends StatefulWidget {
   const CommunityDiscoverModal(
       {super.key,
       this.reverse = false,
       required this.discoverImage,
-      required this.discoverName});
+      required this.discoverId});
   final bool reverse;
+  final String discoverId;
   final String discoverImage;
-  final String discoverName;
+
+  @override
+  State<CommunityDiscoverModal> createState() => _CommunityDiscoverModalState();
+}
+
+class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
+  bool isDetailFetched = false;
+  Map<String, dynamic> communityDetail = {
+    'id': '',
+    'partner_id': '1',
+    'category_id': '1',
+    'name': 'Community Default Name',
+    'description': 'Community Default Description',
+    'privacy': 'public',
+    'location': 'Indonesia',
+    'since': '2024',
+    'sequence': '1',
+    'total_member': 'N/A',
+    'is_user_joined': false,
+    'is_pending_approval': false
+  };
+  @override
+  void initState() {
+    super.initState();
+    _fetchCommunityDetail();
+  }
+
+  void _fetchCommunityDetail() async {
+    setState(() {
+      isDetailFetched = true;
+    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.get(
+          '/community/detail/${widget.discoverId}',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('hello here..');
+      print(response);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        setState(() {
+          communityDetail = response.data;
+          isDetailFetched = false;
+        });
+        // Successful response, parse the JSON
+        print(communityDetail);
+        print('end');
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch notification data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('error community detail...');
+      print(e);
+      setState(() {
+        isDetailFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get communities',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void joinCommunity() async {
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.post('/community/join',
+          data: {'communityId': widget.discoverId},
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('hello here..');
+      print(response);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Show Notification
+        // ignore: use_build_context_synchronously
+        toastification.show(
+          context: context,
+          title: const Text("Success"),
+          description: Text(
+            response.data['message'] ?? 'Please wait a moment...',
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+          autoCloseDuration: const Duration(seconds: 2),
+          type: ToastificationType.success,
+          style: ToastificationStyle.flatColored,
+          alignment: Alignment.topCenter,
+          direction: TextDirection.ltr,
+          dragToClose: false,
+          showProgressBar: false,
+          closeButtonShowType: CloseButtonShowType.none,
+          callbacks: ToastificationCallbacks(
+              onAutoCompleteCompleted: (toastItem) => {
+                    Navigator.pop(context),
+                    // _showCommunityCreatedDialog(context, communityName),
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => CommunitiesDetailPage(
+                              communityId: widget.discoverId.toString(),
+                              communityName: communityDetail['data']?['name'] ??
+                                  'Community Default Name',
+                              communityImage: widget.discoverImage,
+                            )))
+                  }),
+        );
+      } else {
+        print('Failed to join community data: ${response.statusCode}');
+      }
+      EasyLoading.dismiss();
+    } on DioException catch (e) {
+      print('error community detail...');
+      print(e);
+      EasyLoading.dismiss();
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get communities',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
         child: CupertinoPageScaffold(
       child: SafeArea(
-        top: false,
-        child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            margin: const EdgeInsets.only(bottom: 12),
-            decoration: const BoxDecoration(color: CupertinoColors.white),
-            child: Column(
-              mainAxisSize:
-                  MainAxisSize.min, // Use min size to prevent fullscreen
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 340,
-                      height: 200,
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: 340,
-                            height: 147,
-                            decoration: ShapeDecoration(
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/community_background.png"),
-                                fit: BoxFit.fill,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 128,
-                            top: 105,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 6),
-                              width: 84,
-                              height: 84,
+          top: false,
+          child: Skeletonizer(
+            enabled: isDetailFetched,
+            child: isDetailFetched
+                ? Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration:
+                        const BoxDecoration(color: CupertinoColors.white),
+                    child: Column(
+                      mainAxisSize: MainAxisSize
+                          .min, // Use min size to prevent fullscreen
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 340,
+                              height: 200,
                               child: Stack(
-                                alignment: Alignment.center,
                                 children: [
                                   Container(
-                                    width: 84,
-                                    height: 84,
-                                    decoration: const ShapeDecoration(
-                                      color: Color(0xFFECEFF1),
-                                      shape: OvalBorder(),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 69,
-                                    height: 69,
+                                    width: 340,
+                                    height: 147,
                                     decoration: ShapeDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(discoverImage),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/community_background.png"),
                                         fit: BoxFit.fill,
                                       ),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(232),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 128,
+                                    top: 105,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(right: 6),
+                                      width: 84,
+                                      height: 84,
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            width: 84,
+                                            height: 84,
+                                            decoration: const ShapeDecoration(
+                                              color: Color(0xFFECEFF1),
+                                              shape: OvalBorder(),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 69,
+                                            height: 69,
+                                            decoration: ShapeDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    widget.discoverImage),
+                                                fit: BoxFit.fill,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(232),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
+                          ],
+                        ),
+                        const Text(
+                          'Default Community Name',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: CupertinoColors.black,
+                              fontFamily: 'Roboto'),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  '66',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: CupertinoColors.black,
+                                      fontFamily: 'Roboto'),
+                                ),
+                                Text(
+                                  'Members',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: CupertinoColors.black,
+                                      fontFamily: 'Roboto'),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  '13',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: CupertinoColors.black,
+                                      fontFamily: 'Roboto'),
+                                ),
+                                Text(
+                                  'Achievement',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: CupertinoColors.black,
+                                      fontFamily: 'Roboto'),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  '2019',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: CupertinoColors.black,
+                                      fontFamily: 'Roboto'),
+                                ),
+                                Text(
+                                  'Since',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: CupertinoColors.black,
+                                      fontFamily: 'Roboto'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 12),
+                          child: const Text(
+                            "Devil's Reject Nation is a tight-knit company of motorcycle enthusiasts who share a passion for the open road and a love for are things two-wheeled. We're not your typical riders, we're a bothered and sisterhood of rebels, adventures, and free spirits who to together to embrace the thrill of a trip",
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 14),
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  discoverName,
-                  style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: CupertinoColors.black,
-                      fontFamily: 'Roboto'),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          '66',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: CupertinoColors.black,
-                              fontFamily: 'Roboto'),
                         ),
-                        Text(
-                          'Members',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: CupertinoColors.black,
-                              fontFamily: 'Roboto'),
-                        ),
+                        // BUTTON JOIN DISINI
+                        if (true)
+                          CupertinoButton(
+                              color: Colors.blue.shade600,
+                              child: const Text(
+                                'View',
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                              onPressed: () {}),
                       ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '13',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: CupertinoColors.black,
-                              fontFamily: 'Roboto'),
-                        ),
-                        Text(
-                          'Achievement',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: CupertinoColors.black,
-                              fontFamily: 'Roboto'),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '2019',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: CupertinoColors.black,
-                              fontFamily: 'Roboto'),
-                        ),
-                        Text(
-                          'Since',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: CupertinoColors.black,
-                              fontFamily: 'Roboto'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  child: const Text(
-                    "Devil's Reject Nation is a tight-knit company of motorcycle enthusiasts who share a passion for the open road and a love for are things two-wheeled. We're not your typical riders, we're a bothered and sisterhood of rebels, adventures, and free spirits who to together to embrace the thrill of a trip",
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
-                  ),
-                ),
-                // BUTTON JOIN DISINI
-              ],
-            )),
-      ),
+                    ))
+                : communityDetail['data'] != null
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        margin: const EdgeInsets.only(bottom: 12),
+                        decoration:
+                            const BoxDecoration(color: CupertinoColors.white),
+                        child: Column(
+                          mainAxisSize: MainAxisSize
+                              .min, // Use min size to prevent fullscreen
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 340,
+                                  height: 200,
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        width: 340,
+                                        height: 147,
+                                        decoration: ShapeDecoration(
+                                          image: const DecorationImage(
+                                            image: AssetImage(
+                                                "assets/images/community_background.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 128,
+                                        top: 105,
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 6),
+                                          width: 84,
+                                          height: 84,
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Container(
+                                                width: 84,
+                                                height: 84,
+                                                decoration:
+                                                    const ShapeDecoration(
+                                                  color: Color(0xFFECEFF1),
+                                                  shape: OvalBorder(),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 69,
+                                                height: 69,
+                                                decoration: ShapeDecoration(
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                        widget.discoverImage),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            232),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              communityDetail['data']?['name'] ??
+                                  'Community Name',
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: CupertinoColors.black,
+                                  fontFamily: 'Roboto'),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      (communityDetail['data'] != null &&
+                                              communityDetail['data']
+                                                      ['total_member'] !=
+                                                  null)
+                                          ? communityDetail['data']
+                                                  ['total_member']
+                                              .toString()
+                                          : 'N/A',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                    const Text(
+                                      'Members',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                  ],
+                                ),
+                                const Column(
+                                  children: [
+                                    Text(
+                                      '13',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                    Text(
+                                      'Achievement',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      (communityDetail['data'] != null &&
+                                              communityDetail['data']
+                                                      ['since'] !=
+                                                  null)
+                                          ? communityDetail['data']['since']
+                                              .toString()
+                                          : 'N/A',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                    const Text(
+                                      'Since',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
+                              child: Text(
+                                (communityDetail['data'] != null &&
+                                        communityDetail['data']
+                                                ['description'] !=
+                                            null)
+                                    ? communityDetail['data']['description'] ??
+                                        "Default Community Description"
+                                    : 'N/A',
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14),
+                              ),
+                            ),
+                            // BUTTON JOIN DISINI
+
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
+                              child: Row(
+                                mainAxisAlignment: communityDetail['data']
+                                            ?['is_user_joined'] ??
+                                        false
+                                    ? MainAxisAlignment.center
+                                    : MainAxisAlignment.spaceBetween,
+                                children: [
+                                  if (communityDetail['data']
+                                          ?['is_pending_approval'] ??
+                                      false ||
+                                          communityDetail['data']?['privacy'] ==
+                                              'private')
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: CupertinoButton(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 0, vertical: 12),
+                                          color: Colors.blue.shade600,
+                                          onPressed: null,
+                                          child: const Text(
+                                            'Pending Approval',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: CupertinoColors.black),
+                                          )),
+                                    ),
+                                  if (communityDetail['data']
+                                          ?['is_user_joined'] ||
+                                      communityDetail['data']?['privacy'] ==
+                                          'public')
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: CupertinoColors.activeBlue),
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust the radius as needed
+                                      ),
+                                      child: CupertinoButton(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 64, vertical: 12),
+                                          color: !communityDetail['data']
+                                                      ?['is_user_joined'] &&
+                                                  !communityDetail['data']
+                                                      ?['is_pending_approval']
+                                              ? Colors.transparent
+                                              : Colors.blue.shade600,
+                                          child: Text(
+                                            'View',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: !communityDetail['data']
+                                                            ?[
+                                                            'is_user_joined'] &&
+                                                        !communityDetail['data']
+                                                            ?[
+                                                            'is_pending_approval']
+                                                    ? CupertinoColors.activeBlue
+                                                    : CupertinoColors.white),
+                                          ),
+                                          onPressed: () {}),
+                                    ),
+                                  if (!communityDetail['data']
+                                              ?['is_user_joined'] &&
+                                          !communityDetail['data']
+                                              ?['is_pending_approval'] ||
+                                      communityDetail['data']?['privacy'] ==
+                                          'private')
+                                    Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: CupertinoButton(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 64, vertical: 14),
+                                            color: Colors.blue.shade600,
+                                            child: const Text(
+                                              'Join',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            onPressed: () {
+                                              EasyLoading.show(
+                                                  status: 'loading...',
+                                                  maskType: EasyLoadingMaskType
+                                                      .black);
+                                              joinCommunity();
+                                            })),
+                                ],
+                              ),
+                            )
+                          ],
+                        ))
+                    : Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        margin: const EdgeInsets.only(bottom: 12),
+                        decoration:
+                            const BoxDecoration(color: CupertinoColors.white),
+                        child: Column(
+                          mainAxisSize: MainAxisSize
+                              .min, // Use min size to prevent fullscreen
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 340,
+                                  height: 200,
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        width: 340,
+                                        height: 147,
+                                        decoration: ShapeDecoration(
+                                          image: const DecorationImage(
+                                            image: AssetImage(
+                                                "assets/images/community_background.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 128,
+                                        top: 105,
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 6),
+                                          width: 84,
+                                          height: 84,
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Container(
+                                                width: 84,
+                                                height: 84,
+                                                decoration:
+                                                    const ShapeDecoration(
+                                                  color: Color(0xFFECEFF1),
+                                                  shape: OvalBorder(),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 69,
+                                                height: 69,
+                                                decoration: ShapeDecoration(
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                        widget.discoverImage),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            232),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Text(
+                              'Community Name',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: CupertinoColors.black,
+                                  fontFamily: 'Roboto'),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      'N/A',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                    Text(
+                                      'Members',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      '13',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                    Text(
+                                      'Achievement',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'N/A',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                    Text(
+                                      'Since',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: CupertinoColors.black,
+                                          fontFamily: 'Roboto'),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
+                              child: const Text(
+                                "Default Community Description",
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14),
+                              ),
+                            ),
+                            // BUTTON JOIN DISINI
+                          ],
+                        )),
+          )),
     ));
   }
 }
@@ -908,8 +1555,10 @@ class CommunityDiscoverModal extends StatelessWidget {
 class DiscoverCommunitiesCard extends StatefulWidget {
   const DiscoverCommunitiesCard(
       {super.key,
+      required this.communitiesId,
       required this.communitiesImage,
       required this.communitiesName});
+  final String communitiesId;
   final String communitiesImage;
   final String communitiesName;
 
@@ -919,6 +1568,9 @@ class DiscoverCommunitiesCard extends StatefulWidget {
 }
 
 class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
+  bool isDetailFetched = false;
+  Map<String, dynamic> communityDetail = {};
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -927,8 +1579,8 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
               expand: false,
               context: context,
               builder: (context) => CommunityDiscoverModal(
+                    discoverId: widget.communitiesId,
                     discoverImage: widget.communitiesImage,
-                    discoverName: widget.communitiesName,
                     reverse: false,
                   ));
         },
