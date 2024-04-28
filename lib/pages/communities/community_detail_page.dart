@@ -29,12 +29,81 @@ class CommunitiesDetailPage extends StatefulWidget {
 
 class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
   bool isPostsFetched = false;
-  late List<CommunityPost> postsList = [];
+  bool isDetailFetched = false;
+  List<CommunityPost> postsList = [];
+  Map<String, dynamic> communityDetail = {};
 
   @override
   void initState() {
     super.initState();
     _fetchPosts();
+    _fetchCommunityDetail();
+  }
+
+  void _fetchCommunityDetail() async {
+    setState(() {
+      isDetailFetched = true;
+    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.get(
+          '/community/detail/${widget.communityId}',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('hello here community Detail..');
+      print(response);
+      print(response.data);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        setState(() {
+          isDetailFetched = false;
+          communityDetail = response.data;
+        });
+        print(communityDetail);
+        // Successful response, parse the JSON
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch notification data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('error community detail...');
+      print(e);
+      setState(() {
+        isDetailFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get communities',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
   }
 
   void _fetchPosts() async {
@@ -122,12 +191,6 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
           color: CupertinoColors.black,
           onPressed: () => {
             Navigator.of(context).pop(context),
-            // Navigator.pushAndRemoveUntil(context,
-            //     CupertinoPageRoute(builder: (BuildContext context) {
-            //   return const CommunitiesPage();
-            // }), (r) {
-            //   return false;
-            // })
           },
         ),
         trailing: GestureDetector(
@@ -229,20 +292,22 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Column(
                             children: [
                               Text(
-                                '66',
-                                style: TextStyle(
+                                communityDetail['data']?['total_member']
+                                        .toString() ??
+                                    'N/A',
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                     color: CupertinoColors.black,
                                     fontFamily: 'Roboto'),
                               ),
-                              Text(
+                              const Text(
                                 'Members',
                                 style: TextStyle(
                                     fontSize: 12,
@@ -252,7 +317,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                               ),
                             ],
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Text(
                                 '13',
@@ -275,14 +340,15 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                           Column(
                             children: [
                               Text(
-                                '2019',
-                                style: TextStyle(
+                                communityDetail['data']?['since'].toString() ??
+                                    'N/A',
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                     color: CupertinoColors.black,
                                     fontFamily: 'Roboto'),
                               ),
-                              Text(
+                              const Text(
                                 'Since',
                                 style: TextStyle(
                                     fontSize: 12,
@@ -388,14 +454,15 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                 const SizedBox(
                                   height: 40,
                                 ),
-                              const Center(
-                                child: Text(
-                                  'Empty Post',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
-                                ),
-                              )
+                              if (postsList.isEmpty)
+                                const Center(
+                                  child: Text(
+                                    'Empty Post',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20),
+                                  ),
+                                )
                             ],
                           )),
               )
