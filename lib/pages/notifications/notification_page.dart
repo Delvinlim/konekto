@@ -8,6 +8,8 @@ import 'package:konekto/models/notifications_response.dart'
     as KonektoNotification;
 import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/widgets/card/notification_card_widget.dart';
+import 'package:konekto/widgets/modals/notification_modal.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:toastification/toastification.dart';
 
@@ -107,10 +109,64 @@ class _NotificationsState extends State<Notifications> {
   }
 
   void _deleteNotification(String notificationId) async {
-    setState(() {
-      notificationsList
-          .removeWhere((notification) => notification.id == notificationId);
-    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.delete('/me/notification',
+          data: {'partnerNotificationId': notificationId},
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      if (response.statusCode == 204) {
+        print('success delete...');
+        // // ignore: use_build_context_synchronously
+        // toastification.show(
+        //     context: context,
+        //     title: const Text('notification deleted.'),
+        //     autoCloseDuration: const Duration(seconds: 3),
+        //     type: ToastificationType.success,
+        //     style: ToastificationStyle.flatColored,
+        //     alignment: Alignment.topCenter,
+        //     direction: TextDirection.ltr,
+        //     dragToClose: true,
+        //     showProgressBar: false);
+        setState(() {
+          notificationsList
+              .removeWhere((notification) => notification.id == notificationId);
+        });
+      }
+    } on DioException catch (e) {
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get notifications',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
   }
 
   @override
@@ -218,8 +274,8 @@ class _NotificationsState extends State<Notifications> {
                                   notificationsList.isEmpty
                               ? isNotificationsFetched
                                   ? ListView(
+                                      // Fake Data
                                       children: [
-                                        // Fake Data
                                         Container(
                                             width: MediaQuery.of(context)
                                                 .size
@@ -318,220 +374,268 @@ class _NotificationsState extends State<Notifications> {
                                         if (notification
                                                 .notificationDetail?.type ==
                                             'system')
-                                          Dismissible(
-                                              key: Key(notification.id!),
-                                              direction: DismissDirection
-                                                  .endToStart, // Allow left-to-right swipe
-                                              onDismissed:
-                                                  (DismissDirection direction) {
-                                                // Implement delete logic here
-                                                _deleteNotification(
-                                                    notification.id!);
-                                              },
-                                              background: Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 20,
-                                                      vertical: 5),
-                                                  decoration: BoxDecoration(
-                                                    color: CupertinoColors
-                                                        .destructiveRed, //,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        color:
-                                                            Color(0x19000000),
-                                                        blurRadius: 8,
-                                                        offset: Offset(0, 3),
-                                                        spreadRadius: 0,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: const Text(
-                                                    'Hapus',
-                                                    style: TextStyle(
-                                                        color: CupertinoColors
-                                                            .white,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  )),
-                                              child: SystemNotificationCard(
-                                                notificationMessage:
-                                                    notification
-                                                        .notificationDetail
-                                                        ?.description,
-                                              )),
+                                          GestureDetector(
+                                            onTap: () {
+                                              showCupertinoModalBottomSheet(
+                                                  expand: false,
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      NotificationModal(
+                                                        notification:
+                                                            notification,
+                                                      ));
+                                            },
+                                            child: Dismissible(
+                                                key: Key(notification.id!),
+                                                direction: DismissDirection
+                                                    .endToStart, // Allow left-to-right swipe
+                                                onDismissed: (DismissDirection
+                                                    direction) {
+                                                  // Implement delete logic here
+                                                  _deleteNotification(
+                                                      notification.id!);
+                                                },
+                                                background: Container(
+                                                    margin: const EdgeInsets
+                                                        .symmetric(vertical: 8),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20,
+                                                        vertical: 5),
+                                                    decoration: BoxDecoration(
+                                                      color: CupertinoColors
+                                                          .destructiveRed, //,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color:
+                                                              Color(0x19000000),
+                                                          blurRadius: 8,
+                                                          offset: Offset(0, 3),
+                                                          spreadRadius: 0,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                          color: CupertinoColors
+                                                              .white,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    )),
+                                                child: SystemNotificationCard(
+                                                  notificationMessage:
+                                                      notification
+                                                          .notificationDetail
+                                                          ?.description,
+                                                )),
+                                          )
                                       ] else if (_selectedSegment.name ==
                                           'community') ...[
                                         if (notification
                                                 .notificationDetail?.type ==
                                             'community')
-                                          Dismissible(
-                                              key: Key(notification.id!),
-                                              direction: DismissDirection
-                                                  .endToStart, // Allow left-to-right swipe
-                                              onDismissed:
-                                                  (DismissDirection direction) {
-                                                _deleteNotification(
-                                                    notification.id!);
-                                              },
-                                              background: Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 10),
-                                                  decoration: BoxDecoration(
-                                                    color: CupertinoColors
-                                                        .destructiveRed, //,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        color:
-                                                            Color(0x19000000),
-                                                        blurRadius: 8,
-                                                        offset: Offset(0, 3),
-                                                        spreadRadius: 0,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: const Text(
-                                                    'Hapus',
-                                                    style: TextStyle(
-                                                        color: CupertinoColors
-                                                            .white,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  )),
-                                              child: NotificationCard(
-                                                notificationMessage:
-                                                    notification
-                                                        .notificationDetail
-                                                        ?.description,
-                                                communityName: notification
-                                                    .notificationDetail?.name,
-                                                communityImage: notification
-                                                    .notificationDetail
-                                                    ?.imageUrl,
-                                              )),
+                                          GestureDetector(
+                                            onTap: () {
+                                              showCupertinoModalBottomSheet(
+                                                  expand: false,
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      NotificationModal(
+                                                        notification:
+                                                            notification,
+                                                      ));
+                                            },
+                                            child: Dismissible(
+                                                key: Key(notification.id!),
+                                                direction: DismissDirection
+                                                    .endToStart, // Allow left-to-right swipe
+                                                onDismissed: (DismissDirection
+                                                    direction) {
+                                                  _deleteNotification(
+                                                      notification.id!);
+                                                },
+                                                background: Container(
+                                                    margin: const EdgeInsets
+                                                        .symmetric(vertical: 8),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 10),
+                                                    decoration: BoxDecoration(
+                                                      color: CupertinoColors
+                                                          .destructiveRed, //,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color:
+                                                              Color(0x19000000),
+                                                          blurRadius: 8,
+                                                          offset: Offset(0, 3),
+                                                          spreadRadius: 0,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                          color: CupertinoColors
+                                                              .white,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    )),
+                                                child: NotificationCard(
+                                                  notificationMessage:
+                                                      notification
+                                                          .notificationDetail
+                                                          ?.description,
+                                                  communityName: notification
+                                                      .notificationDetail?.name,
+                                                  communityImage: notification
+                                                      .notificationDetail
+                                                      ?.imageUrl,
+                                                )),
+                                          )
                                       ] else ...[
                                         if (notification
                                                 .notificationDetail?.type ==
                                             'system')
-                                          Dismissible(
-                                              key: Key(notification.id!),
-                                              direction: DismissDirection
-                                                  .endToStart, // Allow left-to-right swipe
-                                              onDismissed:
-                                                  (DismissDirection direction) {
-                                                // Implement delete logic here
-                                                _deleteNotification(
-                                                    notification.id!);
-                                              },
-                                              background: Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 20,
-                                                      vertical: 5),
-                                                  decoration: BoxDecoration(
-                                                    color: CupertinoColors
-                                                        .destructiveRed, //,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        color:
-                                                            Color(0x19000000),
-                                                        blurRadius: 8,
-                                                        offset: Offset(0, 3),
-                                                        spreadRadius: 0,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: const Text(
-                                                    'Hapus',
-                                                    style: TextStyle(
-                                                        color: CupertinoColors
-                                                            .white,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  )),
-                                              child: SystemNotificationCard(
-                                                notificationMessage:
-                                                    notification
-                                                        .notificationDetail
-                                                        ?.description,
-                                              ))
+                                          GestureDetector(
+                                            onTap: () {
+                                              showCupertinoModalBottomSheet(
+                                                  expand: false,
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      NotificationModal(
+                                                        notification:
+                                                            notification,
+                                                      ));
+                                            },
+                                            child: Dismissible(
+                                                key: Key(notification.id!),
+                                                direction: DismissDirection
+                                                    .endToStart, // Allow left-to-right swipe
+                                                onDismissed: (DismissDirection
+                                                    direction) {
+                                                  // Implement delete logic here
+                                                  _deleteNotification(
+                                                      notification.id!);
+                                                },
+                                                background: Container(
+                                                    margin: const EdgeInsets
+                                                        .symmetric(vertical: 8),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20,
+                                                        vertical: 5),
+                                                    decoration: BoxDecoration(
+                                                      color: CupertinoColors
+                                                          .destructiveRed, //,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color:
+                                                              Color(0x19000000),
+                                                          blurRadius: 8,
+                                                          offset: Offset(0, 3),
+                                                          spreadRadius: 0,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                          color: CupertinoColors
+                                                              .white,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    )),
+                                                child: SystemNotificationCard(
+                                                  notificationMessage:
+                                                      notification
+                                                          .notificationDetail
+                                                          ?.description,
+                                                )),
+                                          )
                                         else if (notification
                                                 .notificationDetail?.type ==
                                             'community')
-                                          Dismissible(
-                                              key: Key(notification.id!),
-                                              direction: DismissDirection
-                                                  .endToStart, // Allow left-to-right swipe
-                                              onDismissed:
-                                                  (DismissDirection direction) {
-                                                _deleteNotification(
-                                                    notification.id!);
-                                              },
-                                              background: Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 10),
-                                                  decoration: BoxDecoration(
-                                                    color: CupertinoColors
-                                                        .destructiveRed, //,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        color:
-                                                            Color(0x19000000),
-                                                        blurRadius: 8,
-                                                        offset: Offset(0, 3),
-                                                        spreadRadius: 0,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: const Text(
-                                                    'Hapus',
-                                                    style: TextStyle(
-                                                        color: CupertinoColors
-                                                            .white,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  )),
-                                              child: NotificationCard(
-                                                notificationMessage:
-                                                    notification
-                                                        .notificationDetail
-                                                        ?.description,
-                                                communityName: notification
-                                                    .notificationDetail?.name,
-                                                communityImage: notification
-                                                    .notificationDetail
-                                                    ?.imageUrl,
-                                              )),
+                                          GestureDetector(
+                                            onTap: () {
+                                              showCupertinoModalBottomSheet(
+                                                  expand: false,
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      NotificationModal(
+                                                        notification:
+                                                            notification,
+                                                      ));
+                                            },
+                                            child: Dismissible(
+                                                key: Key(notification.id!),
+                                                direction: DismissDirection
+                                                    .endToStart, // Allow left-to-right swipe
+                                                onDismissed: (DismissDirection
+                                                    direction) {
+                                                  _deleteNotification(
+                                                      notification.id!);
+                                                },
+                                                background: Container(
+                                                    margin: const EdgeInsets
+                                                        .symmetric(vertical: 8),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 10),
+                                                    decoration: BoxDecoration(
+                                                      color: CupertinoColors
+                                                          .destructiveRed, //,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color:
+                                                              Color(0x19000000),
+                                                          blurRadius: 8,
+                                                          offset: Offset(0, 3),
+                                                          spreadRadius: 0,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: const Text(
+                                                      'Hapus',
+                                                      style: TextStyle(
+                                                          color: CupertinoColors
+                                                              .white,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    )),
+                                                child: NotificationCard(
+                                                  notificationMessage:
+                                                      notification
+                                                          .notificationDetail
+                                                          ?.description,
+                                                  communityName: notification
+                                                      .notificationDetail?.name,
+                                                  communityImage: notification
+                                                      .notificationDetail
+                                                      ?.imageUrl,
+                                                )),
+                                          )
                                       ],
                                   ],
                                 ),
