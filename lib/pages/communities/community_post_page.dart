@@ -71,8 +71,11 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
     });
     dynamic accessToken = await _storage.read(key: 'jwtToken');
     try {
-      Response response = await dioClient.get('/community/post',
-          data: {'postId': widget.postId},
+      print('before executing...');
+      print(widget.postId);
+      Response response = await dioClient.get(
+          '/community/post/${widget.postId}',
+          data: {},
           options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
       print('hello here..');
       print(response);
@@ -99,7 +102,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-      print('error post...');
+      print('error post hereeeee...');
       print(e);
       setState(() {
         isPostsFetched = false;

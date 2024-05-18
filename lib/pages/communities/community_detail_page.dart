@@ -112,8 +112,8 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
     });
     dynamic accessToken = await _storage.read(key: 'jwtToken');
     try {
-      Response response = await dioClient.get('/community/posts',
-          data: {'communityId': widget.communityId},
+      Response response = await dioClient.get(
+          '/community/posts/${widget.communityId}',
           options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
       print('hello here..');
       print(response);
@@ -137,10 +137,10 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
         print('end post response');
       } else {
         // Handle error response (non-200 status code)
-        print('Failed to fetch notification data: ${response.statusCode}');
+        print('Failed to fetch posts data: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      print('error post...');
+      print('error post disini.......');
       print(e);
       setState(() {
         isPostsFetched = false;
@@ -320,7 +320,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                           const Column(
                             children: [
                               Text(
-                                '13',
+                                '0',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,

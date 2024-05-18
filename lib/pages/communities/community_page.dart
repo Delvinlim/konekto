@@ -72,7 +72,7 @@ class _CommunitiesState extends State<Communities> {
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-      print('error post...');
+      print('error fetch posts...');
       print(e);
       setState(() {
         isPostsFetched = false;
@@ -152,7 +152,7 @@ class _CommunitiesState extends State<Communities> {
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-      print('error post...');
+      print('error getting community list...');
       print(e);
       setState(() {
         isCommunitiesFetched = false;
@@ -238,12 +238,12 @@ class _CommunitiesState extends State<Communities> {
         // print('end communities response');
       } else {
         // Handle error response (non-200 status code)
-        print('Failed to fetch notification data: ${response.statusCode}');
+        print('Failed to fetch communities data: ${response.statusCode}');
       }
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-      print('error post...');
+      print('error communities by categories...');
       print(e);
       setState(() {
         isCommunitiesFetched = false;

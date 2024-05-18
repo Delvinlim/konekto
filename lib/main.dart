@@ -14,7 +14,7 @@ void configLoading() {
     ..radius = 10.0
     ..indicatorSize = 45.0
     ..textColor = Colors.black
-    ..indicatorColor = Colors.black
+    ..indicatorColor = Colors.white
     ..maskColor = Colors.transparent
     ..backgroundColor = Colors.transparent
     ..boxShadow = []

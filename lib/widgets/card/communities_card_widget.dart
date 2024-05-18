@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -250,6 +252,78 @@ class ForYouCommunitiesCard extends StatefulWidget {
 
 class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
   IconData heartIcon = CupertinoIcons.heart;
+  num totalLikes = 0;
+  num totalComments = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPostMetadata();
+  }
+
+  void fetchPostMetadata() async {
+    try {
+      Response res = await dioClient.get('/post/${widget.postId}/metadata');
+      final response = json.decode(res.toString());
+      if (res.statusCode == 200) {
+        // Successful response, parse the JSON
+        // Map<String, dynamic> responseData = response.data;
+        // CommunityPostsResponse communityPostsResponse =
+        //     CommunityPostsResponse.fromJson(responseData);
+        setState(() {
+          totalLikes = response['totalLikes']['count'] ?? 0;
+          totalComments = response['totalComments']['count'] ?? 0;
+          // postsList = communityPostsResponse.communityPosts ?? [];
+          // isPostsFetched = false;
+        });
+        // Successful response, parse the JSON
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch post metadata data: ${res.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error post metadata...');
+      print(e);
+      // setState(() {
+      //   isPostsFetched = false;
+      // });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get post metadata',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -374,71 +448,6 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                   ),
                 ),
               ),
-            // SizedBox(
-            //   // Use a LayoutBuilder to get the width of the parent container dynamically
-            //   child: LayoutBuilder(
-            //     builder: (BuildContext context, BoxConstraints constraints) {
-            //       double imageSize = constraints
-            //           .maxWidth; // Use the width as the size for both width and height
-
-            //       return Container(
-            //         width: imageSize,
-            //         height: imageSize,
-            //         decoration: BoxDecoration(
-            //           image: DecorationImage(
-            //             image: NetworkImage(widget.contentImage!),
-            //             fit: BoxFit
-            //                 .cover, // Fill the container while maintaining aspect ratio
-            //           ),
-            //           borderRadius: BorderRadius.circular(4),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
-            // SizedBox(
-            //   child: LayoutBuilder(
-            //     builder: (BuildContext context, BoxConstraints constraints) {
-            //       double imageSize = constraints
-            //           .maxWidth; // Use the width as the size for both width and height
-
-            //       return ClipRRect(
-            //         borderRadius: BorderRadius.circular(6),
-            //         child: Image.network(
-            //           widget.contentImage!,
-            //           width: imageSize,
-            //           height: imageSize,
-            //           fit: BoxFit
-            //               .cover, // Fill the container while maintaining aspect ratio
-            //           loadingBuilder: (context, widget, loadingProgress) {
-            //             if (loadingProgress == null) {
-            //               return widget;
-            //             } else {
-            //               return Center(
-            //                 child: CircularProgressIndicator(
-            //                   value: loadingProgress.expectedTotalBytes !=
-            //                           null
-            //                       ? loadingProgress.cumulativeBytesLoaded /
-            //                           loadingProgress.expectedTotalBytes!
-            //                       : null,
-            //                 ),
-            //               );
-            //             }
-            //           },
-            //           errorBuilder: (context, error, stackTrace) {
-            //             return const Center(
-            //               child: Icon(
-            //                 Icons.broken_image,
-            //                 size: 32,
-            //                 color: CupertinoColors.black,
-            //               ),
-            //             );
-            //           },
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
             if (widget.contentImage != null && widget.contentImage != '')
               Column(
                 children: [
@@ -470,28 +479,28 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                               const SizedBox(
                                 width: 3,
                               ),
-                              const Text(
-                                '2,121 likes',
-                                style: TextStyle(
+                              Text(
+                                totalLikes.toString(),
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 12),
                               )
                             ]),
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 12),
-                          child: const Row(
+                          child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   CupertinoIcons.chat_bubble_text,
                                   color: CupertinoColors.black,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 3,
                                 ),
                                 Text(
-                                  '298 comments',
-                                  style: TextStyle(
+                                  totalComments.toString(),
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12),
                                 )
@@ -571,28 +580,28 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                               const SizedBox(
                                 width: 3,
                               ),
-                              const Text(
-                                '2,121 likes',
-                                style: TextStyle(
+                              Text(
+                                totalLikes.toString(),
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 12),
                               )
                             ]),
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 12),
-                          child: const Row(
+                          child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   CupertinoIcons.chat_bubble_text,
                                   color: CupertinoColors.black,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 3,
                                 ),
                                 Text(
-                                  '258 comments',
-                                  style: TextStyle(
+                                  totalComments.toString(),
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12),
                                 )
@@ -774,6 +783,8 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
     });
     dynamic accessToken = await _storage.read(key: 'jwtToken');
     try {
+      print('discoverid....');
+      print(widget.discoverId);
       Response response = await dioClient.get(
           '/community/detail/${widget.discoverId}',
           options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
@@ -903,7 +914,7 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
                 ? Text(e.response!.statusMessage!)
                 : const Text("Server Error"),
             description: const Text(
-              'Failed to get communities',
+              'Failed to join communities',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             autoCloseDuration: const Duration(seconds: 3),
