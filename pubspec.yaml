@@ -59,6 +59,10 @@ dependencies:
   share_plus: ^7.2.2
   pull_to_refresh_flutter3: ^2.0.2
   flutter_chat_ui: ^1.6.12
+  flutter_chat_types: ^3.6.2
+  image_picker: ^1.0.8
+  open_filex: ^4.4.0
+  file_picker: ^8.0.0+1
 
 dev_dependencies:
   flutter_test:
