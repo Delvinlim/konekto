@@ -58,6 +58,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   share_plus: ^7.2.2
   pull_to_refresh_flutter3: ^2.0.2
+  flutter_chat_ui: ^1.6.12
 
 dev_dependencies:
   flutter_test:
