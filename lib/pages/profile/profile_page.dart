@@ -273,7 +273,7 @@ class _ProfileState extends State<Profile> {
                   left: 214,
                   top: 13,
                   child: Text(
-                    '69',
+                    '0',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: CupertinoColors.black,
