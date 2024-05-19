@@ -10,6 +10,9 @@ import 'package:konekto/services/dio_service.dart';
 import 'package:toastification/toastification.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -36,9 +39,30 @@ class _RegisterFormState extends State<RegisterForm> {
         'password': passwordController.text
       });
       final response = json.decode(res.toString());
+      UserCredential firebaseRes = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+      print('check here firebase response');
+      print(firebaseRes);
+      await FirebaseChatCore.instance.createUserInFirestore(
+        types.User(
+          firstName: nameController.text,
+          id: firebaseRes.user!.uid, // UID from Firebase Authentication
+          imageUrl: 'https://i.pravatar.cc/300',
+          lastName: nameController.text,
+        ),
+      );
 
       // Save Token
       await FlutterSessionJwt.saveToken(response['token']);
+      // await FirebaseChatCore.instance.createUserInFirestore(
+      //   types.User(
+      //     firstName: 'John',
+      //     id: credential.user!.uid, // UID from Firebase Authentication
+      //     imageUrl: 'https://i.pravatar.cc/300',
+      //     lastName: 'Doe',
+      //   ),
+      // );
 
       // Show Notification
       // ignore: use_build_context_synchronously
