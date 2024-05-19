@@ -64,6 +64,7 @@ dependencies:
   open_filex: ^4.4.0
   file_picker: ^8.0.0+1
   flutter_firebase_chat_core: ^1.6.7
+  firebase_auth: ^4.19.5
 
 dev_dependencies:
   flutter_test:
