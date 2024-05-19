@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:konekto/pages/messages/messages_detail_page.dart';
 
 class Message extends StatefulWidget {
@@ -7,9 +8,11 @@ class Message extends StatefulWidget {
       {super.key,
       required this.communityName,
       required this.communityImage,
+      required this.communityRoom,
       required this.cameras});
   final String communityName;
   final String communityImage;
+  final Room communityRoom;
   final List<CameraDescription> cameras;
 
   @override
@@ -42,9 +45,11 @@ class _MessageState extends State<Message> {
             onTap: () => Navigator.of(context, rootNavigator: true)
                 .push(CupertinoPageRoute(
                     builder: (context) => MessagesDetailPage(
+                          communityRoom: widget.communityRoom,
                           communityName: widget.communityName,
-                          cameras: widget.cameras,
                         ))),
+            // communityName: widget.communityName,
+            // cameras: widget.cameras,
             child: Container(
               height: 50,
               clipBehavior: Clip.antiAlias,

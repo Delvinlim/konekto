@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -15,6 +17,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:toastification/toastification.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 const _storage = FlutterSecureStorage();
 
@@ -757,6 +761,7 @@ class CommunityDiscoverModal extends StatefulWidget {
 
 class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
   bool isDetailFetched = false;
+  late User currentUser;
   Map<String, dynamic> communityDetail = {
     'id': '',
     'partner_id': '1',
@@ -845,7 +850,7 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
     }
   }
 
-  void joinCommunity() async {
+  void joinCommunity(roomId) async {
     dynamic accessToken = await _storage.read(key: 'jwtToken');
     try {
       Response response = await dioClient.post('/community/join',
@@ -854,9 +859,52 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
       print('hello here..');
       print(response);
       if (response.statusCode == 200 || response.statusCode == 201) {
+        // Create Chat Room
+        FirebaseAuth.instance.authStateChanges().listen((User? user) async {
+          if (user != null) {
+            print(user.email);
+            print(user.uid);
+            print(roomId);
+            final room = FirebaseChatCore.instance.room(roomId);
+            print(room);
+            types.Room selectedRoom;
+            bool exists = false;
+            room.listen((value) {
+              print(value.users);
+              for (var firebaseUser in value.users) {
+                print('comparing...');
+                print(firebaseUser.id);
+                print(user.uid);
+                if (firebaseUser.id == user.uid) {
+                  exists = true;
+                  break;
+                }
+              }
+              print('am i exist in the list????');
+              if (!exists) {
+                print('im not exist so trying to add in...');
+                value.users.add(types.User(id: user.uid));
+                FirebaseChatCore.instance.updateRoom(value);
+              }
+              print(types.User(id: user.uid));
+              print(!value.users.contains(types.User(id: user.uid)));
+              if (!value.users.contains(types.User(id: user.uid))) {
+                // value.users.add(types.User(id: user.uid));
+                // FirebaseChatCore.instance.updateRoom(value);
+              }
+              print('check user..');
+              print(value.users);
+            });
+            // print('trying to cancel stream');
+            // await streamSubscription.cancel();
+            // print('finish cancel');
+          }
+        });
+
         // Show Notification
         // ignore: use_build_context_synchronously
         toastification.show(
+          // ignore: use_build_context_synchronously
           context: context,
           title: const Text("Success"),
           description: Text(
@@ -1358,7 +1406,26 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
                                                     ? CupertinoColors.activeBlue
                                                     : CupertinoColors.white),
                                           ),
-                                          onPressed: () {}),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            // _showCommunityCreatedDialog(context, communityName),
+                                            Navigator.of(context).push(
+                                                CupertinoPageRoute(
+                                                    builder: (context) =>
+                                                        CommunitiesDetailPage(
+                                                          communityId: widget
+                                                              .discoverId
+                                                              .toString(),
+                                                          communityName:
+                                                              communityDetail[
+                                                                          'data']
+                                                                      ?[
+                                                                      'name'] ??
+                                                                  'Community Default Name',
+                                                          communityImage: widget
+                                                              .discoverImage,
+                                                        )));
+                                          }),
                                     ),
                                   if (!communityDetail['data']
                                               ?['is_user_joined'] &&
@@ -1384,7 +1451,9 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
                                                   status: 'loading...',
                                                   maskType: EasyLoadingMaskType
                                                       .black);
-                                              joinCommunity();
+                                              joinCommunity(
+                                                  communityDetail['data']
+                                                      ?['roomId']);
                                             })),
                                 ],
                               ),

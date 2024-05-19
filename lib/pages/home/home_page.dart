@@ -687,6 +687,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) => CommunitiesList(
+                                              categoryId: category.id!,
                                               categoryName: category.name!,
                                             )));
                               },

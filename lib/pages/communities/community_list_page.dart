@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import '../../widgets/card/communities_card_widget.dart';
 
 class CommunitiesList extends StatefulWidget {
-  const CommunitiesList({super.key, required this.categoryName});
+  const CommunitiesList(
+      {super.key, required this.categoryName, required this.categoryId});
   final String categoryName;
+  final String categoryId;
 
   @override
   State<CommunitiesList> createState() => _CommunitiesListState();

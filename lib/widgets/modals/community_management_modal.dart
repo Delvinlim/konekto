@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:konekto/models/communities_response.dart';
 import 'package:konekto/models/community_categories_response.dart';
@@ -13,6 +15,7 @@ import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/utils/konekto_border.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:toastification/toastification.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class CommunityManagementModal extends StatelessWidget {
   const CommunityManagementModal(
@@ -195,7 +198,18 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
   void _createCommunity() async {
     try {
       dynamic accessToken = await _storage.read(key: 'jwtToken');
-
+      // await FirebaseChatCore.instance.room(roomId)
+      print('hello');
+      List<types.User> userUids = List.empty(growable: true);
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user != null) {
+          print(user.uid);
+          userUids.add(types.User(id: user.uid));
+          // final room = await FirebaseChatCore.instance.createGroupRoom(name: name, users: users)
+        }
+      });
+      final room = await FirebaseChatCore.instance
+          .createGroupRoom(name: nameController.text, users: userUids);
       // Consume API
       Response res = await dioClient
           .post('/community',
@@ -205,7 +219,8 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                 'categoryId': categoryIdController.text,
                 'privacy': 'public',
                 'location': locationController.text,
-                'since': sinceController.text
+                'since': sinceController.text,
+                'roomId': room.id
               },
               options:
                   Options(headers: {"Authorization": 'Bearer $accessToken'}))

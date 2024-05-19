@@ -3,7 +3,11 @@ import 'package:konekto/pages/communities/community_list_page.dart';
 
 class CategoryModalItem extends StatelessWidget {
   const CategoryModalItem(
-      {super.key, required this.categoryName, required this.categoryImage});
+      {super.key,
+      required this.categoryName,
+      required this.categoryImage,
+      required this.categoryId});
+  final String? categoryId;
   final String? categoryName;
   final String? categoryImage;
 
@@ -17,6 +21,7 @@ class CategoryModalItem extends StatelessWidget {
                 context,
                 CupertinoPageRoute(
                     builder: (context) => CommunitiesList(
+                          categoryId: categoryId ?? '1',
                           categoryName: categoryName ?? 'Default Category',
                         )));
           },

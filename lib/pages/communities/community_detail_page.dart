@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -8,6 +9,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:toastification/toastification.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 import '../../widgets/card/communities_card_widget.dart';
 
@@ -410,7 +413,29 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                     fontSize: 16,
                                     // color: CupertinoColors.black,
                                     fontWeight: FontWeight.bold)),
-                            onPressed: () {}),
+                            onPressed: () async {
+                              print('hello');
+                              List<types.User> userUids =
+                                  List.empty(growable: true);
+                              FirebaseAuth.instance
+                                  .authStateChanges()
+                                  .listen((User? user) {
+                                if (user != null) {
+                                  print(user.uid);
+                                  userUids.add(types.User(id: user.uid));
+                                  // final room = await FirebaseChatCore.instance.createGroupRoom(name: name, users: users)
+                                }
+                              });
+
+                              // await FirebaseChatCore.instance.room(roomId)
+                              final room = await FirebaseChatCore.instance
+                                  .createGroupRoom(
+                                      name: communityDetail['data']?['name'] ??
+                                          'Community Name',
+                                      users: userUids);
+                              print('check created room');
+                              print(room);
+                            }),
                       )
                     ],
                   ),

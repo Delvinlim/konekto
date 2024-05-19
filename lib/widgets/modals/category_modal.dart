@@ -134,6 +134,7 @@ class _CategoryModalState extends State<CategoryModal> {
                       children: [
                         for (var category in communityCategoriesList)
                           CategoryModalItem(
+                              categoryId: category.id!,
                               categoryName: category.name!,
                               categoryImage: category.imageUrl!),
                       ],

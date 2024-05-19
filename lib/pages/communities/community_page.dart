@@ -572,7 +572,8 @@ class _CommunitiesState extends State<Communities> {
                                         context,
                                         CupertinoPageRoute(
                                             builder: (context) =>
-                                                const CommunitiesList(
+                                                CommunitiesList(
+                                                  categoryId: category.key,
                                                   categoryName: 'General',
                                                 )));
                                   },
