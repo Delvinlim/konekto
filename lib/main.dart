@@ -6,6 +6,8 @@ import 'package:konekto/widgets/appbar/app_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 // void main() {
 void configLoading() {
@@ -25,6 +27,10 @@ void configLoading() {
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // Ensure that plugins are initialized
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
