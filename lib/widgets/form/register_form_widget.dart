@@ -31,14 +31,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void _register() async {
     try {
-      // Consume API
-      dynamic res = await dioClient.post('/auth/register', data: {
-        'name': nameController.text,
-        'username': usernameController.text,
-        'email': emailController.text,
-        'password': passwordController.text
-      });
-      final response = json.decode(res.toString());
       UserCredential firebaseRes = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
@@ -53,6 +45,15 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
       );
 
+      // Consume API
+      dynamic res = await dioClient.post('/auth/register', data: {
+        'name': nameController.text,
+        'username': usernameController.text,
+        'email': emailController.text,
+        'password': passwordController.text,
+        'firebaseId': firebaseRes.user!.uid
+      });
+      final response = json.decode(res.toString());
       // Save Token
       await FlutterSessionJwt.saveToken(response['token']);
       // await FirebaseChatCore.instance.createUserInFirestore(

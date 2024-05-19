@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:konekto/pages/auth/forget_password_page.dart';
@@ -39,6 +40,11 @@ class _LoginFormState extends State<LoginForm> {
               cancelToken: cancelToken)
           .timeout(const Duration(seconds: 30));
       final response = json.decode(res.toString());
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+
+      print('check credential');
+      print(credential);
 
       // Save Token
       FlutterSessionJwt.saveToken(response['token']);
