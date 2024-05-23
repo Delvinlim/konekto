@@ -64,14 +64,16 @@ class KonektoCommunity {
   String? id;
   String? name;
   String? since;
+  String? imageUrl;
 
-  KonektoCommunity({this.id, this.name, this.since});
+  KonektoCommunity({this.id, this.name, this.since, this.imageUrl});
 
   factory KonektoCommunity.fromJson(Map<String, dynamic> json) {
     return KonektoCommunity(
       id: json['id']?.toString(),
       name: json['name'] as String?,
       since: json['since'].toString(),
+      imageUrl: json['imageUrl'].toString(),
     );
   }
 
@@ -80,6 +82,7 @@ class KonektoCommunity {
       'id': id,
       'name': name,
       'since': since,
+      'imageUrl': imageUrl,
     };
     return communityData;
   }

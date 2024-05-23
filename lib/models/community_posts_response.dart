@@ -93,16 +93,19 @@ class CommunityPost {
 class CommunityDetail {
   String? id;
   String? name;
+  String? imageUrl;
 
   CommunityDetail({
     this.id,
     this.name,
+    this.imageUrl,
   });
 
   factory CommunityDetail.fromJson(Map<String, dynamic> json) {
     return CommunityDetail(
       id: json['id']?.toString(),
       name: json['name'] as String?,
+      imageUrl: json['imageUrl'] as String?,
     );
   }
 
@@ -110,6 +113,7 @@ class CommunityDetail {
     final Map<String, dynamic> detailData = {
       'id': id,
       'name': name,
+      'imageUrl': imageUrl,
     };
     return detailData;
   }

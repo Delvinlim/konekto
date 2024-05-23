@@ -17,10 +17,12 @@ class CommunitiesPost extends StatefulWidget {
       {super.key,
       required this.postId,
       required this.communityName,
+      required this.communityImage,
       required this.communityId});
   final String postId;
   final String communityName;
   final String communityId;
+  final String communityImage;
 
   @override
   State<CommunitiesPost> createState() => _CommunitiesPostState();
@@ -164,7 +166,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                     communityId: '1',
                     communityName: 'DTS System',
                     communityImage:
-                        'assets/images/communities/odba.png', // TODO Image Url
+                        'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png', // TODO Image Url
                     content:
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                     contentImage:
@@ -177,7 +179,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                     communityId: widget.communityId,
                     communityName: widget.communityName,
                     postId: widget.postId,
-                    communityImage: 'assets/images/communities/odba.png',
+                    communityImage: widget.communityImage,
                     creatorName: postsList.communityPosts?.partnerDetail?.name,
                     content: postsList.communityPosts?.content,
                     contentImage: postsList.communityPosts?.imageUrl,

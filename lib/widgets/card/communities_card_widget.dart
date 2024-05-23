@@ -31,7 +31,7 @@ class CommunitiesCard extends StatelessWidget {
       required this.communitySince});
   final String? communityId;
   final String? communityName;
-  final String communityImage;
+  final String? communityImage;
   final String? communitySince;
 
   // @override
@@ -47,7 +47,7 @@ class CommunitiesCard extends StatelessWidget {
                   builder: (context) => CommunitiesDetailPage(
                         communityId: communityId!,
                         communityName: communityName!,
-                        communityImage: communityImage,
+                        communityImage: communityImage!,
                       )));
         },
         child: Row(
@@ -79,7 +79,25 @@ class CommunitiesCard extends StatelessWidget {
                           height: 46,
                           decoration: ShapeDecoration(
                             image: DecorationImage(
-                              image: AssetImage(communityImage),
+                              image: () {
+                                if (communityImage != null &&
+                                    communityImage != 'null' &&
+                                    communityImage!.isNotEmpty) {
+                                  print(
+                                      'Using community image: $communityImage');
+                                  print(
+                                      'communityImage type: ${communityImage.runtimeType}');
+                                  print(communityImage != null);
+                                  print(communityImage!.isNotEmpty);
+                                  return NetworkImage(communityImage!);
+                                } else {
+                                  const fallbackImageUrl =
+                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png';
+                                  print(
+                                      'Using fallback image: $fallbackImageUrl');
+                                  return const NetworkImage(fallbackImageUrl);
+                                }
+                              }(),
                               fit: BoxFit.fill,
                             ),
                             shape: RoundedRectangleBorder(
@@ -339,6 +357,8 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               CupertinoPageRoute(
                   builder: (context) => CommunitiesPost(
                         communityName: widget.communityName ?? 'Default Name',
+                        communityImage: widget.communityImage ??
+                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
                         communityId: widget.communityId ?? '1',
                         postId: widget.postId ?? '1',
                       )));
@@ -360,8 +380,9 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                       margin: const EdgeInsets.only(right: 4),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50.0),
-                        child: Image.asset(
-                          widget.communityImage!,
+                        child: Image.network(
+                          widget.communityImage ??
+                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
                           height: 50.0,
                           width: 50.0,
                         ),
@@ -1040,7 +1061,7 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
                                             height: 69,
                                             decoration: ShapeDecoration(
                                               image: DecorationImage(
-                                                image: AssetImage(
+                                                image: NetworkImage(
                                                     widget.discoverImage),
                                                 fit: BoxFit.fill,
                                               ),
@@ -1215,7 +1236,7 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
                                                 height: 69,
                                                 decoration: ShapeDecoration(
                                                   image: DecorationImage(
-                                                    image: AssetImage(
+                                                    image: NetworkImage(
                                                         widget.discoverImage),
                                                     fit: BoxFit.fill,
                                                   ),
@@ -1660,7 +1681,9 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
               context: context,
               builder: (context) => CommunityDiscoverModal(
                     discoverId: widget.communitiesId,
-                    discoverImage: widget.communitiesImage,
+                    discoverImage: widget.communitiesImage != 'null'
+                        ? widget.communitiesImage
+                        : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
                     reverse: false,
                   ));
         },
@@ -1672,8 +1695,10 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
               border: KonektoBorder.all(color: Colors.grey.shade400),
               borderRadius: const BorderRadius.all(Radius.circular(50)),
               color: const Color(0xffECEFF1)),
-          child: Image.asset(
-            widget.communitiesImage,
+          child: Image.network(
+            widget.communitiesImage != 'null'
+                ? widget.communitiesImage
+                : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
             height: 55.0,
             width: 55.0,
           ),

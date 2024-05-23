@@ -265,7 +265,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                           height: 69,
                                           decoration: ShapeDecoration(
                                             image: DecorationImage(
-                                              image: AssetImage(
+                                              image: NetworkImage(
                                                   widget.communityImage),
                                               fit: BoxFit.fill,
                                             ),
@@ -450,7 +450,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                   communityId: '1',
                                   communityName: 'DTS System',
                                   communityImage:
-                                      'assets/images/communities/odba.png', // TODO Image Url
+                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
                                   content:
                                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                   contentImage:
@@ -468,7 +468,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                   communityId: post.communityDetail?.id,
                                   communityName: post.communityDetail?.name,
                                   communityImage:
-                                      'assets/images/communities/odba.png', // TODO Image Url
+                                      post.communityDetail?.imageUrl,
                                   content: post.content,
                                   contentImage: post.imageUrl!,
                                   creatorName: post.partnerDetail?.name,
