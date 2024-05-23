@@ -274,6 +274,7 @@ class ForYouCommunitiesCard extends StatefulWidget {
 
 class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
   IconData heartIcon = CupertinoIcons.heart;
+  bool likedByUser = false;
   num totalLikes = 0;
   num totalComments = 0;
 
@@ -281,6 +282,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
   void initState() {
     super.initState();
     fetchPostMetadata();
+    checkUserLiked();
   }
 
   void fetchPostMetadata() async {
@@ -334,6 +336,140 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                 : const Text("Server Error"),
             description: const Text(
               'Failed to get post metadata',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void likePost() async {
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response res = await dioClient.post('/community/post/likes',
+          data: {
+            'postId': widget.postId,
+          },
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      final response = json.decode(res.toString());
+      print('check like post');
+      print(response);
+      if (res.statusCode == 201) {
+        // Successful response, parse the JSON
+        setState(() {
+          // totalLikes = response['data']['totalLikes']['count'] ?? 0;
+          // totalComments = response['data']['totalComments']['count'] ?? 0;
+          // postsList = communityPostsResponse.communityPosts ?? [];
+          // isPostsFetched = false;
+        });
+        // Successful response, parse the JSON
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to like post: ${res.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error like post...');
+      print(e);
+      // setState(() {
+      //   isPostsFetched = false;
+      // });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to like post',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void checkUserLiked() async {
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response res = await dioClient.get(
+          '/community/post/${widget.postId}/is-liked',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      final response = json.decode(res.toString());
+      print('check is liked user');
+      print(response);
+      if (res.statusCode == 201) {
+        // Successful response, parse the JSON
+        setState(() {
+          likedByUser = response['isLiked'] ?? false;
+          heartIcon = response['isLiked']
+              ? CupertinoIcons.heart_fill
+              : CupertinoIcons.heart;
+        });
+        // Successful response, parse the JSON
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to check if user liked post: ${res.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error check user liked post...');
+      print(e);
+      // setState(() {
+      //   isPostsFetched = false;
+      // });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to like post',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             autoCloseDuration: const Duration(seconds: 3),
@@ -488,10 +624,18 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  likePost();
                                   setState(() {
                                     heartIcon == CupertinoIcons.heart_fill
-                                        ? heartIcon = CupertinoIcons.heart
-                                        : heartIcon = CupertinoIcons.heart_fill;
+                                        ? {
+                                            heartIcon = CupertinoIcons.heart,
+                                            totalLikes -= 1
+                                          }
+                                        : {
+                                            heartIcon =
+                                                CupertinoIcons.heart_fill,
+                                            totalLikes += 1
+                                          };
                                   });
                                 },
                                 child: Icon(
@@ -589,10 +733,18 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  likePost();
                                   setState(() {
                                     heartIcon == CupertinoIcons.heart_fill
-                                        ? heartIcon = CupertinoIcons.heart
-                                        : heartIcon = CupertinoIcons.heart_fill;
+                                        ? {
+                                            heartIcon = CupertinoIcons.heart,
+                                            totalLikes -= 1
+                                          }
+                                        : {
+                                            heartIcon =
+                                                CupertinoIcons.heart_fill,
+                                            totalLikes += 1
+                                          };
                                   });
                                 },
                                 child: Icon(
