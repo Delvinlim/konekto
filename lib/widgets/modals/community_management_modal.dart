@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:konekto/models/communities_response.dart';
 import 'package:konekto/models/community_categories_response.dart';
 import 'package:konekto/pages/communities/community_detail_page.dart';
@@ -127,10 +130,51 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
   bool isCategoriesFetched = false;
   List<CommunityCategory> communityCategoriesList = [];
 
+  File? _imageFile;
+  String? _imageUrl;
+
   @override
   void initState() {
     super.initState();
     _fetchCommunityCategories();
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: source);
+    setState(() {
+      if (pickedFile != null) _imageFile = File(pickedFile.path);
+    });
+  }
+
+  Future<String> _uploadImage() async {
+    print('uploading image.....');
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/dgofpm0tl/upload');
+    print('process1');
+    final request = http.MultipartRequest('POST', url)
+      ..fields['upload_preset'] = 'rnxv2wde'
+      ..files.add(await http.MultipartFile.fromPath('file', _imageFile!.path));
+    print('process2');
+    final response = await request.send();
+    print('process3');
+    print(response);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print('successfull upload.....');
+      final responseData = await response.stream.toBytes();
+      print(responseData);
+      final responseString = String.fromCharCodes(responseData);
+      print(responseString);
+      final jsonMap = jsonDecode(responseString);
+      print(jsonMap);
+      final url = jsonMap['url'];
+      setState(() {
+        _imageUrl = url;
+      });
+      return url;
+    } else {
+      return '';
+    }
   }
 
   void _fetchCommunityCategories() async {
@@ -208,63 +252,71 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
           // final room = await FirebaseChatCore.instance.createGroupRoom(name: name, users: users)
         }
       });
-      final room = await FirebaseChatCore.instance
-          .createGroupRoom(name: nameController.text, users: userUids);
-      // Consume API
-      Response res = await dioClient
-          .post('/community',
-              data: {
-                'communityName': nameController.text,
-                'description': descriptionController.text,
-                'categoryId': categoryIdController.text,
-                'privacy': 'public',
-                'location': locationController.text,
-                'since': sinceController.text,
-                'roomId': room.id
-              },
-              options:
-                  Options(headers: {"Authorization": 'Bearer $accessToken'}))
-          .timeout(const Duration(seconds: 30));
-      final response = json.decode(res.toString());
-      print('check response..');
-      print(response);
-      print('end response..');
+      Future uploadToCloudinary = _uploadImage();
+      print('check image url');
 
-      EasyLoading.dismiss();
+      uploadToCloudinary.then((imageUrl) async {
+        // Consume API
+        final room = await FirebaseChatCore.instance
+            .createGroupRoom(name: nameController.text, users: userUids);
 
-      // Show Notification
-      // ignore: use_build_context_synchronously
-      toastification.show(
-        context: context,
-        title: const Text("Success"),
-        description: const Text(
-          'Please wait a moment...',
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        autoCloseDuration: const Duration(seconds: 2),
-        type: ToastificationType.success,
-        style: ToastificationStyle.flatColored,
-        alignment: Alignment.topCenter,
-        direction: TextDirection.ltr,
-        dragToClose: false,
-        showProgressBar: false,
-        closeButtonShowType: CloseButtonShowType.none,
-        callbacks: ToastificationCallbacks(
-            onAutoCompleteCompleted: (toastItem) => {
-                  Navigator.pop(context),
-                  Navigator.pop(context),
-                  // _showCommunityCreatedDialog(context, communityName),
-                  Navigator.of(context, rootNavigator: true)
-                      .push(CupertinoPageRoute(
-                          builder: (context) => CommunitiesDetailPage(
-                                communityId: response['community']['id']
-                                    .toString(), //TODO use correct id
-                                communityName: response['community']['name'],
-                                communityImage:
-                                    'assets/images/communities/odba.png',
-                              )))
-                }),
-      );
+        Response res = await dioClient
+            .post('/community',
+                data: {
+                  'communityName': nameController.text,
+                  'description': descriptionController.text,
+                  'categoryId': categoryIdController.text,
+                  'privacy': 'public',
+                  'location': locationController.text,
+                  'since': sinceController.text,
+                  'roomId': room.id,
+                  'imageUrl': imageUrl
+                },
+                options:
+                    Options(headers: {"Authorization": 'Bearer $accessToken'}))
+            .timeout(const Duration(seconds: 30));
+        final response = json.decode(res.toString());
+        print('check response..');
+        print(response);
+        print('end response..');
+        EasyLoading.dismiss();
+        // Show Notification
+        // ignore: use_build_context_synchronously
+        toastification.show(
+          context: context,
+          title: const Text("Success"),
+          description: const Text(
+            'Please wait a moment...',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+          autoCloseDuration: const Duration(seconds: 2),
+          type: ToastificationType.success,
+          style: ToastificationStyle.flatColored,
+          alignment: Alignment.topCenter,
+          direction: TextDirection.ltr,
+          dragToClose: false,
+          showProgressBar: false,
+          closeButtonShowType: CloseButtonShowType.none,
+          callbacks: ToastificationCallbacks(
+              onAutoCompleteCompleted: (toastItem) => {
+                    Navigator.pop(context),
+                    Navigator.pop(context),
+                    // _showCommunityCreatedDialog(context, communityName),
+                    Navigator.of(context, rootNavigator: true)
+                        .push(CupertinoPageRoute(
+                            builder: (context) => CommunitiesDetailPage(
+                                  communityId: response['community']['id']
+                                      .toString(), //TODO use correct id
+                                  communityName: response['community']['name'],
+                                  communityImage:
+                                      'assets/images/communities/odba.png',
+                                )))
+                  }),
+        );
+      }).catchError((err) {
+        EasyLoading.dismiss();
+        throw Error();
+      });
     } on DioException catch (e) {
       // cancelToken.cancel();
       EasyLoading.dismiss();
@@ -351,6 +403,40 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                     key: _formCommunityCreationKey,
                     child: Column(
                       children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Community Profile',
+                                style: TextStyle(fontWeight: FontWeight.w500)),
+                            SizedBox(
+                                child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    _pickImage(ImageSource.gallery);
+                                  },
+                                  child: const Icon(
+                                    CupertinoIcons.plus,
+                                    color: CupertinoColors.black,
+                                    size: 28,
+                                  ),
+                                ),
+                                if (_imageFile != null) ...[
+                                  SizedBox(
+                                    width: 100,
+                                    height: 100,
+                                    child: Image.file(_imageFile!),
+                                  )
+                                ],
+                              ],
+                            )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -655,6 +741,13 @@ class CommunityListModal extends StatelessWidget {
                           builder: (context) => CommunitiesPostCreationPage(
                                 communityName: community.name!,
                               ))),
+                ),
+              if (personalCommunities.isEmpty && joinedCommunities.isEmpty)
+                const ListTile(
+                  title: Text(
+                    'Empty Community',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
             ],
           )),
