@@ -275,8 +275,8 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
         // CommunityPostsResponse communityPostsResponse =
         //     CommunityPostsResponse.fromJson(responseData);
         setState(() {
-          totalLikes = response['totalLikes']['count'] ?? 0;
-          totalComments = response['totalComments']['count'] ?? 0;
+          totalLikes = response['data']['totalLikes']['count'] ?? 0;
+          totalComments = response['data']['totalComments']['count'] ?? 0;
           // postsList = communityPostsResponse.communityPosts ?? [];
           // isPostsFetched = false;
         });
