@@ -305,11 +305,10 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                     Navigator.of(context, rootNavigator: true)
                         .push(CupertinoPageRoute(
                             builder: (context) => CommunitiesDetailPage(
-                                  communityId: response['community']['id']
-                                      .toString(), //TODO use correct id
+                                  communityId:
+                                      response['community']['id'].toString(),
                                   communityName: response['community']['name'],
-                                  communityImage:
-                                      'assets/images/communities/odba.png',
+                                  communityImage: imageUrl,
                                 )))
                   }),
         );
