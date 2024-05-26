@@ -454,7 +454,8 @@ class _CommunitiesState extends State<Communities> {
                                       communityImage: post
                                               .communityDetail?.imageUrl ??
                                           'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
-                                      content: post.content,
+                                      content: post.content ??
+                                          'content not exist, please contact administrator',
                                       contentImage: post.imageUrl!,
                                       creatorName: post.partnerDetail?.name,
                                       postId: post.id,

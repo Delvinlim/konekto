@@ -734,10 +734,12 @@ class CommunityListModal extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: const Text('Last updated 1 hour ago'),
-                  leading: Image.asset('assets/images/communities/odba.png'),
+                  leading: Image.asset(
+                      'assets/images/communities/odba.png'), //TODO Proper image url
                   onTap: () => Navigator.of(context, rootNavigator: true)
                       .push(CupertinoPageRoute(
                           builder: (context) => CommunitiesPostCreationPage(
+                                communityId: community.id!,
                                 communityName: community.name!,
                               ))),
                 ),

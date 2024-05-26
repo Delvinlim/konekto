@@ -707,6 +707,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
               ),
             if (widget.contentImage == null || widget.contentImage == '')
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),

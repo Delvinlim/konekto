@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:konekto/models/community_posts_response.dart';
+import 'package:konekto/pages/communities/community_post_creation_page.dart';
 import 'package:konekto/services/dio_service.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -41,6 +42,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
     super.initState();
     _fetchPosts();
     _fetchCommunityDetail();
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void _fetchCommunityDetail() async {
@@ -117,6 +119,77 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
     try {
       Response response = await dioClient.get(
           '/community/posts/${widget.communityId}',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('hello here..');
+      print(response);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        Map<String, dynamic> responseData = response.data;
+        CommunityPostsResponse communityPostsResponse =
+            CommunityPostsResponse.fromJson(responseData);
+        print('here.');
+        print(responseData);
+        // PostResponse communityPostsResponse =
+        //     PostResponse.fromJson(responseData);
+        setState(() {
+          postsList = communityPostsResponse.communityPosts ?? [];
+          isPostsFetched = false;
+        });
+        // Successful response, parse the JSON
+        print('posts...');
+        // print(communityPostsResponse.communityPosts?.partnerDetail);
+        print(communityPostsResponse.communityPosts);
+        print('end post response');
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch posts data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('error post disini.......');
+      print(e);
+      setState(() {
+        isPostsFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get communities',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _createPost() async {
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.post('/community/posts',
           options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
       print('hello here..');
       print(response);
@@ -399,9 +472,21 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                             borderRadius: BorderRadius.circular(6),
                           ),
                         ),
-                        child: const CupertinoTextField.borderless(
-                          placeholder: 'Write something',
-                        ),
+                        child: CupertinoTextField.borderless(
+                            placeholder: 'Write something',
+                            autofocus: false,
+                            onTapOutside: (event) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            onTap: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              Navigator.of(context).push(CupertinoPageRoute(
+                                  builder: (context) =>
+                                      CommunitiesPostCreationPage(
+                                        communityId: widget.communityId,
+                                        communityName: widget.communityName,
+                                      )));
+                            }),
                       )),
                       Transform.scale(
                         scale: 0.8,
@@ -414,27 +499,13 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                     // color: CupertinoColors.black,
                                     fontWeight: FontWeight.bold)),
                             onPressed: () async {
-                              print('hello');
-                              List<types.User> userUids =
-                                  List.empty(growable: true);
-                              FirebaseAuth.instance
-                                  .authStateChanges()
-                                  .listen((User? user) {
-                                if (user != null) {
-                                  print(user.uid);
-                                  userUids.add(types.User(id: user.uid));
-                                  // final room = await FirebaseChatCore.instance.createGroupRoom(name: name, users: users)
-                                }
-                              });
-
-                              // await FirebaseChatCore.instance.room(roomId)
-                              final room = await FirebaseChatCore.instance
-                                  .createGroupRoom(
-                                      name: communityDetail['data']?['name'] ??
-                                          'Community Name',
-                                      users: userUids);
-                              print('check created room');
-                              print(room);
+                              Navigator.of(context, rootNavigator: true).push(
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          CommunitiesPostCreationPage(
+                                            communityId: widget.communityId,
+                                            communityName: widget.communityName,
+                                          )));
                             }),
                       )
                     ],
@@ -469,7 +540,8 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                   communityName: post.communityDetail?.name,
                                   communityImage:
                                       post.communityDetail?.imageUrl,
-                                  content: post.content,
+                                  content: post.content ??
+                                      'content not exist, please contact administrator',
                                   contentImage: post.imageUrl!,
                                   creatorName: post.partnerDetail?.name,
                                   postId: post.id,
