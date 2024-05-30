@@ -796,6 +796,7 @@ class _HomeState extends State<Home> {
                         children: [
                           for (var event in communityEventsList)
                             EventCard(
+                              eventId: event.id!,
                               eventName: event.name!,
                               eventImage: event.imageUrl!,
                             ),
@@ -812,33 +813,33 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Favorites',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          homeCommunityCategories(context),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Column(
+          //         children: [
+          //           Row(
+          //             children: [
+          //               Column(
+          //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //                 children: [
+          //                   Text(
+          //                     'Favorites',
+          //                     style: TextStyle(
+          //                         fontSize: 18, fontWeight: FontWeight.bold),
+          //                   )
+          //                 ],
+          //               )
+          //             ],
+          //           ),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // homeCommunityCategories(context),
         ],
       ),
     ));

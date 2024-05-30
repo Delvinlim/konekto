@@ -6,7 +6,11 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class EventCard extends StatefulWidget {
   const EventCard(
-      {super.key, required this.eventName, required this.eventImage});
+      {super.key,
+      required this.eventId,
+      required this.eventName,
+      required this.eventImage});
+  final String? eventId;
   final String? eventName;
   final String? eventImage;
 
@@ -61,6 +65,7 @@ class _EventCardState extends State<EventCard> {
                     onPressed: () {
                       Navigator.of(context).push(CupertinoPageRoute(
                           builder: (context) => Event(
+                                eventId: widget.eventId ?? '',
                                 eventName:
                                     widget.eventName ?? 'Default Event Name',
                               )));
