@@ -160,6 +160,7 @@ class _CommunitiesListState extends State<CommunitiesList> {
                         communityImage: community['imageUrl'] ?? '',
                         communitySince: community['since']?.toString() ?? '',
                       ),
+                    if (communities.isEmpty) const Text("Empty Community")
                   ]),
           )),
     );

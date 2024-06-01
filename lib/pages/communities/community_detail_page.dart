@@ -172,7 +172,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                 ? Text(e.response!.statusMessage!)
                 : const Text("Server Error"),
             description: const Text(
-              'Failed to get communities',
+              'Failed to get posts',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             autoCloseDuration: const Duration(seconds: 3),
