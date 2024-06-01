@@ -5,9 +5,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class LocationCard extends StatefulWidget {
   const LocationCard(
-      {super.key, required this.eventName, required this.eventImage});
-  final String eventName;
-  final String eventImage;
+      {super.key,
+      required this.placeId,
+      required this.placeName,
+      required this.placeImage});
+  final String placeId;
+  final String placeName;
+  final String placeImage;
 
   @override
   State<LocationCard> createState() => _LocationCardState();
@@ -28,7 +32,7 @@ class _LocationCardState extends State<LocationCard> {
     return Container(
         width: 200,
         // height: 170,
-        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
         decoration: BoxDecoration(
           border: KonektoBorder.all(color: CupertinoColors.black),
           borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -40,7 +44,7 @@ class _LocationCardState extends State<LocationCard> {
               height: 100,
               decoration: ShapeDecoration(
                 image: DecorationImage(
-                  image: AssetImage(widget.eventImage),
+                  image: NetworkImage(widget.placeImage),
                   fit: BoxFit.fill,
                 ),
                 shape: RoundedRectangleBorder(
@@ -50,7 +54,7 @@ class _LocationCardState extends State<LocationCard> {
             Container(
               margin: const EdgeInsets.only(top: 12, bottom: 8),
               child: Text(
-                widget.eventName,
+                widget.placeName,
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -64,7 +68,7 @@ class _LocationCardState extends State<LocationCard> {
                         // color: CupertinoColors.black,
                         fontWeight: FontWeight.bold)),
                 onPressed: () {
-                  launchMap('Universitas Internasional Batam');
+                  launchMap(widget.placeName.toString());
                 })
           ],
         ));

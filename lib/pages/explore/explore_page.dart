@@ -1,10 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:konekto/pages/explore/explore_result_page.dart';
+import 'package:konekto/services/dio_service.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../widgets/card/location_card_widget.dart';
 
-/// Flutter code sample for [CupertinoPageScaffold].
+const _storage = FlutterSecureStorage();
 
 class Explore extends StatefulWidget {
   const Explore({super.key});
@@ -15,20 +20,92 @@ class Explore extends StatefulWidget {
 
 class _ExploreState extends State<Explore> {
   final FocusNode _searchFocusNode = FocusNode();
-
   // TextEditingController textController;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
   var textController = TextEditingController(text: '');
+  bool isPlacesFetched = false;
+  List<dynamic> placesList = [{}];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPlaces();
+  }
 
   @override
   void dispose() {
     textController.dispose();
     _searchFocusNode.dispose();
     super.dispose();
+  }
+
+  void _fetchPlaces() async {
+    setState(() {
+      isPlacesFetched = true;
+    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      Response response = await dioClient.get('/recommended-places');
+      print('hello here..');
+      print(response);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        // Map<String, dynamic> responseData = response.data;
+        // CommunityPostsResponse communityPostsResponse =
+        //     CommunityPostsResponse.fromJson(responseData);
+        print('here.');
+        print(response.data);
+        // print(responseData);
+        // PostResponse communityPostsResponse =
+        //     PostResponse.fromJson(responseData);
+        setState(() {
+          placesList = response.data['data'] ?? [];
+          isPlacesFetched = false;
+        });
+        // Successful response, parse the JSON
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch posts data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('error event disini.......');
+      print(e);
+      setState(() {
+        isPlacesFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get events',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
   }
 
   @override
@@ -586,21 +663,56 @@ class _ExploreState extends State<Explore> {
               ],
             ),
           ),
-          const SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                LocationCard(
-                  eventImage: "assets/images/events/planet_futsal.png",
-                  eventName: 'Planet Futsal',
-                ),
-                LocationCard(
-                  eventName: "Orchid Badminton Hall",
-                  eventImage: "assets/images/events/orchid_hall.png",
-                ),
-              ],
+          Skeletonizer(
+            enabled: isPlacesFetched,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: isPlacesFetched
+                  ? const Row(
+                      children: [
+                        LocationCard(
+                          placeId: '1',
+                          placeImage:
+                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713033187/Konekto/events/gomoo8js1ectudaci8rr.png',
+                          placeName: 'Default Place',
+                        ),
+                        LocationCard(
+                          placeId: '1',
+                          placeImage:
+                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713033187/Konekto/events/gomoo8js1ectudaci8rr.png',
+                          placeName: 'Default Place',
+                        ),
+                        LocationCard(
+                          placeId: '1',
+                          placeImage:
+                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713033187/Konekto/events/gomoo8js1ectudaci8rr.png',
+                          placeName: 'Default Place',
+                        ),
+                        LocationCard(
+                          placeId: '1',
+                          placeImage:
+                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713033187/Konekto/events/gomoo8js1ectudaci8rr.png',
+                          placeName: 'Default Place',
+                        ),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        for (var place in placesList)
+                          LocationCard(
+                            placeId: place['id']?.toString() ?? '1',
+                            placeImage: place['imageUrl'] ??
+                                'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713033187/Konekto/events/gomoo8js1ectudaci8rr.png',
+                            placeName: place['name'] ?? 'Default Place',
+                          ),
+                        // LocationCard(
+                        //   placeName: "Orchid Badminton Hall",
+                        //   placeImage: "assets/images/events/orchid_hall.png",
+                        // ),
+                      ],
+                    ),
             ),
-          ),
+          )
         ],
       ),
     );
