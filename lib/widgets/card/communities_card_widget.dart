@@ -23,16 +23,19 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 const _storage = FlutterSecureStorage();
 
 class CommunitiesCard extends StatelessWidget {
-  const CommunitiesCard(
-      {super.key,
-      required this.communityId,
-      required this.communityName,
-      required this.communityImage,
-      required this.communitySince});
+  const CommunitiesCard({
+    super.key,
+    required this.communityId,
+    required this.communityName,
+    required this.communityImage,
+    required this.communitySince,
+    this.isJoined,
+  });
   final String? communityId;
   final String? communityName;
   final String? communityImage;
   final String? communitySince;
+  final bool? isJoined;
 
   // @override
   // State<CommunitiesCard> createState() => _CommunitiesCardState();
@@ -48,6 +51,7 @@ class CommunitiesCard extends StatelessWidget {
                         communityId: communityId!,
                         communityName: communityName!,
                         communityImage: communityImage!,
+                        isJoined: isJoined ?? false,
                       )));
         },
         child: Row(
@@ -810,8 +814,10 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
 }
 
 class CommunitySettingModal extends StatelessWidget {
-  const CommunitySettingModal({super.key, this.reverse = false});
+  const CommunitySettingModal(
+      {super.key, this.reverse = false, this.isJoined = false});
   final bool reverse;
+  final bool? isJoined;
 
   @override
   Widget build(BuildContext context) {
@@ -825,46 +831,49 @@ class CommunitySettingModal extends StatelessWidget {
             controller: ModalScrollController.of(context),
             physics: const ClampingScrollPhysics(),
             children: <Widget>[
-              ListTile(
-                title: const Text(
-                  'Community Rules',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              if (!isJoined!)
+                ListTile(
+                  title: const Text(
+                    'Community Rules',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  leading: const Icon(Icons.book),
+                  // onTap: () => showCupertinoModalBottomSheet(
+                  //     expand: false,
+                  //     context: context,
+                  //     builder: ((context) => CommunityCreationModal(
+                  //           reverse: reverse,
+                  //         ))),
+                  onTap: () {
+                    Navigator.of(context).pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const CommunityRulesPage()));
+                  },
                 ),
-                leading: const Icon(Icons.book),
-                // onTap: () => showCupertinoModalBottomSheet(
-                //     expand: false,
-                //     context: context,
-                //     builder: ((context) => CommunityCreationModal(
-                //           reverse: reverse,
-                //         ))),
-                onTap: () {
-                  Navigator.of(context).pop(context);
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const CommunityRulesPage()));
-                },
-              ),
-              ListTile(
-                title: const Text(
-                  'Community Settings',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              if (!isJoined!)
+                ListTile(
+                  title: const Text(
+                    'Community Settings',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  leading: const Icon(Icons.settings),
+                  onTap: () {
+                    Navigator.of(context).pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) =>
+                                const CommunitySettingPage()));
+                  },
+                  // onTap: () => showCupertinoModalBottomSheet(
+                  //     expand: false,
+                  //     context: context,
+                  //     builder: ((context) => CommunityCreationModal(
+                  //           reverse: reverse,
+                  //         ))),
                 ),
-                leading: const Icon(Icons.settings),
-                onTap: () {
-                  Navigator.of(context).pop(context);
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const CommunitySettingPage()));
-                },
-                // onTap: () => showCupertinoModalBottomSheet(
-                //     expand: false,
-                //     context: context,
-                //     builder: ((context) => CommunityCreationModal(
-                //           reverse: reverse,
-                //         ))),
-              ),
               ListTile(
                 title: const Text(
                   'Leave Community',

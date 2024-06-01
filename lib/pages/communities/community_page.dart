@@ -514,6 +514,7 @@ class _CommunitiesState extends State<Communities> {
                         communityImage: community.imageUrl ??
                             'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
                         communitySince: community.since,
+                        isJoined: true,
                       ),
                     // const CommunitiesCard(
                     //   communityName: "Devil's Rejected Nation",

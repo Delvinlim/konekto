@@ -18,14 +18,17 @@ import '../../widgets/card/communities_card_widget.dart';
 const _storage = FlutterSecureStorage();
 
 class CommunitiesDetailPage extends StatefulWidget {
-  const CommunitiesDetailPage(
-      {super.key,
-      required this.communityId,
-      required this.communityName,
-      required this.communityImage});
+  const CommunitiesDetailPage({
+    super.key,
+    required this.communityId,
+    required this.communityName,
+    required this.communityImage,
+    this.isJoined,
+  });
   final String communityId;
   final String communityName;
   final String communityImage;
+  final bool? isJoined;
 
   @override
   State<CommunitiesDetailPage> createState() => _CommunitiesDetailState();
@@ -274,7 +277,9 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
             showCupertinoModalBottomSheet(
                 expand: false,
                 context: context,
-                builder: (context) => const CommunitySettingModal());
+                builder: (context) => CommunitySettingModal(
+                      isJoined: widget.isJoined ?? false,
+                    ));
           },
           child: const Icon(
             CupertinoIcons.line_horizontal_3,
