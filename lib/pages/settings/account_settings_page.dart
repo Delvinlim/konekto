@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:konekto/models/profile_response.dart';
 import 'package:konekto/widgets/item/account_settings_item_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountSettingPage extends StatefulWidget {
   const AccountSettingPage({super.key});
@@ -9,6 +13,28 @@ class AccountSettingPage extends StatefulWidget {
 }
 
 class _AccountSettingState extends State<AccountSettingPage> {
+  ProfileResponse profile =
+      ProfileResponse(id: '', name: '', username: '', email: '');
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProfile();
+  }
+
+  void _fetchProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userPref = prefs.getString('user');
+    print('profile user..');
+    print(userPref);
+    ProfileResponse profileResponse =
+        ProfileResponse.fromJson(json.decode(userPref!));
+
+    setState(() {
+      profile = profileResponse;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -58,16 +84,29 @@ class _AccountSettingState extends State<AccountSettingPage> {
                         color: Color(0xffF6F6F6)),
                     // padding: const EdgeInsets.only(
                     //     top: 10, left: 10, right: 10, bottom: 10),
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AccountSettingsItem(name: 'Name', value: 'Delvin Lim'),
                         AccountSettingsItem(
-                            name: 'Username', value: '@delvinlim_'),
+                          name: 'Name',
+                          value: profile.name ?? '',
+                          identifier: 'name',
+                        ),
                         AccountSettingsItem(
-                            name: 'Email', value: 'delvin@example.com'),
+                          name: 'Username',
+                          value: profile.username ?? '',
+                          identifier: 'username',
+                        ),
                         AccountSettingsItem(
-                            name: 'Date of Birth', value: 'March 25, 2003'),
+                          name: 'Email',
+                          value: profile.email ?? '',
+                          identifier: 'email',
+                        ),
+                        // AccountSettingsItem(
+                        //   name: 'Date of Birth',
+                        //   value: 'March 25, 2003',
+                        //   identifier: 'dob',
+                        // ),
                       ],
                     ),
                   ),

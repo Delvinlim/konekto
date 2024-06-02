@@ -1,8 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:konekto/widgets/modals/account_setting_modal.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AccountSettingsItem extends StatefulWidget {
   const AccountSettingsItem(
-      {super.key, required this.name, required this.value});
+      {super.key,
+      required this.identifier,
+      required this.name,
+      required this.value});
+  final String identifier;
   final String name;
   final String value;
 
@@ -12,10 +18,24 @@ class AccountSettingsItem extends StatefulWidget {
 
 class _AccountSettingsItemState extends State<AccountSettingsItem> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {},
+        onTap: () {
+          showCupertinoModalBottomSheet(
+              expand: false,
+              context: context,
+              builder: (context) => AccountSettingModal(
+                    identifier: widget.identifier,
+                    name: widget.name,
+                    value: widget.value,
+                  ));
+        },
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: Row(
