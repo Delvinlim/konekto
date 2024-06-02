@@ -445,11 +445,6 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                               child: CupertinoTextFormFieldRow(
                                 keyboardType: TextInputType.name,
                                 controller: nameController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    nameController.text = value;
-                                  });
-                                },
                                 placeholder: 'Community Name',
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4.0),
@@ -550,11 +545,6 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                                 keyboardType: TextInputType.number,
                                 placeholder: 'Community Since',
                                 controller: sinceController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    sinceController.text = value;
-                                  });
-                                },
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4.0),
                                 decoration: BoxDecoration(
@@ -586,11 +576,6 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                                 keyboardType: TextInputType.streetAddress,
                                 placeholder: 'Community Location',
                                 controller: locationController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    locationController.text = value;
-                                  });
-                                },
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4.0),
                                 decoration: BoxDecoration(
@@ -621,11 +606,6 @@ class _CommunitiesCreationState extends State<CommunityCreationModal> {
                               child: CupertinoTextFormFieldRow(
                                 placeholder: 'Community Description',
                                 controller: descriptionController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    descriptionController.text = value;
-                                  });
-                                },
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 6,
                                 padding:
