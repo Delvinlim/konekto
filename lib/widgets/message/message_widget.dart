@@ -33,7 +33,7 @@ class _MessageState extends State<Message> {
             padding: const EdgeInsets.only(right: 10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
-              child: Image.asset(
+              child: Image.network(
                 widget.communityImage,
                 height: 35.0,
                 width: 35.0,
@@ -73,33 +73,33 @@ class _MessageState extends State<Message> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const Text(
-                        '105 Members',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: CupertinoColors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      // const Text(
+                      //   '105 Members',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(
+                      //     color: CupertinoColors.black,
+                      //     fontSize: 12,
+                      //     fontFamily: 'Inter',
+                      //     fontWeight: FontWeight.w400,
+                      //   ),
+                      // ),
                     ],
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        '12:00',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xff0689FF),
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  )
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     Text(
+                  //       '12:00',
+                  //       textAlign: TextAlign.center,
+                  //       style: TextStyle(
+                  //         color: Color(0xff0689FF),
+                  //         fontSize: 12,
+                  //         fontFamily: 'Inter',
+                  //         fontWeight: FontWeight.w400,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // )
                 ],
               ),
             ),

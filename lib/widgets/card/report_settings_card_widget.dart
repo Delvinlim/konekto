@@ -18,6 +18,11 @@ class ReportSettingsCard extends StatefulWidget {
 
 class _ReportSettingsCardState extends State<ReportSettingsCard> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       // height: 170,

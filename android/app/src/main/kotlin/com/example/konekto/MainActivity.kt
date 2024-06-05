@@ -1,4 +1,4 @@
-package com.example.konekto
+package com.uib.konekto
 
 import io.flutter.embedding.android.FlutterActivity
 

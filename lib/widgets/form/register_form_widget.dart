@@ -30,10 +30,13 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmPasswordController = TextEditingController();
 
   void _register() async {
+    print('runnign');
     try {
+      print('runnign2');
       UserCredential firebaseRes = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
+      print('runnign3');
       print('check here firebase response');
       print(firebaseRes);
       await FirebaseChatCore.instance.createUserInFirestore(
@@ -91,6 +94,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
       await EasyLoading.dismiss();
     } on DioException catch (e) {
+      print('error');
+      print(e);
+      await EasyLoading.dismiss();
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null && e.response?.statusCode != 429) {

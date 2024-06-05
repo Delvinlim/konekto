@@ -106,7 +106,8 @@ class _MessagesState extends State<Messages> {
                             communityName:
                                 snapshot.data![index].name.toString(),
                             communityRoom: snapshot.data![index],
-                            communityImage: 'assets/images/communities/dnr.png',
+                            communityImage:
+                                'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                           ),
                         // Message(
                         //   cameras: _cameras,

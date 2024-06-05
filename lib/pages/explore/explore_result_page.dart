@@ -263,7 +263,7 @@ class _ExploreResultState extends State<ExploreResult> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50.0),
                                     child: Image.network(
-                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                       height: 35.0,
                                       width: 35.0,
                                     ),
@@ -398,7 +398,7 @@ class _ExploreResultState extends State<ExploreResult> {
                                                           ['imageUrl']!
                                                       .isNotEmpty)
                                               ? filteredDatas[index]['imageUrl']
-                                              : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                              : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                           height: 35.0,
                                           width: 35.0,
                                         ),
@@ -472,7 +472,7 @@ class _ExploreResultState extends State<ExploreResult> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'Message',
+                                              'Detail',
                                               style: TextStyle(
                                                 color: CupertinoColors.white,
                                                 fontSize: 12,

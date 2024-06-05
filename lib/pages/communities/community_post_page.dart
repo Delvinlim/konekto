@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:konekto/models/community_posts_response.dart';
+import 'package:konekto/models/profile_response.dart';
 import 'package:konekto/services/dio_service.dart';
 import 'package:konekto/widgets/message/comment_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:toastification/toastification.dart';
 
@@ -31,6 +35,7 @@ class CommunitiesPost extends StatefulWidget {
 class _CommunitiesPostState extends State<CommunitiesPost> {
   var textController = TextEditingController(text: '');
   bool isPostsFetched = false;
+  bool isCommentsFetched = false;
   PostResponse postsList = PostResponse(
       communityPosts: CommunityPost(
           id: '',
@@ -41,19 +46,21 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
           partnerId: '',
           communityDetail: null,
           partnerDetail: null));
-
-  final List<Map> commentsMessage = [
-    {'message': 'Semangat Bang'},
-    {'message': 'Nice Banget Bang'},
-  ];
-  final List<Widget> comments = [
-    const Comment(
-      message: 'Semangat Bang',
-    ),
-    const Comment(
-      message: 'Nice Banget Bang',
-    ),
-  ];
+  List<dynamic> commentsMessage = [];
+  ProfileResponse profile =
+      ProfileResponse(id: '', name: '', username: '', email: '');
+  // final List<Map> commentsMessage = [
+  //   {'message': 'Semangat Bang'},
+  //   {'message': 'Nice Banget Bang'},
+  // ];
+  // final List<Widget> comments = [
+  //   const Comment(
+  //     message: 'Semangat Bang',
+  //   ),
+  //   const Comment(
+  //     message: 'Nice Banget Bang',
+  //   ),
+  // ];
 
   @override
   void dispose() {
@@ -64,7 +71,75 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
   @override
   void initState() {
     super.initState();
+    _fetchProfile();
     _fetchPosts();
+    _fetchComments();
+  }
+
+  void _insertComment() async {
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      print('before executing...');
+      print(widget.postId);
+      Response response = await dioClient.post('/community/post/comments',
+          data: {"postId": widget.postId, "comment": textController.text},
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('hello here..');
+      print(response);
+      textController.text = '';
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error comment post hereeeee...');
+      print(e);
+      textController.text = '';
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to post comments',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _fetchProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userPref = prefs.getString('user');
+    print('profile user..');
+    print(userPref);
+    ProfileResponse profileResponse =
+        ProfileResponse.fromJson(json.decode(userPref!));
+
+    setState(() {
+      profile = profileResponse;
+    });
   }
 
   void _fetchPosts() async {
@@ -131,7 +206,78 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                 ? Text(e.response!.statusMessage!)
                 : const Text("Server Error"),
             description: const Text(
-              'Failed to get communities',
+              'Failed to get posts',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      }
+    }
+  }
+
+  void _fetchComments() async {
+    setState(() {
+      isCommentsFetched = true;
+    });
+    dynamic accessToken = await _storage.read(key: 'jwtToken');
+    try {
+      print('before executing...');
+      print(widget.postId);
+      Response response = await dioClient.get(
+          '/community/post/comments/${widget.postId}',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      print('hello here..');
+      print(response);
+      if (response.statusCode == 200) {
+        // Successful response, parse the JSON
+        setState(() {
+          commentsMessage = response.data['data'];
+          isCommentsFetched = false;
+        });
+        // Successful response, parse the JSON
+        print('comments...');
+        // print(communityPostsResponse.partnerDetail);
+        print('end comments response');
+      } else {
+        // Handle error response (non-200 status code)
+        print('Failed to fetch comments data: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      print('error comment hereeeee...');
+      print(e);
+      setState(() {
+        isCommentsFetched = false;
+      });
+      if (e.response?.data['message'] != null &&
+          e.response?.statusCode != 429) {
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: Text(e.response?.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.warning,
+            style: ToastificationStyle.flatColored,
+            alignment: Alignment.topCenter,
+            direction: TextDirection.ltr,
+            dragToClose: true,
+            showProgressBar: false);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // ignore: use_build_context_synchronously
+        toastification.show(
+            context: context,
+            title: e.message != null
+                ? Text(e.response!.statusMessage!)
+                : const Text("Server Error"),
+            description: const Text(
+              'Failed to get comments',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             autoCloseDuration: const Duration(seconds: 3),
@@ -166,7 +312,7 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                     communityId: '1',
                     communityName: 'DTS System',
                     communityImage:
-                        'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png', // TODO Image Url
+                        'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png', // TODO Image Url
                     content:
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                     contentImage:
@@ -207,7 +353,10 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                   children: [
                     for (var index = 0; index < commentsMessage.length; index++)
                       Comment(
-                        message: commentsMessage[index]['message'],
+                        message: commentsMessage[index]['message'] ??
+                            'Default Comment',
+                        sender: commentsMessage[index]['partner']['name'] ??
+                            "Administrator",
                       )
                   ],
                 ),
@@ -231,34 +380,35 @@ class _CommunitiesPostState extends State<CommunitiesPost> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    // onTap: () => Navigator.of(context, rootNavigator: true)
-                    //     .push(CupertinoPageRoute(
-                    //         builder: (context) => CameraScreen(
-                    //               cameras: widget.cameras,
-                    //             ))),
-                    child: const Icon(
-                      CupertinoIcons.camera,
-                      color: CupertinoColors.black,
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   // onTap: () => Navigator.of(context, rootNavigator: true)
+                  //   //     .push(CupertinoPageRoute(
+                  //   //         builder: (context) => CameraScreen(
+                  //   //               cameras: widget.cameras,
+                  //   //             ))),
+                  //   child: const Icon(
+                  //     CupertinoIcons.camera,
+                  //     color: CupertinoColors.black,
+                  //   ),
+                  // ),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: CupertinoTextField(
                       controller: textController,
                       placeholder: 'Message',
-                      onChanged: (value) => setState(() {
-                        textController.text = value;
-                      }),
                     ),
                   )),
                   GestureDetector(
                     onTap: () {
+                      // call api
+                      _insertComment();
                       setState(() {
-                        commentsMessage.add({'message': textController.text});
+                        commentsMessage.add({
+                          'message': textController.text,
+                          'partner': {'name': profile.name ?? 'test'}
+                        });
                       });
-                      textController.text = '';
                     },
                     child: const Icon(
                       CupertinoIcons.paperplane,

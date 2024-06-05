@@ -42,7 +42,7 @@ class _CommunityRulesState extends State<CommunityRulesPage> {
                       headerIconColor: CupertinoColors.black,
                       accordionElevation: 2,
                       widgetItems: const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi id quam finibus, sit amet cursus nunc ultrices.',
+                        'We are committed to fostering a positive and inclusive environment on Konekto. Always treat fellow users with respect and kindness. Harassment, bullying, hate speech, and any form of discrimination will not be tolerated. Engage in conversations with an open mind and be considerate of different perspectives and experiences.',
                       ),
                     ),
                     CustomAccordion(
@@ -58,7 +58,7 @@ class _CommunityRulesState extends State<CommunityRulesPage> {
                       headerIconColor: CupertinoColors.black,
                       accordionElevation: 2,
                       widgetItems: const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi id quam finibus, sit amet cursus nunc ultrices.',
+                        'Your safety and the safety of others is paramount. Do not share personal information such as your home address, phone number, or any other private details. Avoid posting content that could be harmful or threatening to yourself or others. Report any suspicious or harmful behavior to our support team immediately.',
                       ),
                     ),
                     CustomAccordion(
@@ -74,7 +74,7 @@ class _CommunityRulesState extends State<CommunityRulesPage> {
                       headerIconColor: CupertinoColors.black,
                       accordionElevation: 2,
                       widgetItems: const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi id quam finibus, sit amet cursus nunc ultrices.',
+                        "Contribute to the community by staying on topic. Make sure your posts and comments are relevant to the community activity or discussion at hand. Off-topic posts can disrupt the flow of conversation and dilute the community's focus. Use appropriate channels for different types of content and discussions.",
                       ),
                     ),
                     CustomAccordion(
@@ -90,7 +90,7 @@ class _CommunityRulesState extends State<CommunityRulesPage> {
                       headerIconColor: CupertinoColors.black,
                       accordionElevation: 2,
                       widgetItems: const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi id quam finibus, sit amet cursus nunc ultrices.',
+                        'Respect intellectual property rights and ensure that all content you share is your own original work or is appropriately credited to the original creator. Do not copy or reproduce content from other sources without permission. Plagiarism undermines the trust and integrity of our community.',
                       ),
                     ),
                   ],

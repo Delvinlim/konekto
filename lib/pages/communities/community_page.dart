@@ -432,7 +432,7 @@ class _CommunitiesState extends State<Communities> {
                                       communityId: '1',
                                       communityName: 'DTS System',
                                       communityImage:
-                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                       content:
                                           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                       contentImage:
@@ -453,7 +453,7 @@ class _CommunitiesState extends State<Communities> {
                                       communityName: post.communityDetail?.name,
                                       communityImage: post
                                               .communityDetail?.imageUrl ??
-                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                       content: post.content ??
                                           'content not exist, please contact administrator',
                                       contentImage: post.imageUrl!,
@@ -488,7 +488,7 @@ class _CommunitiesState extends State<Communities> {
                         communityId: community.id,
                         communityName: community.name,
                         communityImage: community.imageUrl ??
-                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                         communitySince: community.since,
                       ),
                     // CommunitiesCard(
@@ -512,7 +512,7 @@ class _CommunitiesState extends State<Communities> {
                         communityId: community.id,
                         communityName: community.name,
                         communityImage: community.imageUrl ??
-                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                         communitySince: community.since,
                         isJoined: true,
                       ),
@@ -601,7 +601,7 @@ class _CommunitiesState extends State<Communities> {
                                     DiscoverCommunitiesCard(
                                       communitiesId: community.id!,
                                       communitiesImage: community.imageUrl ??
-                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                       communitiesName: community.name!,
                                     ),
                                 ]),

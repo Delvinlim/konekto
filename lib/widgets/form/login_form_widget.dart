@@ -40,6 +40,8 @@ class _LoginFormState extends State<LoginForm> {
               cancelToken: cancelToken)
           .timeout(const Duration(seconds: 30));
       final response = json.decode(res.toString());
+      print('check response....');
+      print(res);
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
@@ -76,10 +78,12 @@ class _LoginFormState extends State<LoginForm> {
       );
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception("Connection  Timeout Exception");
+        throw Exception("Connection Timeout Exception");
       }
       // cancelToken.cancel();
       EasyLoading.dismiss();
+      print(e);
+      print('errorssss');
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null && e.response?.statusCode != 429) {
@@ -130,7 +134,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Text('Username / Email',
+            child: Text('Email',
                 style: TextStyle(
                     fontSize: 14,
                     color: CupertinoColors.black,
@@ -138,7 +142,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(
             child: CupertinoTextFormFieldRow(
-              placeholder: 'Enter your username or email',
+              placeholder: 'Enter your email',
               controller: emailController,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),

@@ -96,7 +96,7 @@ class CommunitiesCard extends StatelessWidget {
                                   return NetworkImage(communityImage!);
                                 } else {
                                   const fallbackImageUrl =
-                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png';
+                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png';
                                   print(
                                       'Using fallback image: $fallbackImageUrl');
                                   return const NetworkImage(fallbackImageUrl);
@@ -498,7 +498,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                   builder: (context) => CommunitiesPost(
                         communityName: widget.communityName ?? 'Default Name',
                         communityImage: widget.communityImage ??
-                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                            'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                         communityId: widget.communityId ?? '1',
                         postId: widget.postId ?? '1',
                       )));
@@ -522,7 +522,7 @@ class _ForYouCommunitiesCardState extends State<ForYouCommunitiesCard> {
                         borderRadius: BorderRadius.circular(50.0),
                         child: Image.network(
                           widget.communityImage ??
-                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                              'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                           height: 50.0,
                           width: 50.0,
                         ),
@@ -831,66 +831,65 @@ class CommunitySettingModal extends StatelessWidget {
             controller: ModalScrollController.of(context),
             physics: const ClampingScrollPhysics(),
             children: <Widget>[
-              if (!isJoined!)
-                ListTile(
-                  title: const Text(
-                    'Community Rules',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  leading: const Icon(Icons.book),
-                  // onTap: () => showCupertinoModalBottomSheet(
-                  //     expand: false,
-                  //     context: context,
-                  //     builder: ((context) => CommunityCreationModal(
-                  //           reverse: reverse,
-                  //         ))),
-                  onTap: () {
-                    Navigator.of(context).pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const CommunityRulesPage()));
-                  },
-                ),
-              if (!isJoined!)
-                ListTile(
-                  title: const Text(
-                    'Community Settings',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  leading: const Icon(Icons.settings),
-                  onTap: () {
-                    Navigator.of(context).pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) =>
-                                const CommunitySettingPage()));
-                  },
-                  // onTap: () => showCupertinoModalBottomSheet(
-                  //     expand: false,
-                  //     context: context,
-                  //     builder: ((context) => CommunityCreationModal(
-                  //           reverse: reverse,
-                  //         ))),
-                ),
               ListTile(
                 title: const Text(
-                  'Leave Community',
+                  'Community Rules',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                leading: const Icon(Icons.keyboard_return),
-                onTap: () {
-                  Navigator.pop(context);
-                  _showLeaveCommunityDialog(context);
-                },
+                leading: const Icon(Icons.book),
                 // onTap: () => showCupertinoModalBottomSheet(
                 //     expand: false,
                 //     context: context,
-                //     builder: ((context) => CommunityListModal(
+                //     builder: ((context) => CommunityCreationModal(
                 //           reverse: reverse,
                 //         ))),
+                onTap: () {
+                  Navigator.of(context).pop(context);
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const CommunityRulesPage()));
+                },
               ),
+              // if (!isJoined!)
+              //   ListTile(
+              //     title: const Text(
+              //       'Community Settings',
+              //       style: TextStyle(fontWeight: FontWeight.bold),
+              //     ),
+              //     leading: const Icon(Icons.settings),
+              //     onTap: () {
+              //       Navigator.of(context).pop(context);
+              //       Navigator.push(
+              //           context,
+              //           CupertinoPageRoute(
+              //               builder: (context) =>
+              //                   const CommunitySettingPage()));
+              //     },
+              //     // onTap: () => showCupertinoModalBottomSheet(
+              //     //     expand: false,
+              //     //     context: context,
+              //     //     builder: ((context) => CommunityCreationModal(
+              //     //           reverse: reverse,
+              //     //         ))),
+              //   ),
+              // ListTile(
+              //   title: const Text(
+              //     'Leave Community',
+              //     style: TextStyle(fontWeight: FontWeight.bold),
+              //   ),
+              //   leading: const Icon(Icons.keyboard_return),
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     _showLeaveCommunityDialog(context);
+              //   },
+              // onTap: () => showCupertinoModalBottomSheet(
+              //     expand: false,
+              //     context: context,
+              //     builder: ((context) => CommunityListModal(
+              //           reverse: reverse,
+              //         ))),
+              // ),
             ],
           )),
     ));
@@ -1536,26 +1535,26 @@ class _CommunityDiscoverModalState extends State<CommunityDiscoverModal> {
                                     ? MainAxisAlignment.center
                                     : MainAxisAlignment.spaceBetween,
                                 children: [
-                                  if (communityDetail['data']
-                                          ?['is_pending_approval'] ??
-                                      false ||
-                                          communityDetail['data']?['privacy'] ==
-                                              'private')
-                                    Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
-                                      child: CupertinoButton(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 0, vertical: 12),
-                                          color: Colors.blue.shade600,
-                                          onPressed: null,
-                                          child: const Text(
-                                            'Pending Approval',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: CupertinoColors.black),
-                                          )),
-                                    ),
+                                  // if (communityDetail['data']
+                                  //         ?['is_pending_approval'] ??
+                                  //     false ||
+                                  //         communityDetail['data']?['privacy'] ==
+                                  //             'private')
+                                  //   Container(
+                                  //     width:
+                                  //         MediaQuery.of(context).size.width / 2,
+                                  //     child: CupertinoButton(
+                                  //         padding: const EdgeInsets.symmetric(
+                                  //             horizontal: 0, vertical: 12),
+                                  //         color: Colors.blue.shade600,
+                                  //         onPressed: null,
+                                  //         child: const Text(
+                                  //           'Pending Approval',
+                                  //           style: TextStyle(
+                                  //               fontWeight: FontWeight.w600,
+                                  //               color: CupertinoColors.black),
+                                  //         )),
+                                  //   ),
                                   if (communityDetail['data']
                                           ?['is_user_joined'] ||
                                       communityDetail['data']?['privacy'] ==
@@ -1845,7 +1844,7 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
                     discoverId: widget.communitiesId,
                     discoverImage: widget.communitiesImage != 'null'
                         ? widget.communitiesImage
-                        : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                        : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                     reverse: false,
                   ));
         },
@@ -1860,7 +1859,7 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
           child: Image.network(
             widget.communitiesImage != 'null'
                 ? widget.communitiesImage
-                : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
             height: 55.0,
             width: 55.0,
           ),

@@ -488,8 +488,8 @@ class _HomeState extends State<Home> {
                                 top: 30, left: 10, right: 10, bottom: 10),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50.0),
-                              child: Image.asset(
-                                'assets/images/profile.png',
+                              child: Image.network(
+                                'https://i.pravatar.cc/300',
                                 height: 50.0,
                                 width: 50.0,
                               ),

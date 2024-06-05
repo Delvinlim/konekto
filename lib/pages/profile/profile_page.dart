@@ -31,12 +31,16 @@ class _ProfileState extends State<Profile> {
   List<CommunityPost> postsList = [];
   late ScrollController _scrollController;
   bool _isScrolled = false;
+  num totalCommunities = 0;
+  num totalLikes = 0;
+  num totalPosts = 0;
 
   @override
   void initState() {
     super.initState();
     _fetchProfile();
     _fetchPosts();
+    _fetchMetadata();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
   }
@@ -71,6 +75,25 @@ class _ProfileState extends State<Profile> {
     setState(() {
       profile = profileResponse;
     });
+  }
+
+  void _fetchMetadata() async {
+    try {
+      dynamic accessToken = await _storage.read(key: 'jwtToken');
+      print('runngin');
+      Response res = await dioClient.get('/me/metadata/${profile.id}',
+          options: Options(headers: {"Authorization": 'Bearer $accessToken'}));
+      final response = json.decode(res.toString());
+
+      print('metaa data user');
+      print(response);
+
+      setState(() {
+        totalLikes = response['data']['totalLikes']['count'] ?? 0;
+        totalPosts = response['data']['totalPosts']['count'] ?? 0;
+        totalCommunities = response['data']['totalCommunities']['count'] ?? 0;
+      });
+    } catch (e) {}
   }
 
   void _fetchPosts() async {
@@ -185,8 +208,8 @@ class _ProfileState extends State<Profile> {
                                   top: 30, left: 10, right: 10, bottom: 10),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
-                                child: Image.asset(
-                                  'assets/images/profile.png',
+                                child: Image.network(
+                                  'https://i.pravatar.cc/300',
                                   height: 50.0,
                                   width: 50.0,
                                 ),
@@ -362,13 +385,13 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        const Positioned(
+                        Positioned(
                           left: 60,
                           top: 13,
                           child: Text(
-                            '3',
+                            totalCommunities.toString(),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: CupertinoColors.black,
                               fontSize: 18,
                               fontFamily: 'Inter',
@@ -376,13 +399,13 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        const Positioned(
+                        Positioned(
                           left: 214,
                           top: 13,
                           child: Text(
-                            '0',
+                            totalLikes.toString(),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: CupertinoColors.black,
                               fontSize: 18,
                               fontFamily: 'Inter',
@@ -390,13 +413,13 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        const Positioned(
+                        Positioned(
                           left: 138,
                           top: 13,
                           child: Text(
-                            '0',
+                            totalPosts.toString(),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: CupertinoColors.black,
                               fontSize: 18,
                               fontFamily: 'Inter',
@@ -440,7 +463,7 @@ class _ProfileState extends State<Profile> {
                                       communityId: '1',
                                       communityName: 'DTS System',
                                       communityImage:
-                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                       content:
                                           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                       contentImage:

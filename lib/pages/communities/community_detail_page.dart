@@ -456,8 +456,8 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                         margin: const EdgeInsets.only(right: 6),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.0),
-                          child: Image.asset(
-                            'assets/images/profile.png',
+                          child: Image.network(
+                            'https://i.pravatar.cc/300',
                             height: 35.0,
                             width: 35.0,
                           ),
@@ -526,7 +526,7 @@ class _CommunitiesDetailState extends State<CommunitiesDetailPage> {
                                   communityId: '1',
                                   communityName: 'DTS System',
                                   communityImage:
-                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1713084301/Konekto/vcmizhfbdgj8xblpcead.png',
+                                      'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
                                   content:
                                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                   contentImage:

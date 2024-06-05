@@ -94,16 +94,16 @@ class _CommunitySettingState extends State<CommunitySettingPage> {
                               fontWeight: FontWeight.w700, fontSize: 18),
                         ),
                       )),
-                  GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 6),
-                        child: const Text(
-                          'Cover',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 18),
-                        ),
-                      )),
+                  // GestureDetector(
+                  //     onTap: () {},
+                  //     child: Container(
+                  //       margin: const EdgeInsets.symmetric(vertical: 6),
+                  //       child: const Text(
+                  //         'Cover',
+                  //         style: TextStyle(
+                  //             fontWeight: FontWeight.w700, fontSize: 18),
+                  //       ),
+                  //     )),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 6),
                     child: Column(
@@ -196,54 +196,54 @@ class _CommunitySettingState extends State<CommunitySettingPage> {
                               fontWeight: FontWeight.w700, fontSize: 24),
                         ),
                       )),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 6),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            'Who can post',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 18),
-                          ),
-                        ),
-                        const Text(
-                          'Anyone in the community',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              color: CupertinoColors.inactiveGray),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 6),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            'Post approval',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 18),
-                          ),
-                        ),
-                        const Text(
-                          'Off',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              color: CupertinoColors.inactiveGray),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   margin: const EdgeInsets.symmetric(vertical: 6),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       GestureDetector(
+                  //         onTap: () {},
+                  //         child: const Text(
+                  //           'Who can post',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w700, fontSize: 18),
+                  //         ),
+                  //       ),
+                  //       const Text(
+                  //         'Anyone in the community',
+                  //         style: TextStyle(
+                  //             fontWeight: FontWeight.w700,
+                  //             fontSize: 16,
+                  //             color: CupertinoColors.inactiveGray),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   margin: const EdgeInsets.symmetric(vertical: 6),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       GestureDetector(
+                  //         onTap: () {},
+                  //         child: const Text(
+                  //           'Post approval',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w700, fontSize: 18),
+                  //         ),
+                  //       ),
+                  //       const Text(
+                  //         'Off',
+                  //         style: TextStyle(
+                  //             fontWeight: FontWeight.w700,
+                  //             fontSize: 16,
+                  //             color: CupertinoColors.inactiveGray),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ] else ...[
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -256,8 +256,8 @@ class _CommunitySettingState extends State<CommunitySettingPage> {
                           padding: const EdgeInsets.only(right: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.asset(
-                              'assets/images/profile.png',
+                            child: Image.network(
+                              'https://i.pravatar.cc/300',
                               height: 35.0,
                               width: 35.0,
                             ),
@@ -334,8 +334,8 @@ class _CommunitySettingState extends State<CommunitySettingPage> {
                           padding: const EdgeInsets.only(right: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.asset(
-                              'assets/images/profile.png',
+                            child: Image.network(
+                              'https://i.pravatar.cc/300',
                               height: 35.0,
                               width: 35.0,
                             ),
@@ -431,8 +431,8 @@ class _CommunitySettingState extends State<CommunitySettingPage> {
                           padding: const EdgeInsets.only(right: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.asset(
-                              'assets/images/profile.png',
+                            child: Image.network(
+                              'https://i.pravatar.cc/300',
                               height: 35.0,
                               width: 35.0,
                             ),
@@ -528,8 +528,8 @@ class _CommunitySettingState extends State<CommunitySettingPage> {
                           padding: const EdgeInsets.only(right: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.asset(
-                              'assets/images/profile.png',
+                            child: Image.network(
+                              'https://i.pravatar.cc/300',
                               height: 35.0,
                               width: 35.0,
                             ),

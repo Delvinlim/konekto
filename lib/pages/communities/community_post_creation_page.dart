@@ -184,8 +184,8 @@ class _CommunitiesPostCreationState extends State<CommunitiesPostCreationPage> {
                           padding: const EdgeInsets.only(right: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.asset(
-                              'assets/images/profile.png',
+                            child: Image.network(
+                              'https://i.pravatar.cc/300',
                               height: 35.0,
                               width: 35.0,
                             ),
