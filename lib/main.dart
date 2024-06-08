@@ -15,7 +15,7 @@ void configLoading() {
     ..loadingStyle = EasyLoadingStyle.custom
     ..radius = 10.0
     ..indicatorSize = 45.0
-    ..textColor = Colors.black
+    ..textColor = Colors.white
     ..indicatorColor = Colors.white
     ..maskColor = Colors.transparent
     ..backgroundColor = Colors.transparent
