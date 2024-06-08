@@ -447,6 +447,14 @@ class _CommunitiesState extends State<Communities> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 0),
                                 children: [
+                                  if (postsList.isEmpty)
+                                    const Center(
+                                        child: Text(
+                                      'Empty Post',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20),
+                                    )),
                                   for (var post in postsList)
                                     ForYouCommunitiesCard(
                                       communityId: post.communityDetail?.id,

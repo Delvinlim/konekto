@@ -1836,33 +1836,79 @@ class _DiscoverCommunitiesCardState extends State<DiscoverCommunitiesCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          showCupertinoModalBottomSheet(
-              expand: false,
-              context: context,
-              builder: (context) => CommunityDiscoverModal(
-                    discoverId: widget.communitiesId,
-                    discoverImage: widget.communitiesImage != 'null'
-                        ? widget.communitiesImage
-                        : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
-                    reverse: false,
-                  ));
-        },
-        child: Container(
-          width: 65,
-          height: 65,
-          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          decoration: BoxDecoration(
-              border: KonektoBorder.all(color: Colors.grey.shade400),
-              borderRadius: const BorderRadius.all(Radius.circular(50)),
-              color: const Color(0xffECEFF1)),
-          child: Image.network(
-            widget.communitiesImage != 'null'
-                ? widget.communitiesImage
-                : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
-            height: 55.0,
-            width: 55.0,
-          ),
-        ));
+      onTap: () {
+        showCupertinoModalBottomSheet(
+            expand: false,
+            context: context,
+            builder: (context) => CommunityDiscoverModal(
+                  discoverId: widget.communitiesId,
+                  discoverImage: widget.communitiesImage != 'null'
+                      ? widget.communitiesImage
+                      : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
+                  reverse: false,
+                ));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 6),
+        width: 65,
+        height: 65,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: 65,
+              height: 65,
+              decoration: const ShapeDecoration(
+                color: Color(0xFFECEFF1),
+                shape: OvalBorder(),
+              ),
+            ),
+            Container(
+              width: 55,
+              height: 55,
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  image: () {
+                    if (widget.communitiesImage != 'null' &&
+                        widget.communitiesImage.isNotEmpty) {
+                      print('Using community image: $widget.communitiesImage');
+                      print(
+                          'communityImage type: ${widget.communitiesImage.runtimeType}');
+                      return NetworkImage(widget.communitiesImage);
+                    } else {
+                      const fallbackImageUrl =
+                          'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png';
+                      print('Using fallback image: $fallbackImageUrl');
+                      return const NetworkImage(fallbackImageUrl);
+                    }
+                  }(),
+                  fit: BoxFit.fill,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(232),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      // child: Container(
+      //   width: 65,
+      //   height: 65,
+      //   margin: const EdgeInsets.symmetric(horizontal: 10.0),
+      //   decoration: BoxDecoration(
+      //       border: KonektoBorder.all(color: Colors.grey.shade400),
+      //       borderRadius: const BorderRadius.all(Radius.circular(50)),
+      //       color: const Color(0xffECEFF1)),
+      //   child: Image.network(
+      //     widget.communitiesImage != 'null'
+      //         ? widget.communitiesImage
+      //         : 'https://res.cloudinary.com/dgofpm0tl/image/upload/v1717610913/Konekto/Original_Logo_w0g6bo.png',
+      //     height: 55.0,
+      //     width: 55.0,
+      //   ),
+      // )
+    );
   }
 }

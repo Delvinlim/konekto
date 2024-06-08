@@ -76,14 +76,6 @@ class _AuthSettingState extends State<AuthSettingPage> {
           user.updatePassword(passwordController.text);
         }
       });
-      // const user = FirebaseAuth;
-      // const newPassword = getASecureRandomPassword();
-      // user.updatePassword(newPassword).then(() => {
-      //     // Update successful.
-      // }).catch((error) => {
-      //     // An error occurred
-      //     // ...
-      // });
       print('check response..');
       print(response);
       print('end response..');
@@ -191,6 +183,8 @@ class _AuthSettingState extends State<AuthSettingPage> {
                   child: CupertinoTextFormFieldRow(
                     placeholder: 'Enter your current password',
                     controller: currentController,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 4.0),
                     decoration: BoxDecoration(
@@ -220,6 +214,8 @@ class _AuthSettingState extends State<AuthSettingPage> {
                   height: 60,
                   child: CupertinoTextFormFieldRow(
                     placeholder: 'Enter your new password',
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: passwordController,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 4.0),
@@ -249,6 +245,8 @@ class _AuthSettingState extends State<AuthSettingPage> {
                   height: 60,
                   child: CupertinoTextFormFieldRow(
                     placeholder: 'Enter your confirm password',
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: confirmPasswordController,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 4.0),

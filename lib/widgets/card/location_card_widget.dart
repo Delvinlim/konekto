@@ -59,17 +59,20 @@ class _LocationCardState extends State<LocationCard> {
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            CupertinoButton(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                color: Colors.blue.shade600,
-                child: const Text('View Location',
-                    style: TextStyle(
-                        fontSize: 14,
-                        // color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  launchMap(widget.placeName.toString());
-                })
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              child: CupertinoButton(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
+                  color: Colors.blue.shade600,
+                  child: const Text('View Location',
+                      style: TextStyle(
+                          fontSize: 14,
+                          // color: CupertinoColors.black,
+                          fontWeight: FontWeight.bold)),
+                  onPressed: () {
+                    launchMap(widget.placeName.toString());
+                  }),
+            )
           ],
         ));
   }

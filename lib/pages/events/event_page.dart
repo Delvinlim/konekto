@@ -37,7 +37,7 @@ class _EventState extends State<Event> {
 
   void launchWhatsapp(String message, String phone) async {
     String queryMessage = Uri.encodeComponent(message);
-    String queryPhone = Uri.encodeComponent(message);
+    String queryPhone = Uri.encodeComponent(phone);
     // String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
     String whatsappUrl =
         "https://api.whatsapp.com/send/?phone=$queryPhone&text=$queryMessage&type=phone_number&app_absent=0";

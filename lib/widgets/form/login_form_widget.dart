@@ -144,6 +144,7 @@ class _LoginFormState extends State<LoginForm> {
             child: CupertinoTextFormFieldRow(
               placeholder: 'Enter your email',
               controller: emailController,
+              keyboardType: TextInputType.emailAddress,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               decoration: BoxDecoration(

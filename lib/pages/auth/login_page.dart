@@ -13,11 +13,7 @@ class LoginPage extends StatelessWidget {
     return CupertinoApp(
         theme: const CupertinoThemeData(brightness: Brightness.light),
         home: const Login(),
-        builder: EasyLoading.init()
-        // builder: (context, child) {
-        //   EasyLoading.init();
-        // },
-        );
+        builder: EasyLoading.init());
   }
 }
 
@@ -33,11 +29,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     // ignore: avoid_unnecessary_containers
     return Container(
-      // decoration: const BoxDecoration(
-      //   image: DecorationImage(
-      //       image: AssetImage("assets/images/cat2.jpg"),
-      //       fit: BoxFit.cover),
-      // ),
       decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
@@ -47,10 +38,6 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            // ),
-            // const SizedBox(height: 60.0),
-
-            // const SizedBox(height: 60.0),
             const LoginForm(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
